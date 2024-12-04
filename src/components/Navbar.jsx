@@ -5,6 +5,7 @@ import logoForLight from "../../public/Logo for light.png"
 import logoForDark from "../../public/2-removebg-preview.png"
 import logoForDark2 from "../../public/logoForDark_top.png"
 import Image from 'next/image';
+import Themes from '@/utils/Themes/Themes';
 const Navbar = () => {
     const isScrolled = UseScroll();
 
@@ -13,7 +14,7 @@ const Navbar = () => {
     <div
       className={`navbar fixed z-40 transition-all duration-300 ${
         isScrolled
-          ? "bg-white dark:bg-black/50 shadow-md px-10"
+          ? "bg-white dark:bg-black/50 dark:text-white shadow-md px-10"
           : "bg-transparent dark:text-[#695a47]"
       }`}
     >
@@ -44,7 +45,10 @@ const Navbar = () => {
           Login / Register
         </a>
         <button className="btn btn-ghost btn-circle">
-          {/* <ThemeController height="h-5" weight="w-5" color="fill-current" /> */}
+          <Themes height="h-5"
+              weight="w-5"
+              color="fill-current" />
+          {/*  height="h-5" weight="w-5" color="fill-current" */}
         </button>
         <div>
           <input id="my-drawer" type="checkbox" className="drawer-toggle" />
