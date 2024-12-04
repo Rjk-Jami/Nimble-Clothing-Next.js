@@ -5,12 +5,14 @@
 :root {
   --background: #ffffff;
   --foreground: #171717;
+  --swiper-theme-color: #000000 !important;
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
     --background: #0a0a0a;
     --foreground: #ededed;
+    --swiper-theme-color: #ffffff !important ;/* Change to desired dark mode color */
   }
 }
 
@@ -18,4 +20,19 @@ body {
   color: var(--foreground);
   background: var(--background);
   font-family: Arial, Helvetica, sans-serif;
+  cursor: none; /* Hide default cursor */
 }
+
+.circle {
+  height: 24px;
+  width: 24px;
+  border-radius: 50%;
+  background-color: transparent;
+  position: fixed;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+  z-index: 99999999; /* Ensure it stays on top */
+  transform-origin: center;
+}
+
