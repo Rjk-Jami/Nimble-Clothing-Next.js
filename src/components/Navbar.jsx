@@ -10,17 +10,19 @@ import UseScroll from "@/hooks/UseScroll";
 import Link from "next/link";
 
 import { usePathname } from "next/navigation";
+
+
 const Navbar = () => {
   const isScrolled = UseScroll();
   const pathname = usePathname();
-  console.log(pathname);
+  // console.log(pathname);
 
   return (
     <div>
       <div
         className={`navbar fixed z-40 transition-all duration-300 ${
           isScrolled
-            ? "bg-white dark:bg-black/50 dark:text-white shadow-md px-10"
+            ? "bg-white dark:bg-black dark:text-white shadow-md px-10"
             : "bg-transparent dark:text-[#695a47]"
         }`}
       >
@@ -31,6 +33,7 @@ const Navbar = () => {
                 height={56}
                 src={logoForLight}
                 alt="Logo for Light Theme"
+                 
               />{" "}
             </Link>
           </div>
@@ -40,6 +43,7 @@ const Navbar = () => {
                 height={56}
                 src={logoForDark}
                 alt="Logo for Dark Theme Scrolled"
+                 
               />{" "}
             </Link>
           </div>
@@ -49,6 +53,8 @@ const Navbar = () => {
                 height={56}
                 src={logoForDark2}
                 alt="Logo for Dark Theme Unscrolled"
+                 
+
               />{" "}
             </Link>
           </div>
