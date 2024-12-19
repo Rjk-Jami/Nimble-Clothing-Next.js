@@ -8,7 +8,7 @@ html {
 }
 
 
-:root {
+*:root {
   --background: #ffffff;
   --foreground: #000000;
   --swiper-theme-color: #000000 !important;
@@ -16,7 +16,7 @@ html {
 }
 
 @media (prefers-color-scheme: dark) {
-  :root {
+  *:root {
     --background: #000000;
     --foreground: #ffffff;
     --swiper-theme-color: #ffffff !important ;/* Change to desired dark mode color */
@@ -32,8 +32,8 @@ body {
 }
 
 .circle {
-  height: 24px;
-  width: 24px;
+  height: 40px;
+  width: 40px;
   border-radius: 50%;
   background-color: transparent;
   position: fixed;

@@ -1,8 +1,8 @@
 import React from 'react'
 
-function Underline({height,width}) {
+function Underline({height,width,css}) {
   return (
-    <div className={`${width} ${height} bg-black dark:bg-white mt-1`} />
+    <div className={`${width} ${height} ${css} bg-black dark:bg-white mt-1`} />
   )
 }
 
