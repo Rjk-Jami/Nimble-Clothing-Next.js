@@ -1,0 +1,23 @@
+.drawer-bottom {
+    grid-auto-rows: auto max-content;
+    grid-template-rows: auto max-content;
+}
+
+.drawer-bottom > .drawer-toggle ~ .drawer-content {
+    grid-row-start: 3;
+}
+
+.drawer-bottom > .drawer-toggle ~ .drawer-side {
+    grid-row-start: 4;
+    justify-items: center;
+}
+
+.drawer-bottom > .drawer-toggle ~ .drawer-side > *:not(.drawer-overlay) {
+    transform: translateY(100%);
+    width: 100%; /* Full width */
+    height: 80vh;
+}
+
+.drawer-bottom > .drawer-toggle:checked ~ .drawer-side > *:not(.drawer-overlay) {
+    transform: translateY(0%);
+}

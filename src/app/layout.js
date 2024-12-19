@@ -30,7 +30,7 @@ export default function RootLayout({ children }) {
         <Cursor_layout></Cursor_layout>
         {/* navbar */}
         <Navbar/>
-
+    
         {children}
         {/* footer */}
         <Footer></Footer>

@@ -8,22 +8,27 @@ import Image from "next/image";
 import Themes from "@/utils/Themes/Themes";
 import UseScroll from "@/hooks/UseScroll";
 import Link from "next/link";
+import { TfiMenu } from "react-icons/tfi";
 
 import { usePathname } from "next/navigation";
-
+import Drawer from "./DynamicComponents/DrawerLayouts.jsx/DrawerLayouts";
+import NavProductsItem from "./features/produtsMenu";
+import NavMenu from "./features/navMenu";
+import SidebarLoginRegister from "./features/sidebarLoginRegister";
 
 const Navbar = () => {
   const isScrolled = UseScroll();
   const pathname = usePathname();
   // console.log(pathname);
-
+  
+  
   return (
     <div>
       <div
-        className={`navbar fixed z-40 transition-all duration-300 ${
+        className={` dark:text-white navbar fixed z-40    ${
           isScrolled
-            ? "bg-white dark:bg-black dark:text-white shadow-md px-10"
-            : "bg-transparent dark:text-[#695a47]"
+            ? "bg-white shadow-md px-20 dark:bg-black transition-all delay-100"
+            : "dark:bg-black/50 transition-all delay-0"
         }`}
       >
         <div className="navbar-start">
@@ -33,28 +38,15 @@ const Navbar = () => {
                 height={56}
                 src={logoForLight}
                 alt="Logo for Light Theme"
-                 
               />{" "}
             </Link>
           </div>
-          <div className={`h-14 hidden ${isScrolled ? "dark:flex" : ""}`}>
+          <div className={`h-14 hidden dark:flex`}>
             <Link className="" href={"/"}>
               <Image
                 height={56}
                 src={logoForDark}
                 alt="Logo for Dark Theme Scrolled"
-                 
-              />{" "}
-            </Link>
-          </div>
-          <div className={`h-14 hidden ${isScrolled ? "" : "dark:flex"}`}>
-            <Link className="" href={"/"}>
-              <Image
-                height={56}
-                src={logoForDark2}
-                alt="Logo for Dark Theme Unscrolled"
-                 
-
               />{" "}
             </Link>
           </div>
@@ -62,96 +54,39 @@ const Navbar = () => {
 
         <div className="navbar-center hidden lg:flex">
           <div className="px-1 flex gap-5 font-bold">
-            <Link
-              className={`relative text-lg before:content-[''] before:absolute before:top-full before:left-0 before:w-0 before:h-[2px] before:bg-primary before:transition-[width] before:duration-400 before:ease-[cubic-bezier(0.19,1,0.22,1)] ${
-                pathname === "/products-category/sweatshirts"
-                  ? "before:w-full"
-                  : "hover:before:w-2/3"
-              }`}
-              href={`/products-category/sweatshirts`}
-            >
-              Sweatshirt
-            </Link>
-            <Link
-              className={`relative text-lg before:content-[''] before:absolute before:top-full before:left-0 before:w-0 before:h-[2px] before:bg-primary before:transition-[width] before:duration-400 before:ease-[cubic-bezier(0.19,1,0.22,1)]  ${
-                pathname === "/products-category/t-shirts"
-                  ? "before:w-full"
-                  : "hover:before:w-2/3"
-              }`}
-              href={`/products-category/t-shirts`}
-            >
-              T-Shirts
-            </Link>
-            <Link
-              className={`relative text-lg before:content-[''] before:absolute before:top-full before:left-0 before:w-0 before:h-[2px] before:bg-primary before:transition-[width] before:duration-400 before:ease-[cubic-bezier(0.19,1,0.22,1)]  ${
-                pathname === "/products-category/hoodies" ? "before:w-full" : "hover:before:w-2/3"
-              }`}
-              href={`/products-category/hoodies`}
-            >
-              Hoodies
-            </Link>
-            <Link
-              className={`relative text-lg before:content-[''] before:absolute before:top-full before:left-0 before:w-0 before:h-[2px] before:bg-primary before:transition-[width] before:duration-400 before:ease-[cubic-bezier(0.19,1,0.22,1)]  ${
-                pathname === "/products-category/pants" ? "before:w-full" : "hover:before:w-2/3"
-              }`}
-              href={`/products-category/pants`}
-            >
-              Pants
-            </Link>
-            <Link
-              className={`relative text-lg before:content-[''] before:absolute before:top-full before:left-0 before:w-0 before:h-[2px] before:bg-primary before:transition-[width] before:duration-400 before:ease-[cubic-bezier(0.19,1,0.22,1)]  ${
-                pathname === "/products-category/boxers" ? "before:w-full" : "hover:before:w-2/3"
-              }`}
-              href={`/products-category/boxers`}
-            >
-              Boxers
-            </Link>
+           
+            <NavProductsItem pathname={pathname}></NavProductsItem>
+            
           </div>
         </div>
 
         <div className="navbar-end">
-          <a className="font-bold px-2" href="#">
-            Login / Register
-          </a>
+          <div className="">
+            <Drawer
+              labelType="nav"
+              labelContent="Login / Register"
+              position="right"
+              drawerId="my-drawer-4"
+            >
+              <div className=" flex flex-col gap-2 justify-center p-4">
+              <SidebarLoginRegister></SidebarLoginRegister>
+              </div>
+            </Drawer>
+          </div>
+
           <button className="btn btn-ghost btn-circle">
             <Themes height="h-5" weight="w-5" color="fill-current" />
             {/*  height="h-5" weight="w-5" color="fill-current" */}
           </button>
-          <div>
-            <input id="my-drawer" type="checkbox" className="drawer-toggle" />
-            <div className="drawer-content">
-              <label
-                htmlFor="my-drawer"
-                className="btn btn-ghost btn-circle drawer-button"
-              >
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  className="h-5 w-5"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth="2"
-                    d="M4 6h16M4 12h8m-8 6h16"
-                  />
-                </svg>
-              </label>
-            </div>
-            <div className="drawer-side">
-              <label htmlFor="my-drawer" className="drawer-overlay"></label>
-              <ul className="menu bg-base-200 text-base-content min-h-full w-80 p-4">
-                <li>
-                  <a>Sidebar Item 1</a>
-                </li>
-                <li>
-                  <a>Sidebar Item 2</a>
-                </li>
-              </ul>
-            </div>
+
+          <div className="">
+            <Drawer labelType="menu" position="left" drawerId="my-drawer">
+            <div className=" flex flex-col gap-2 justify-center p-4">
+            <NavMenu></NavMenu>
+              </div>
+            </Drawer>
           </div>
+
           <button className="btn btn-ghost btn-circle">
             <svg
               xmlns="http://www.w3.org/2000/svg"
