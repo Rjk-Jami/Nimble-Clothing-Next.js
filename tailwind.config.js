@@ -17,7 +17,7 @@ module.exports = {
   plugins: [
     require('daisyui'),],
   daisyui: {
-    themes: [ 'emerald' , 'black']
+    themes: [ 'emerald' , 'business']
   },
-  darkMode: ['selector', '[data-theme="black"]']
+  darkMode: ['selector', '[data-theme="business"]']
 };

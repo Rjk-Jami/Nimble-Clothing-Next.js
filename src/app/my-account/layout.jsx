@@ -5,10 +5,10 @@ import React from "react";
 const layout = ({ children }) => {
     let user = false
   return (
-    <div className="text-black  dark:text-white dark:bg-black">
-      <div className="pt-32 pb-5">
-        <div className="flex justify-center items-center gap-2 flex-col">
-          <h1 className="text-7xl font-bold tracking-widest">My Account</h1>
+    <div className="text-black  dark:text-white dark:bg-black mb-28">
+      <div className="pt-20 lg:pt-32 pb-5">
+        <div className="flex justify-between items-center  flex-col">
+          <h1 className="lg:text-7xl text-6xl font-bold tracking-widest">My Account</h1>
           {/* <div className="breadcrumbs text-sm ">
             <ul>
               <li>
@@ -22,13 +22,15 @@ const layout = ({ children }) => {
           </div> */}
         </div>
       </div>
+      <div className="mt-10">
       {
         user ? children : <>
-        <div className="">
+        <div className=" flex justify-center items-center">
             <LoginAndRegistration></LoginAndRegistration>
         </div>
         </>  
       }
+      </div>
     </div>
   );
 };

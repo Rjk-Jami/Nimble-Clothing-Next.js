@@ -61,7 +61,7 @@ const Drawer = ({
           aria-label="close sidebar"
           className="drawer-overlay"
         ></label>
-        <div className="menu bg-white dark:bg-base-200 text-base-content min-h-full w-80">
+        <div className={`menu bg-white dark:bg-base-200 text-base-content min-h-full  ${position === "right" ? "w-80 lg:w-[22rem]": "w-80"}`}>
           {/* Sidebar content */}
           {children}
         </div>

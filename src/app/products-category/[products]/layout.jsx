@@ -28,7 +28,7 @@ const layout = ({ children }) => {
 
   return (
     // 5
-    <div className="text-black  dark:text-white dark:bg-black">
+    <div className="">
       <div className="pt-32 pb-5">
         <div className="flex justify-center items-center gap-2">
           <TiArrowLeftThick className="text-2xl" />

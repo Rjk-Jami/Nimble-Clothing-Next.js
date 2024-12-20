@@ -10,7 +10,7 @@ const Themes = ({height ,weight , color}) => {
     // Sync the theme with the local storage and root attribute
     const storedTheme = localStorage.getItem("theme");
     if (storedTheme) {
-      setIsDarkMode(storedTheme === "black");
+      setIsDarkMode(storedTheme === "business");
       document.documentElement.setAttribute("data-theme", storedTheme);
     } else {
       // Default to light mode
@@ -19,7 +19,7 @@ const Themes = ({height ,weight , color}) => {
   }, []);
 
   const toggleTheme = () => {
-    const newTheme = isDarkMode ? "emerald" : "black";
+    const newTheme = isDarkMode ? "emerald" : "business";
     setIsDarkMode(!isDarkMode);
     document.documentElement.setAttribute("data-theme", newTheme);
     localStorage.setItem("theme", newTheme);

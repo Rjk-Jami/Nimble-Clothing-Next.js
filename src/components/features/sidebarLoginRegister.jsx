@@ -1,8 +1,9 @@
-"use client";
+
 import { IoClose } from "react-icons/io5";
 import Underline from "../design/underline";
 import { LuUserRound } from "react-icons/lu";
 import Link from "next/link";
+import UserLoginSegment from "../authenticationSegments/UserLoginSegment";
 
 const SidebarLoginRegister = () => {
   // for close sidebar
@@ -20,7 +21,10 @@ const SidebarLoginRegister = () => {
           <IoClose className="text-2xl" />
         </label>
       </div>
-      <Underline height="h-[1px]" width="w-full" css="mt-2 mb-2" />
+      <Underline height="h-[1px]" width="w-full" css="mt-2 mb-6" />
+      <UserLoginSegment></UserLoginSegment>
+      <Underline height="h-[1px]" width="w-full" css="mt-6 mb-6" />
+
       <div className="flex flex-col justify-center items-center">
         <LuUserRound className="text-6xl text-zinc-700 dark:text-slate-200" />
         <h4 className="text-sm mt-2">No account yet?</h4>
