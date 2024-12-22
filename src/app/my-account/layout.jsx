@@ -1,9 +1,13 @@
+"use client"
 import LoginAndRegistration from "@/components/authenticationSegments/loginAndRegistration";
 import Link from "next/link";
 import React from "react";
+import { useSelector } from "react-redux";
 
-const layout = ({ children }) => {
-    let user = false
+const Layout = ({ children }) => {
+    // const user = false
+    const user = useSelector((state) => state.auth)
+  console.log(user)
   return (
     <div className="text-black  dark:text-white dark:bg-black mb-28">
       <div className="pt-20 lg:pt-32 pb-5">
@@ -24,7 +28,7 @@ const layout = ({ children }) => {
       </div>
       <div className="mt-10">
       {
-        user ? children : <>
+        user.token ? children : <>
         <div className=" flex justify-center items-center">
             <LoginAndRegistration></LoginAndRegistration>
         </div>
@@ -35,4 +39,4 @@ const layout = ({ children }) => {
   );
 };
 
-export default layout;
+export default Layout;

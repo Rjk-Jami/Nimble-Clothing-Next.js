@@ -1,0 +1,52 @@
+{
+  "data": {
+    "token": "000111777888666000777666000888000",
+    "user": {
+      "id": "",
+      "email": "",
+      "name": ""
+    }
+  },
+  "users": [
+    {
+      "id": "123c",
+      "email": "admin@gmail.com",
+      "password": "jamikhan2@"
+    },
+    {
+      "id": "9c0c",
+      "email": "subhubx-amaz3@yahoo.com",
+      "password": "jamikhan2@"
+    },
+    {
+      "id": "460f",
+      "email": "admin@gmail.com",
+      "password": "jamikhan2@"
+    },
+    {
+      "id": "d5e1",
+      "email": "subhubx-amaz3@yahoo.com",
+      "password": "jamikhan2@"
+    },
+    {
+      "id": "82d4",
+      "email": "subhubx-amaz3@yahoo.com",
+      "password": "jamikhan2@"
+    },
+    {
+      "id": "c4c8",
+      "email": "subhubx-amaz3@yahoo.com",
+      "password": "wdawdadwdwada"
+    },
+    {
+      "id": "8131",
+      "email": "admin@gmail.com",
+      "password": "sadadasdasdsad"
+    },
+    {
+      "id": "a676",
+      "email": "admin@gmail.com",
+      "password": "22222222"
+    }
+  ]
+}

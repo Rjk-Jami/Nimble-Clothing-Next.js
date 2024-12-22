@@ -1,19 +1,41 @@
+"use client"
 import { UsePasswordStrength } from "@/hooks/UsePasswordStrength";
 import { useFormik } from "formik";
-import React from "react";
-import { useDispatch } from "react-redux";
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import * as Yup from "yup";
-import { userRegistration } from "../../../redux/auth/authSlice";
-import { useRegisterMutation } from "../../../redux/api/rootApi";
+import { useRegistrationMutation } from "../../../redux/api/rootApi";
+import { useGetUserMutation } from "../../../redux/user/userSlice";
 
 
-const schema = Yup.object({
+const schema = Yup.object({ 
   email: Yup.string().email().required(),
   password: Yup.string().min(6).required(),
 });
 
 const UserRegisterSegment = () => {
-  const [registration, { isSuccess, data, error, isLoading }] = useRegisterMutation();
+  const [register, { isLoading, isError, error }] = useRegistrationMutation();
+  const [getUser] = useGetUserMutation();
+
+  
+  // useEffect(() => {
+  //   const fetchCourses = async () => {
+   
+  //     try {
+  //       const result = await getUser()
+  //       console.log(result?.data)
+        
+  //       setUser(result?.data)
+  //     } catch (error) {
+  //     } finally {
+    
+  //     }
+  //   };
+
+  //   fetchCourses();
+  // }, [getUser]);
+  
+
 const dispatch = useDispatch()
   const formik = useFormik({
     initialValues: {
@@ -21,11 +43,13 @@ const dispatch = useDispatch()
       password: "",
     },
     validationSchema: schema,
-    onSubmit:  (values) => {
+    onSubmit: async (values) => {
       console.log(values);
       const { email, password} = values
-       dispatch(registration({ email, password}))
+      await register({ email, password})
+     
        
+
     },
   });
 
@@ -40,7 +64,7 @@ const dispatch = useDispatch()
   const strength = UsePasswordStrength(values.password);
   console.log(strength);
   return (
-    <div className="max-w-md mx-auto ">
+    <div className="max-w-md mx-auto lg:mb-10 ">
       <form onSubmit={handleSubmit}>
         <div className="mb-4">
           <label htmlFor="email" className="block text-sm  font-semibold mb-1">
@@ -92,9 +116,10 @@ const dispatch = useDispatch()
           type="submit"
           className="w-full uppercase font-bold btn btn-primary rounded-none "
         >
-          Register
+          Sign up
         </button>
       </form>
+
     </div>
   );
 };

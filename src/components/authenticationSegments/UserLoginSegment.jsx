@@ -1,9 +1,11 @@
+"use client"
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { IoEye, IoEyeOff } from "react-icons/io5"; // Import icons for show/hide
 import Link from "next/link";
 import { useDispatch, useSelector } from "react-redux";
 import { setIsHidePassword } from "../../../redux/utils/stateControllerSlice";
+import { useLoginMutation } from "../../../redux/auth/authApi";
 
 const schema = Yup.object({
   email: Yup.string().email().required(),
@@ -11,6 +13,7 @@ const schema = Yup.object({
 });
 
 const UserLoginSegment = () => {
+  const [login, { isLoading, isError, error }] = useLoginMutation();
   const isHide = useSelector((state)=>(state.stateController.isHidePassword))
 const dispatch = useDispatch()
 
@@ -22,8 +25,10 @@ const dispatch = useDispatch()
       
     },
     validationSchema: schema,
-    onSubmit: (values) => {
+    onSubmit: async(values) => {
       console.log(values);
+      const {email , password}= values
+      await login({email , password})
     },
   });
 
