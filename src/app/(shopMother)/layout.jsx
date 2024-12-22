@@ -5,6 +5,7 @@ import React, { useEffect } from "react";
 import { TiArrowLeftThick } from "react-icons/ti";
 import { useGetProductsMutation } from "../../../redux/products/productsApi";
 import Underline from "@/components/design/underline";
+import FilterByPrice from "@/components/shopMotherOperations/FilterByPrice";
 
 const layout = ({ children }) => {
   const pathname = usePathname();
@@ -65,7 +66,7 @@ const layout = ({ children }) => {
             <div className="hidden lg:block p-4">
               {/* filterby by price */}
               <div className="">
-
+        <FilterByPrice></FilterByPrice>
               </div>
             </div>
             <div className="col-span-3">
