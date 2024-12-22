@@ -47,6 +47,125 @@
       "id": "a676",
       "email": "admin@gmail.com",
       "password": "22222222"
+    },
+    {
+      "id": "738d",
+      "email": "subhubx-amaz3@yahoo.com",
+      "password": "adasdasdasdsawd@@2"
+    }
+  ],
+  "products": [
+    {
+      "name": "Black Drop Shoulder T-shirt",
+      "original_price": "800.00",
+      "current_price": "700.00",
+      "description": "Ignite Your Style with Nimble – 100% Cotton Comfort, 100% Bold! This drop shoulder tee from Nimble wear is made from premium 180 GSM fabric, 100% cotton for ultimate breath ability and style. Designed to be as comfortable as it is cool, it’s your go-to for effortless, everyday fashion.",
+      "sizes": [
+        "M",
+        "L",
+        "XL",
+        "XXL"
+      ],
+      "quantity": 50,
+      "categories": "T-Shirts"
+    },
+    {
+      "name": "Patriot Flame Tee",
+      "original_price": "700.00",
+      "current_price": "600.00",
+      "description": "Ignite Your Style with Nimble – 100% Cotton Comfort, 100% Bold! This drop shoulder tee from Nimble wear is made from premium 180 GSM fabric, 100% cotton for ultimate breath ability and style. Designed to be as comfortable as it is cool, it’s your go-to for effortless, everyday fashion.",
+      "sizes": [
+        "M",
+        "L",
+        "XL",
+        "XXL"
+      ],
+      "quantity": 50,
+      "categories": "T-Shirts"
+    },
+    {
+      "name": "Nimble Classic T-Shirt",
+      "original_price": "800.00",
+      "current_price": "700.00",
+      "description": "Ignite Your Style with Nimble – 100% Cotton Comfort, 100% Bold! This drop shoulder tee from Nimble wear is made from premium 180 GSM fabric, 100% cotton for ultimate breath ability and style. Designed to be as comfortable as it is cool, it’s your go-to for effortless, everyday fashion.",
+      "sizes": [
+        "M",
+        "L",
+        "XL",
+        "XXL"
+      ],
+      "quantity": 50,
+      "categories": "T-Shirts"
+    },
+    {
+      "name": "Charcoal Alloy Joggers",
+      "original_price": "800.00",
+      "current_price": "700.00",
+      "description": "Ignite Your Style with Nimble – 100% Cotton Comfort, 100% Bold! This drop shoulder tee from Nimble wear is made from premium 180 GSM fabric, 100% cotton for ultimate breath ability and style. Designed to be as comfortable as it is cool, it’s your go-to for effortless, everyday fashion.",
+      "sizes": [
+        "M",
+        "L",
+        "XL",
+        "XXL"
+      ],
+      "quantity": 50,
+      "categories": "Pants"
+    },
+    {
+      "name": "Frosted Pearl Joggers",
+      "original_price": "800.00",
+      "current_price": "700.00",
+      "description": "Ignite Your Style with Nimble – 100% Cotton Comfort, 100% Bold! This drop shoulder tee from Nimble wear is made from premium 180 GSM fabric, 100% cotton for ultimate breath ability and style. Designed to be as comfortable as it is cool, it’s your go-to for effortless, everyday fashion.",
+      "sizes": [
+        "M",
+        "L",
+        "XL",
+        "XXL"
+      ],
+      "quantity": 50,
+      "categories": "Pants"
+    },
+    {
+      "name": "Lunar Peak Sweatshirt",
+      "original_price": "900.00",
+      "current_price": "700.00",
+      "description": "Ignite Your Style with Nimble – 100% Cotton Comfort, 100% Bold! This drop shoulder tee from Nimble wear is made from premium 180 GSM fabric, 100% cotton for ultimate breath ability and style. Designed to be as comfortable as it is cool, it’s your go-to for effortless, everyday fashion.",
+      "sizes": [
+        "M",
+        "L",
+        "XL",
+        "XXL"
+      ],
+      "quantity": 50,
+      "categories": "Sweatshirt"
+    },
+    {
+      "name": "Midnight Vortex Sweatshirt",
+      "original_price": "1000.00",
+      "current_price": "800.00",
+      "description": "Ignite Your Style with Nimble – 100% Cotton Comfort, 100% Bold! This drop shoulder tee from Nimble wear is made from premium 180 GSM fabric, 100% cotton for ultimate breath ability and style. Designed to be as comfortable as it is cool, it’s your go-to for effortless, everyday fashion.",
+      "sizes": [
+        "M",
+        "L",
+        "XL",
+        "XXL"
+      ],
+      "quantity": 50,
+      "categories": "Sweatshirt"
+    },
+    {
+      "name": "Nimble Inferno Hoodie",
+      "original_price": "1500.00",
+      "current_price": "1199.00",
+      "description": "Ignite Your Style with Nimble – 100% Cotton Comfort, 100% Bold! This drop shoulder tee from Nimble wear is made from premium 180 GSM fabric, 100% cotton for ultimate breath ability and style. Designed to be as comfortable as it is cool, it’s your go-to for effortless, everyday fashion.",
+      "sizes": [
+        "M",
+        "L",
+        "XL",
+        "XXL"
+      ],
+      "quantity": 50,
+      "categories": "Hoodies"
     }
   ]
 }

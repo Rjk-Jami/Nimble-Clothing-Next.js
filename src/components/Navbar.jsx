@@ -27,8 +27,8 @@ const Navbar = () => {
       <div
         className={` dark:text-white navbar fixed z-40    ${
           isScrolled
-            ? "bg-white shadow-md px-20 dark:bg-black transition-all delay-100"
-            : "dark:bg-black/50 transition-all delay-0"
+            ? "bg-white shadow-md lg:px-20 dark:bg-black lg:transition-all delay-100"
+            : "dark:bg-black/50 lg:transition-all delay-0"
         }`}
       >
         <div className="navbar-start">
