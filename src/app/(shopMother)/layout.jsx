@@ -6,6 +6,7 @@ import { TiArrowLeftThick } from "react-icons/ti";
 import { useGetProductsMutation } from "../../../redux/products/productsApi";
 import Underline from "@/components/design/underline";
 import FilterByPrice from "@/components/shopMotherOperations/FilterByPrice";
+import FilterByColor from "@/components/shopMotherOperations/FilterByColor";
 
 const layout = ({ children }) => {
   const pathname = usePathname();
@@ -67,6 +68,8 @@ const layout = ({ children }) => {
               {/* filterby by price */}
               <div className="">
                 <FilterByPrice></FilterByPrice>
+                <Underline height="h-[1px]" width="w-full" css="mt-6 mb-6" />
+                <FilterByColor></FilterByColor>
               </div>
             </div>
             <div className="col-span-3">

@@ -17,7 +17,8 @@ export const productsApi = rootApi.injectEndpoints({
           const minPrice = Math.min(...prices);
           const maxPrice = Math.max(...prices);
         //   console.log(prices, minPrice,maxPrice )
-          dispatch(setFilterByPrice({min :minPrice, max:maxPrice, filter:0}))
+          dispatch(setFilterByPrice({min :minPrice, max:maxPrice}))
+
           
         } catch (error) {
           console.log(error);

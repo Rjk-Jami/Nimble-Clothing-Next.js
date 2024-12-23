@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { FaBangladeshiTakaSign } from "react-icons/fa6";
 import { useSelector, useDispatch } from "react-redux";
 import { setFilterByPrice } from "../../../redux/utils/filterSlice";
+import Label from "../utils/Label";
 
 const FilterByPrice = () => {
   const dispatch = useDispatch();
@@ -29,21 +30,16 @@ const FilterByPrice = () => {
   };
 
   return (
-    <div className="p-4 bg-gray-50 rounded shadow-md">
+    <div className="mb-4">
       <form onSubmit={handleSubmit}>
-        <label
-          htmlFor="price-range"
-          className="block text-lg uppercase font-semibold mb-2"
-        >
-          Filter by price
-        </label>
+        <Label htmlFor={"price-range"}>Filter by price</Label>
         <input
           id="price-range"
           type="range"
           min={range.min}
           max={range.max}
           value={value}
-          className="range range-sm"
+          className="range range-sm rounded-full"
           onChange={handleChange}
         />
         <div className="flex justify-between items-center mt-3">

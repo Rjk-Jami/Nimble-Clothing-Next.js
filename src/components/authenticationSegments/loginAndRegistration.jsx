@@ -28,7 +28,7 @@ const LoginAndRegistration = () => {
           {isLoginPage ? "login" : "Sign up"}
         </h1>
         <h5 className="text-sm text-center px-8 lg:px-14">
-        Registering for this site allows you to access your order status and history. Just fill in the fields below, and we'll get a new account set up for you in no time. We will only ask you for information necessary to make the purchase process faster and easier.
+        Registering for this site allows you to access your order status and history. Just fill in the fields below, and we&apos;ll get a new account set up for you in no time. We will only ask you for information necessary to make the purchase process faster and easier.
         </h5>
         <button
           onClick={() => dispatch(setIsLoginPage(!isLoginPage))}
