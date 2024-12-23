@@ -17,6 +17,15 @@ const initialState = {
       black: false,
     },
   },
+  sizeTag: {
+    filterSizes: ["M", "L", "XL", "XXL"],
+    filterSizeControl: {
+      M: false,
+      L: false,
+      XL: false,
+      XXL: false,
+    },
+  }
 };
 
 export const filterSlice = createSlice({
@@ -31,14 +40,23 @@ export const filterSlice = createSlice({
     },
     // color
     setFilterByColor: (state, action) => {
-        const color = action.payload.color;
+      const color = action.payload.color;
       // Toggle (true/false)
       if (state.colorTag.filterColorControl[color] !== undefined) {
-        state.colorTag.filterColorControl[color] = !state.colorTag.filterColorControl[color];
+        state.colorTag.filterColorControl[color] =
+          !state.colorTag.filterColorControl[color];
+      }
+    },
+    setFilterBySize: (state, action) => {
+      const size = action.payload.size;
+      // Toggle (true/false)
+      if (state.sizeTag.filterSizeControl[size] !== undefined) {
+        state.sizeTag.filterSizeControl[size] =
+          !state.sizeTag.filterSizeControl[size];
       }
     },
   },
 });
 
-export const { setFilterByPrice,setFilterByColor } = filterSlice.actions;
+export const { setFilterByPrice, setFilterByColor ,setFilterBySize} = filterSlice.actions;
 export default filterSlice.reducer;

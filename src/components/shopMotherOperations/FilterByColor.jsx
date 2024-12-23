@@ -39,17 +39,17 @@ const ColorFilter = () => {
 
   return (
     <div className="mb-4">
-      <Label htmlFor="filter">Filter by color</Label>
+      <Label htmlFor="color">Filter by color</Label>
       <div className="flex flex-col gap-2">
         {colors?.map((color, i) => (
           <div
             key={i}
-            className="flex items-center gap-2 cursor-pointer justify-between w-full"
+            className="group flex items-center gap-2 cursor-pointer justify-between w-full"
             onClick={() => handleColorChange(color.toLowerCase())}
           >
             <div className="flex items-center gap-3">
               <div
-                className={`w-7 h-7 rounded-full ${getColorStyle(color)}`}
+                className={`w-7 h-7 rounded-full group-hover:outline group-hover:outline-2 group-hover:outline-gray-300  ${getColorStyle(color)}`}
               >
 
               </div>

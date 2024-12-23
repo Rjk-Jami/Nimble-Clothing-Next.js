@@ -7,6 +7,7 @@ import { useGetProductsMutation } from "../../../redux/products/productsApi";
 import Underline from "@/components/design/underline";
 import FilterByPrice from "@/components/shopMotherOperations/FilterByPrice";
 import FilterByColor from "@/components/shopMotherOperations/FilterByColor";
+import FilterBySize from "@/components/shopMotherOperations/FilterBySize";
 
 const layout = ({ children }) => {
   const pathname = usePathname();
@@ -70,6 +71,8 @@ const layout = ({ children }) => {
                 <FilterByPrice></FilterByPrice>
                 <Underline height="h-[1px]" width="w-full" css="mt-6 mb-6" />
                 <FilterByColor></FilterByColor>
+                <Underline height="h-[1px]" width="w-full" css="mt-6 mb-6" />
+                <FilterBySize></FilterBySize>
               </div>
             </div>
             <div className="col-span-3">
