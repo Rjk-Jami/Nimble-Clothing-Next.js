@@ -61,16 +61,28 @@ const layout = ({ children }) => {
         )}
         <div className="">
           <Underline height="h-[2px]" width="w-full" css="mt-6 mb-6" />
-          <div className="grid grid-cols-1 lg:grid-cols-4 gap-8"> 
+          <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
             {/* left side */}
             <div className="hidden lg:block p-4">
               {/* filterby by price */}
               <div className="">
-        <FilterByPrice></FilterByPrice>
+                <FilterByPrice></FilterByPrice>
               </div>
             </div>
             <div className="col-span-3">
-              Lorem ipsum, dolor sit amet consectetur adipisicing elit. Laborum dolorum perferendis assumenda! Quo omnis veniam iste voluptatem provident repellendus incidunt, rem ea tempora aut, minima asperiores corrupti. Exercitationem repudiandae voluptatum tempora vero blanditiis, iure doloremque vel tempore maiores ducimus sint quae neque deserunt minima reiciendis omnis minus excepturi nisi ab quam molestias asperiores optio! Eligendi unde consequatur autem corrupti impedit optio, iusto voluptates quod, recusandae sed dolores labore blanditiis officia assumenda, magnam porro id. Numquam, dolores quos possimus molestias praesentium quasi recusandae adipisci rerum assumenda provident nesciunt corrupti eligendi totam tempore. Id, error labore deleniti ut sapiente similique libero voluptatum.
+              Lorem ipsum, dolor sit amet consectetur adipisicing elit. Laborum
+              dolorum perferendis assumenda! Quo omnis veniam iste voluptatem
+              provident repellendus incidunt, rem ea tempora aut, minima
+              asperiores corrupti. Exercitationem repudiandae voluptatum tempora
+              vero blanditiis, iure doloremque vel tempore maiores ducimus sint
+              quae neque deserunt minima reiciendis omnis minus excepturi nisi
+              ab quam molestias asperiores optio! Eligendi unde consequatur
+              autem corrupti impedit optio, iusto voluptates quod, recusandae
+              sed dolores labore blanditiis officia assumenda, magnam porro id.
+              Numquam, dolores quos possimus molestias praesentium quasi
+              recusandae adipisci rerum assumenda provident nesciunt corrupti
+              eligendi totam tempore. Id, error labore deleniti ut sapiente
+              similique libero voluptatum.
             </div>
           </div>
         </div>
