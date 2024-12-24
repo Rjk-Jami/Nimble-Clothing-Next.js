@@ -25,7 +25,16 @@ const initialState = {
       XL: false,
       XXL: false,
     },
-  }
+  },
+  showTag: {
+    filterShows: ["9", "12", "16", "24"],
+    filterShowControl: {
+      9: false,
+      12: false,
+      16: false,
+      24: false,
+    },
+  },
 };
 
 export const filterSlice = createSlice({
@@ -55,8 +64,27 @@ export const filterSlice = createSlice({
           !state.sizeTag.filterSizeControl[size];
       }
     },
+    // show
+    setFilterWithShow: (state, action) => {
+      const show = action.payload.show;
+      // Toggle (true/false)
+      if (state.showTag.filterShowControl[show] !== undefined) {
+        // Reset all shows to false
+        Object.keys(state.showTag.filterShowControl).forEach((key) => {
+          state.showTag.filterShowControl[key] = false;
+        });
+
+        // Set the selected show to true
+        state.showTag.filterShowControl[show] = true;
+      }
+    },
   },
 });
 
-export const { setFilterByPrice, setFilterByColor ,setFilterBySize} = filterSlice.actions;
+export const {
+  setFilterByPrice,
+  setFilterByColor,
+  setFilterBySize,
+  setFilterWithShow,
+} = filterSlice.actions;
 export default filterSlice.reducer;

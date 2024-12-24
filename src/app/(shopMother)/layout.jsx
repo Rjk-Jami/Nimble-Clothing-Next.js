@@ -8,6 +8,7 @@ import Underline from "@/components/design/underline";
 import FilterByPrice from "@/components/shopMotherOperations/FilterByPrice";
 import FilterByColor from "@/components/shopMotherOperations/FilterByColor";
 import FilterBySize from "@/components/shopMotherOperations/FilterBySize";
+import FilterWithShow from "@/components/shopMotherOperations/FilterWithShow";
 
 const layout = ({ children }) => {
   const pathname = usePathname();
@@ -45,7 +46,7 @@ const layout = ({ children }) => {
 
   return (
     // 5
-    <div className="">
+    <div className="lg:w-11/12 xl:w-10/12 mx-auto">
       <div className="pt-32 pb-5">
         <div className="flex justify-center items-center gap-2">
           <TiArrowLeftThick className="text-2xl" />
@@ -65,7 +66,7 @@ const layout = ({ children }) => {
           <Underline height="h-[2px]" width="w-full" css="mt-6 mb-6" />
           <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
             {/* left side */}
-            <div className="hidden lg:block p-4">
+            <div className="hidden lg:block 6">
               {/* filterby by price */}
               <div className="">
                 <FilterByPrice></FilterByPrice>
@@ -76,6 +77,12 @@ const layout = ({ children }) => {
               </div>
             </div>
             <div className="col-span-3">
+              <div className="">
+                <div className=""></div>
+                <div className="">
+                  <FilterWithShow></FilterWithShow>
+                </div>
+              </div>
               Lorem ipsum, dolor sit amet consectetur adipisicing elit. Laborum
               dolorum perferendis assumenda! Quo omnis veniam iste voluptatem
               provident repellendus incidunt, rem ea tempora aut, minima

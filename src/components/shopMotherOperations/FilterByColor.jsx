@@ -10,9 +10,9 @@ const ColorFilter = () => {
   );
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    console.log(colorControl);
-  }, [colorControl]);
+  // useEffect(() => {
+  //   console.log(colorControl);
+  // }, [colorControl]);
 
   const getColorStyle = (color) => {
     switch (color) {
@@ -34,12 +34,13 @@ const ColorFilter = () => {
   };
 
   const handleColorChange = (color) => {
+
     dispatch(setFilterByColor({ color: color }));
   };
 
   return (
     <div className="mb-4">
-      <Label htmlFor="color">Filter by color</Label>
+      <Label uppercase={true} htmlFor="color" size={"text-lg"}>Filter by color</Label>
       <div className="flex flex-col gap-2">
         {colors?.map((color, i) => (
           <div

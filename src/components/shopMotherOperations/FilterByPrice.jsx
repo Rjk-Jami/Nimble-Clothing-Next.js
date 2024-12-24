@@ -32,7 +32,7 @@ const FilterByPrice = () => {
   return (
     <div className="mb-4">
       <form onSubmit={handleSubmit}>
-        <Label htmlFor={"price-range"}>Filter by price</Label>
+        <Label  uppercase={true} size={'text-lg'} htmlFor={"price-range"}>Filter by price</Label>
         <input
           id="price-range"
           type="range"
@@ -42,7 +42,7 @@ const FilterByPrice = () => {
           className="range range-sm rounded-full"
           onChange={handleChange}
         />
-        <div className="flex justify-between items-center mt-3">
+        <div className="flex flex-wrap md:flex-col lg:flex-row justify-between  items-center mt-3 flex-grow">
           <div className="flex items-center gap-2">
             <span className="font-medium">Price:</span>
             <div className="flex items-center gap-1">
