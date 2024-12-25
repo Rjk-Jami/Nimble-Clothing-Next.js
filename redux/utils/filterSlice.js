@@ -30,9 +30,18 @@ const initialState = {
     filterShows: ["9", "12", "16", "24"],
     filterShowControl: {
       9: false,
-      12: false,
+      12: true,
       16: false,
       24: false,
+    },
+  },
+  displayTag: {
+    filterDisplays: ["2", "3", "4"],
+    filterDisplaysControl: {
+      2: false,
+      3: true,
+      4: false,
+      
     },
   },
 };
@@ -78,6 +87,20 @@ export const filterSlice = createSlice({
         state.showTag.filterShowControl[show] = true;
       }
     },
+    // show
+    setFilterForDisplay: (state, action) => {
+      const display= action.payload.display;
+      // Toggle (true/false)
+      if (state.displayTag.filterDisplaysControl[display] !== undefined) {
+        // Reset all shows to false
+        Object.keys(state.displayTag.filterDisplaysControl).forEach((key) => {
+          state.displayTag.filterDisplaysControl[key] = false;
+        });
+
+        // Set the selected show to true
+        state.displayTag.filterDisplaysControl[display] = true;
+      }
+    },
   },
 });
 
@@ -86,5 +109,6 @@ export const {
   setFilterByColor,
   setFilterBySize,
   setFilterWithShow,
+  setFilterForDisplay
 } = filterSlice.actions;
 export default filterSlice.reducer;

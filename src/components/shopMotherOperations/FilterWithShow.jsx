@@ -5,15 +5,15 @@ import { setFilterWithShow } from "../../../redux/utils/filterSlice";
 
 const FilterWithShow = () => {
   const shows = useSelector((state) => state.filter.showTag.filterShows);
-  console.log(shows);
+  // console.log(shows);
   const dispatch = useDispatch();
 
   const showControl = useSelector(
     (state) => state.filter.showTag.filterShowControl
   );
-  useEffect(() => {
-    console.log(showControl);
-  }, [showControl]);
+  // useEffect(() => {
+  //   console.log(showControl);
+  // }, [showControl]);
   const handleShowChange = (showValue) => {
     dispatch(setFilterWithShow({ show: showValue }));
   };
