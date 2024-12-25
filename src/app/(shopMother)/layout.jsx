@@ -10,6 +10,7 @@ import FilterByColor from "@/components/shopMotherOperations/FilterByColor";
 import FilterBySize from "@/components/shopMotherOperations/FilterBySize";
 import FilterWithShow from "@/components/shopMotherOperations/FilterWithShow";
 import FilterForDisplay from "@/components/shopMotherOperations/FilterForDisplay";
+import SortyByOperation from "@/components/shopMotherOperations/SortByOperation";
 
 const layout = ({ children }) => {
   const pathname = usePathname();
@@ -83,6 +84,7 @@ const layout = ({ children }) => {
                 <div className="">
                   <FilterWithShow></FilterWithShow>
                   <FilterForDisplay></FilterForDisplay>
+                  <SortyByOperation></SortyByOperation>
                 </div>
               </div>
               Lorem ipsum, dolor sit amet consectetur adipisicing elit. Laborum

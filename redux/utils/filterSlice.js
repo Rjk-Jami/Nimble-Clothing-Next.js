@@ -44,6 +44,17 @@ const initialState = {
       
     },
   },
+  sortTag: {
+    filterSort: ["default sorting", "latest", "Price: Low to High" , "Price: High to Low"],
+    filterSortControl: {
+    "default sorting" : false ,
+    "latest": false,
+      "Price: Low to High": false,
+      "Price: High to Low": false,
+      
+    },
+  },
+    
 };
 
 export const filterSlice = createSlice({
@@ -101,6 +112,19 @@ export const filterSlice = createSlice({
         state.displayTag.filterDisplaysControl[display] = true;
       }
     },
+    setFilterForSort: (state, action) => {
+      const sort= action.payload.sort;
+      // Toggle (true/false)
+      if (state.sortTag.filterSortControl[sort] !== undefined) {
+        // Reset all shows to false
+        Object.keys(state.sortTag.filterSortControl).forEach((key) => {
+          state.sortTag.filterSortControl[key] = false;
+        });
+
+        // Set the selected show to true
+        state.sortTag.filterSortControl[sort] = true;
+      }
+    },
   },
 });
 
@@ -109,6 +133,7 @@ export const {
   setFilterByColor,
   setFilterBySize,
   setFilterWithShow,
-  setFilterForDisplay
+  setFilterForDisplay,
+  setFilterForSort
 } = filterSlice.actions;
 export default filterSlice.reducer;
