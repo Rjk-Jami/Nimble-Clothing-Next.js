@@ -9,23 +9,23 @@ const FilterForDisplay = () => {
   const displays = useSelector(
     (state) => state.filter.displayTag.filterDisplays
   );
-  console.log(displays);
+  // console.log(displays);
   const dispatch = useDispatch();
 
   const displayControl = useSelector(
     (state) => state.filter.displayTag.filterDisplaysControl
   );
-//   useEffect(() => {
-//     console.log(displayControl);
-//   }, [displayControl]);
+  //   useEffect(() => {
+  //     console.log(displayControl);
+  //   }, [displayControl]);
   const handleDisplayChange = (displayValue) => {
     dispatch(setFilterForDisplay({ display: displayValue }));
   };
   return (
     <div>
-      <div className="flex gap-2 items-center">
+      <div className="flex gap-2 ">
         {displays?.map((display, i) => (
-          <div className="flex gap-2" key={i}>
+          <div className="flex gap-2 items-center" key={i}>
             <div
               className={`cursor-pointer ${
                 displayControl[display] === true ? "font-bold" : " "
@@ -33,17 +33,23 @@ const FilterForDisplay = () => {
               onClick={() => handleDisplayChange(display)}
             >
               {display === "2" ? (
-                <TfiLayoutGrid2Alt className={`${
-                    displayControl[display] === true ? "" : "text-slate-500"
-                  }`} />
+                <TfiLayoutGrid2Alt
+                  className={` text-[1.4rem] ${
+                    displayControl[display] === true ? "" : "text-slate-500 "
+                  }`}
+                />
               ) : display === "3" ? (
-                <TfiLayoutGrid3Alt className={`text-xl ${
+                <TfiLayoutGrid3Alt
+                  className={`text-[1.45rem] ${
                     displayControl[display] === true ? "" : "text-slate-500"
-                  }`} />
+                  }`}
+                />
               ) : (
-                <TfiLayoutGrid4Alt className={`text-xl ${
+                <TfiLayoutGrid4Alt
+                  className={`text-[1.6rem] ${
                     displayControl[display] === true ? "" : "text-slate-500"
-                  }`} />
+                  }`}
+                />
               )}
             </div>
           </div>

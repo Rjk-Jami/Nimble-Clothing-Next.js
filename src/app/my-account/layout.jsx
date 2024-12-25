@@ -7,7 +7,7 @@ import { useSelector } from "react-redux";
 const Layout = ({ children }) => {
     // const user = false
     const user = useSelector((state) => state.auth)
-  console.log(user)
+  // console.log(user)
   return (
     <div className="text-black  dark:text-white dark:bg-black mb-28">
       <div className="pt-20 lg:pt-32 pb-5">

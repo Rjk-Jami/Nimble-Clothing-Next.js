@@ -26,7 +26,7 @@ const dispatch = useDispatch()
     },
     validationSchema: schema,
     onSubmit: async(values) => {
-      console.log(values);
+      // console.log(values);
       const {email , password}= values
       await login({email , password})
     },

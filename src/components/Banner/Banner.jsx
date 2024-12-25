@@ -1,56 +1,50 @@
-import React from 'react';
-import { Swiper, SwiperSlide } from 'swiper/react';
-import 'swiper/css';
-import 'swiper/css/pagination';
-import 'swiper/css/navigation';
-import { Autoplay, Pagination, Navigation } from 'swiper/modules';
-import banner1 from "../../../public/banner1.png"
-import banner2 from "../../../public/banner2.png"
-import banner3 from "../../../public/bannerHoddy.png"
-import banner4 from "../../../public/banner4.png"
-import banner1Dark from "../../../public/banner1-dark.png"
-import banner2Dark from "../../../public/banner2-dark.png"
-import banner3Dark from "../../../public/bannerHoddy-dark.png"
-import banner4Dark from "../../../public/banner4-dark.png"
+"use client"
+ import React, { useEffect, useState } from 'react';
+ import { GrNext } from "react-icons/gr";
+ import { GrPrevious } from "react-icons/gr";
+
 import Image from 'next/image';
 
 const Banner = () => {
-    return (
-        <div className=''>
-           <Swiper
-        spaceBetween={30}
-        centeredSlides={true}
-        autoplay={{
-          delay: 2500,
-          disableOnInteraction: false,
-        }}
-      
-        navigation={true}
-        modules={[Autoplay, Pagination, Navigation]}
-        className="mySwiper"
-      >
-        <SwiperSlide>
-            <Image  className='flex dark:hidden  ' src={banner1} alt="" />
-            <Image  className='hidden dark:flex' src={banner1Dark} alt="" />
-        </SwiperSlide>
-        <SwiperSlide>
-        <Image  className='flex dark:hidden' src={banner2} alt="" />
-        <Image  className='hidden dark:flex' src={banner2Dark} alt="" />
-        </SwiperSlide>
-        <SwiperSlide>
-        <Image  className='flex dark:hidden' src={banner3} alt="" />
-        <Image  className='hidden dark:flex' src={banner3Dark} alt="" />
-
-        </SwiperSlide>
-        <SwiperSlide>
-        <Image  className='flex dark:hidden' src={banner4} alt="" />
-        <Image  className='hidden dark:flex' src={banner4Dark} alt="" />
-        </SwiperSlide>
-        
-        
-      </Swiper> 
-        </div>
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const banners = [
+    "https://res.cloudinary.com/dpphpbkkz/image/upload/v1735155568/banner1_bc5rmf.png",
+    "https://res.cloudinary.com/dpphpbkkz/image/upload/v1735155568/banner2_jan7vc.png",
+    "https://res.cloudinary.com/dpphpbkkz/image/upload/v1735155570/banner4_fkvllc.png",
+    "https://res.cloudinary.com/dpphpbkkz/image/upload/v1735155570/banner3_qycb9g.png"
+  ];
+  const nextBanner = () => {
+    setCurrentIndex((prevIndex) => (prevIndex + 1) % banners.length);
+  };
+  const prevBanner = () => {
+    setCurrentIndex(
+      (prevIndex) => (prevIndex - 1 + banners.length) % banners.length
     );
+  };
+  useEffect(() => {
+    const interval = setInterval(nextBanner, 5000); // Change every 5 seconds
+
+    return () => clearInterval(interval); // Clean up the interval on unmount
+  }, []);
+  return (
+    <div className="relative w-full">
+      <div
+        className="w-full h-screen bg-cover bg-center"
+        style={{ backgroundImage: `url(${banners[currentIndex]})` }}
+      >
+        <div className="absolute top-1/2 left-4 transform -translate-y-1/2">
+         <GrPrevious  className='text-4xl text-dark hover:text-slate-500' onClick={prevBanner}></GrPrevious>
+        </div>
+        <div className="absolute top-1/2 right-4 transform -translate-y-1/2">
+          <GrNext className='text-4xl text-dark hover:text-slate-500' onClick={nextBanner}></GrNext>
+        </div>
+        <div className="">
+          
+        </div>
+      </div>
+      
+    </div>
+  );
 };
 
 export default Banner;

@@ -21,7 +21,7 @@ export const rootApi = createApi({
       async onQueryStarted( arg , { dispatch, queryFulfilled }) {
         try {
           const res = await queryFulfilled;
-          console.log(res, 'jami')
+          // console.log(res, 'jami')
           dispatch(
             userRegistration({
               token: '4654534sdkajdhjbas',

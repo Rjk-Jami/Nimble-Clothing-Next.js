@@ -5,19 +5,23 @@ import { setFilterForSort } from "../../../redux/utils/filterSlice";
 
 const SortByOperation = () => {
   const filterSort = useSelector((state) => state.filter.sortTag.filterSort);
-  const filterSortControl = useSelector((state) => state.filter.sortTag.filterSortControl);
+  const filterSortControl = useSelector(
+    (state) => state.filter.sortTag.filterSortControl
+  );
   const dispatch = useDispatch();
 
   const handleSortChange = (sortValue) => {
-    dispatch(setFilterForSort({ sort: sortValue}));
+    dispatch(setFilterForSort({ sort: sortValue }));
   };
 
   return (
     <div>
-      <div className="flex gap-2 items-baseline">
-        <Label size={"text-sm"} htmlFor={"show"}>
-          Sort by:
-        </Label>
+      <div className="flex gap-2 ">
+        <div className="mt-2">
+          <Label size={"text-sm"} htmlFor={"show"}>
+            Sort by:
+          </Label>
+        </div>
 
         <select
           name="sort"
@@ -26,11 +30,7 @@ const SortByOperation = () => {
           onChange={(e) => handleSortChange(e.target.value)}
         >
           {filterSort.map((sortOption, index) => (
-            <option 
-              key={index} 
-              value={sortOption} 
-             
-            >
+            <option key={index} value={sortOption}>
               {sortOption}
             </option>
           ))}

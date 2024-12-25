@@ -44,7 +44,7 @@ const dispatch = useDispatch()
     },
     validationSchema: schema,
     onSubmit: async (values) => {
-      console.log(values);
+      // console.log(values);
       const { email, password} = values
       await register({ email, password})
      
@@ -62,7 +62,7 @@ const dispatch = useDispatch()
     handleSubmit,
   } = formik;
   const strength = UsePasswordStrength(values.password);
-  console.log(strength);
+  // console.log(strength);
   return (
     <div className="max-w-md mx-auto lg:mb-10 ">
       <form onSubmit={handleSubmit}>

@@ -10,7 +10,10 @@ import FilterByColor from "@/components/shopMotherOperations/FilterByColor";
 import FilterBySize from "@/components/shopMotherOperations/FilterBySize";
 import FilterWithShow from "@/components/shopMotherOperations/FilterWithShow";
 import FilterForDisplay from "@/components/shopMotherOperations/FilterForDisplay";
-import SortyByOperation from "@/components/shopMotherOperations/SortByOperation";
+import SortByOperation from "@/components/shopMotherOperations/SortByOperation";
+
+import Link from "next/link";
+import Footer from "@/components/Footer";
 
 const layout = ({ children }) => {
   const pathname = usePathname();
@@ -38,7 +41,7 @@ const layout = ({ children }) => {
     const getAllProducts = async () => {
       try {
         const products = await getProducts();
-        console.log(products.data);
+        console.log(products?.data);
       } catch (error) {
         console.log(error);
       }
@@ -48,7 +51,8 @@ const layout = ({ children }) => {
 
   return (
     // 5
-    <div className="lg:w-11/12 xl:w-10/12 mx-auto">
+    <div className="">
+      <div className="lg:w-11/12 xl:w-10/12 mx-auto">
       <div className="pt-32 pb-5">
         <div className="flex justify-center items-center gap-2">
           <TiArrowLeftThick className="text-2xl" />
@@ -79,32 +83,30 @@ const layout = ({ children }) => {
               </div>
             </div>
             <div className="col-span-3">
-              <div className="">
-                <div className=""></div>
+              <div className="flex justify-between items-center ">
                 <div className="">
+                  <Link href={"/"} className="cursor-pointer text-sm font-bold">
+                    Home
+                  </Link>
+                </div>
+                <div className="flex gap-2 items-center">
                   <FilterWithShow></FilterWithShow>
                   <FilterForDisplay></FilterForDisplay>
-                  <SortyByOperation></SortyByOperation>
+
+                  <SortByOperation></SortByOperation>
                 </div>
               </div>
-              Lorem ipsum, dolor sit amet consectetur adipisicing elit. Laborum
-              dolorum perferendis assumenda! Quo omnis veniam iste voluptatem
-              provident repellendus incidunt, rem ea tempora aut, minima
-              asperiores corrupti. Exercitationem repudiandae voluptatum tempora
-              vero blanditiis, iure doloremque vel tempore maiores ducimus sint
-              quae neque deserunt minima reiciendis omnis minus excepturi nisi
-              ab quam molestias asperiores optio! Eligendi unde consequatur
-              autem corrupti impedit optio, iusto voluptates quod, recusandae
-              sed dolores labore blanditiis officia assumenda, magnam porro id.
-              Numquam, dolores quos possimus molestias praesentium quasi
-              recusandae adipisci rerum assumenda provident nesciunt corrupti
-              eligendi totam tempore. Id, error labore deleniti ut sapiente
-              similique libero voluptatum.
+             <div className="">
+             {children}
+             </div>
             </div>
           </div>
         </div>
-        {children}
+        
       </div>
+      
+    </div>
+    <Footer></Footer>
     </div>
   );
 };

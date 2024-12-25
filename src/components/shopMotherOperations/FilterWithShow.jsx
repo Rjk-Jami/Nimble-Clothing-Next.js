@@ -19,18 +19,18 @@ const FilterWithShow = () => {
   };
 
   return (
-    <div className="flex gap-2 items-baseline">
-      <Label size={"text-sm"} htmlFor={"show"}>
-        Show :
-      </Label>
+    <div className="flex gap-2  mt-2">
+      <div className="">
+        <Label size={"text-sm"} htmlFor={"show"}>
+          Show :
+        </Label>
+      </div>
       <div className="flex ">
         {shows?.map((show, i) => (
-          <div className="flex gap-2" key={i}>
+          <div className="flex gap-2 " key={i}>
             <div
               className={`cursor-pointer ${
-                showControl[show] === true
-                  ? "font-bold"
-                  : " "
+                showControl[show] === true ? "font-bold" : " "
               }`}
               onClick={() => handleShowChange(show)}
             >
