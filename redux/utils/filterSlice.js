@@ -125,6 +125,16 @@ export const filterSlice = createSlice({
         state.sortTag.filterSortControl[sort] = true;
       }
     },
+    clearAllFilters: (state) => {
+      // Reset all filters to their initial state
+      state.range.filter = 0;
+      Object.keys(state.colorTag.filterColorControl).forEach((key) => {
+        state.colorTag.filterColorControl[key] = false;
+      });
+      Object.keys(state.sizeTag.filterSizeControl).forEach((key) => {
+        state.sizeTag.filterSizeControl[key] = false;
+      });
+    },
   },
 });
 
@@ -134,6 +144,7 @@ export const {
   setFilterBySize,
   setFilterWithShow,
   setFilterForDisplay,
-  setFilterForSort
+  setFilterForSort,
+  clearAllFilters, // Export the new action
 } = filterSlice.actions;
 export default filterSlice.reducer;

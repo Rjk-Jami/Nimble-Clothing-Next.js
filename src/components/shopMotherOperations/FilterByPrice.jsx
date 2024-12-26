@@ -10,13 +10,12 @@ const FilterByPrice = () => {
 
   const [value, setValue] = useState(range.max);
   useEffect(() => {
-    if (range.max === undefined) {
-      setValue(0);
+    if (range?.max !== undefined) {
+      setValue(range.filter !== undefined && range.filter !== 0 ? range.filter : range.max);
     } else {
-      setValue(range.max);
+      setValue(0);
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [range.max]);
+  }, [range?.max, range?.filter]);
 
   const handleChange = (event) => {
     setValue(Number(event.target.value));

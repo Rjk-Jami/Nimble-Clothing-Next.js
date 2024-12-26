@@ -11,15 +11,17 @@ const FilterBySize = () => {
 
   const dispatch = useDispatch();
 
-//   useEffect(() => {
-//     console.log(sizeControl);
-//   }, [sizeControl]);
+  //   useEffect(() => {
+  //     console.log(sizeControl);
+  //   }, [sizeControl]);
   const handleSizeChange = (size) => {
     dispatch(setFilterBySize({ size: size }));
   };
   return (
     <div className="mb-4">
-      <Label  uppercase={true} size={'text-lg'} htmlFor="size">Filter by size</Label>
+      <Label uppercase={true} size={"text-lg"} htmlFor="size">
+        Filter by size
+      </Label>
       <div className=" flex flex-col gap-2">
         {sizes?.map((size, i) => (
           <div
