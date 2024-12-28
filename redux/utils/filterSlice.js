@@ -1,6 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
+  isFilter: false,
   range: {
     min: 0,
     max: 0,
@@ -41,20 +42,23 @@ const initialState = {
       2: false,
       3: true,
       4: false,
-      
     },
   },
   sortTag: {
-    filterSort: ["default sorting", "latest", "Price: Low to High" , "Price: High to Low"],
+    filterSort: [
+      "default sorting",
+      "latest",
+      "Price: Low to High",
+      "Price: High to Low",
+    ],
     filterSortControl: {
-    "default sorting" : false ,
-    "latest": false,
+      "default sorting": false,
+      latest: false,
       "Price: Low to High": false,
       "Price: High to Low": false,
-      
     },
   },
-    
+  
 };
 
 export const filterSlice = createSlice({
@@ -63,9 +67,18 @@ export const filterSlice = createSlice({
   reducers: {
     // price
     setFilterByPrice: (state, action) => {
+      
       state.range.min = action.payload.min;
       state.range.max = action.payload.max;
       state.range.filter = action.payload.filter;
+    },
+    setFilterByPriceByFilteredValue: (state, action) => {
+
+      state.range.filter = action.payload.filter;
+    },
+    setIsFilter: (state, action) => {
+
+      state.isFilter = action.payload.isFilter;
     },
     // color
     setFilterByColor: (state, action) => {
@@ -100,7 +113,7 @@ export const filterSlice = createSlice({
     },
     // show
     setFilterForDisplay: (state, action) => {
-      const display= action.payload.display;
+      const display = action.payload.display;
       // Toggle (true/false)
       if (state.displayTag.filterDisplaysControl[display] !== undefined) {
         // Reset all shows to false
@@ -113,7 +126,7 @@ export const filterSlice = createSlice({
       }
     },
     setFilterForSort: (state, action) => {
-      const sort= action.payload.sort;
+      const sort = action.payload.sort;
       // Toggle (true/false)
       if (state.sortTag.filterSortControl[sort] !== undefined) {
         // Reset all shows to false
@@ -139,6 +152,8 @@ export const filterSlice = createSlice({
 });
 
 export const {
+  setIsFilter,
+  setFilterByPriceByFilteredValue,
   setFilterByPrice,
   setFilterByColor,
   setFilterBySize,

@@ -15,7 +15,6 @@ const schema = Yup.object({
 
 const UserRegisterSegment = () => {
   const [register, { isLoading, isError, error }] = useRegistrationMutation();
-  const [getUser] = useGetUserMutation();
 
   
   // useEffect(() => {

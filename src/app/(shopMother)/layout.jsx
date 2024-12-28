@@ -3,7 +3,6 @@
 import { notFound, usePathname } from "next/navigation";
 import React, { useEffect } from "react";
 import { TiArrowLeftThick } from "react-icons/ti";
-import { useGetProductsMutation } from "../../../redux/products/productsApi";
 import Underline from "@/components/design/underline";
 import FilterByPrice from "@/components/shopMotherOperations/FilterByPrice";
 import FilterByColor from "@/components/shopMotherOperations/FilterByColor";
@@ -20,7 +19,6 @@ import FilterSelection from "@/components/features/FilterSelection";
 const layout = ({ children }) => {
   const pathname = usePathname();
   // console.log(pathname);
-  const [getProducts, { isLoading }] = useGetProductsMutation();
   // Function to handle pathname using switch
   const getCategoryTitle = () => {
     switch (pathname) {
@@ -36,20 +34,11 @@ const layout = ({ children }) => {
         return "Boxers";
       case "/shop":
         return "Shop";
+        default: notFound();
     }
   };
 
-  useEffect(() => {
-    const getAllProducts = async () => {
-      try {
-        const products = await getProducts();
-        console.log(products?.data);
-      } catch (error) {
-        console.log(error);
-      }
-    };
-    getAllProducts();
-  }, [getProducts]);
+  
 
   return (
     // 5
@@ -65,7 +54,7 @@ const layout = ({ children }) => {
           <div className="">{/* add korte hobe */}</div>
         </div>
         <div className="relative">
-          {isLoading ? <Loading></Loading> : <div className=""></div>}
+         
           <div className="">
             <Underline height="h-[2px]" width="w-full" css="mt-6 mb-6" />
             <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">

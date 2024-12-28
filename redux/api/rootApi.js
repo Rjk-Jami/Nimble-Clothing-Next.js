@@ -3,7 +3,7 @@ import { userRegistration } from "../auth/authSlice";
 
 export const rootApi = createApi({
   reducerPath: "api",
-  baseQuery: fetchBaseQuery({ baseUrl: "http://localhost:5000" }),
+  baseQuery: fetchBaseQuery({ baseUrl: "http://localhost:5000/api/v1" }),
   endpoints: (builder) => ({
     registration: builder.mutation({
       query: ({ email, password }) => ({
