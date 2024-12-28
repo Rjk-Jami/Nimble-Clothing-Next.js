@@ -21,6 +21,7 @@ const page = () => {
           <div key={i}>
             <h1>{product.name}</h1>
             <p>{product.current_price}</p>
+            <p className="text-red-500">{product.colors}</p>
           </div>
         ))
       }
