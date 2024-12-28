@@ -1,13 +1,15 @@
 /* eslint-disable react-hooks/rules-of-hooks */
 "use client";
 import React, { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import Loading from "@/app/loading";
 import UseGetProductsWithFilter from "@/hooks/UseGetProductsWithFilter";
+import { setFilterByPrice } from "../../../../redux/utils/filterSlice";
 
 const page = () => {
+  const dispatch = useDispatch();
   const { products, isLoading, isError, error } = UseGetProductsWithFilter();
-
+  
 
   return (
     <div>

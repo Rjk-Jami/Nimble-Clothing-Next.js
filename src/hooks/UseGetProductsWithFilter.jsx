@@ -2,8 +2,26 @@ import React, { useEffect, useMemo, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useGetProductsMutation } from "../../redux/products/productsApi";
 import { setFilterByPrice } from "../../redux/utils/filterSlice";
+import { usePathname } from "next/navigation";
 
 const UseGetProductsWithFilter = () => {
+      const pathname = usePathname();
+    // set pathname wise products
+    const getCategory = () => {
+        const categories = {
+          "/products-category/sweatshirts": "Sweatshirt",
+          "/products-category/t-shirts": "T-Shirts",
+          "/products-category/hoodies": "Hoodies",
+          "/products-category/pants": "Pants",
+          "/products-category/boxers": "Boxers",
+          "/shop": "allProducts",
+        };
+        return categories[pathname] || "allProducts";
+      };
+      const category = getCategory();
+    //   console.log(category, "category")
+
+
   const filters = useSelector((state) => state.filter); // Accessing filters from Redux store
   const dispatch = useDispatch();
   const [getProducts, { isLoading, isError, error }] = useGetProductsMutation(); // Fetching products
@@ -17,15 +35,15 @@ const UseGetProductsWithFilter = () => {
         const allProducts = result?.data?.allProduct || [];
 
         if (allProducts.length > 0) {
-          const prices = allProducts.map((product) =>
-            parseFloat(product.current_price)
-          );
-          const minPrice = Math.min(...prices);
-          const maxPrice = Math.max(...prices);
-
-          // Set price range in Redux store
-          dispatch(setFilterByPrice({ min: minPrice, max: maxPrice }));
-        }
+            const prices = allProducts.map((product) =>
+              parseFloat(product.current_price)
+            );
+            const minPrice = Math.min(...prices);
+            const maxPrice = Math.max(...prices);
+        
+            // Update price range in Redux
+            dispatch(setFilterByPrice({ min: minPrice, max: maxPrice }));
+          }
 
         setProducts(allProducts); // Update local state with products
       } catch (err) {
@@ -38,7 +56,7 @@ const UseGetProductsWithFilter = () => {
 
   // Memoized filtered products
   const filteredProducts = useMemo(() => {
-    if (!filters?.isFilter) {
+    if (!filters?.isFilter && category === "allProducts") {
       return products; // Return all products if no filters are active
     }
 
@@ -49,7 +67,7 @@ const UseGetProductsWithFilter = () => {
     const activeColors = Object.keys(
       filters.colorTag.filterColorControl
     ).filter((color) => filters.colorTag.filterColorControl[color] === true).map((color) => color.toLowerCase().replace(/\s+/g, ''));
-    console.log(activeColors, "activeColors");
+    // console.log(activeColors, "activeColors");
 
 
 
@@ -57,7 +75,7 @@ const UseGetProductsWithFilter = () => {
     const activeSizes = Object.keys(
       filters.sizeTag.filterSizeControl
     ).filter((size) => filters.sizeTag.filterSizeControl[size] === true);
-    console.log(activeSizes, "activeSizes");
+    // console.log(activeSizes, "activeSizes");
 
 
 
@@ -76,18 +94,56 @@ const UseGetProductsWithFilter = () => {
         product.colors.some(color => activeColors.includes(color.toLowerCase().replace(/\s+/g, '')))
       );
     }
+
+    // Filter by active sizes
     if (activeSizes.length > 0) {
       filtered = filtered.filter((product) =>
         product.sizes.some(size => activeSizes.includes(size))
       );
     }
+    if (category !== "allProducts") {
+        filtered = filtered.filter(
+          (product) => product.categories === category
+        );
 
-
-
+      }
 
     return filtered;
-  }, [products, filters]);
-  console.log(filteredProducts, "filteredProducts");
+
+//     // Filter by category for shop page
+//     if (category === "allProducts") {
+        
+//         return filtered;
+        
+//     }
+     
+// // Sweatshirt
+//     else if (category === "Sweatshirt") {
+//         return filtered.filter((product) => product.categories === "Sweatshirt");
+//     }
+//     //  T-Shirts
+//     else if (category === "T-Shirts") {
+//         return filtered.filter((product) => product.categories === "T-Shirts");
+//     }
+//     // Hoodies
+//     else if (category === "Hoodies") {
+//         return filtered.filter((product) => product.categories === "Hoodies");
+//     }
+//     // Pants
+//     else if (category === "Pants") {
+//         return filtered.filter((product) => product.categories === "Pants");
+//     }
+//     // Boxers
+//     else if (category === "Boxers") {
+//         return filtered.filter((product) => product.categories === "Boxers");
+//     }
+
+    
+  }, [products, filters, category]);
+
+
+
+//   console.log(filteredProducts, "filteredProducts");
 
   return { products: filteredProducts, isLoading, isError, error };
 };
