@@ -70,13 +70,20 @@ const UseGetProductsWithFilter = () => {
       );
     }
 
+    // Filter by active colors
     if (activeColors.length > 0) {
       filtered = filtered.filter((product) =>
         product.colors.some(color => activeColors.includes(color.toLowerCase().replace(/\s+/g, '')))
       );
     }
+    if (activeSizes.length > 0) {
+      filtered = filtered.filter((product) =>
+        product.sizes.some(size => activeSizes.includes(size))
+      );
+    }
 
-    // Filter by active colors
+
+
 
     return filtered;
   }, [products, filters]);
