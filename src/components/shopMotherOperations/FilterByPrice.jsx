@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { FaBangladeshiTakaSign } from "react-icons/fa6";
 import { useSelector, useDispatch } from "react-redux";
-import { setFilterByPrice, setFilterByPriceByFilteredValue } from "../../../redux/utils/filterSlice";
+import { setFilterByPrice, setFilterByPriceByFilteredValue, setIsFilter } from "../../../redux/utils/filterSlice";
 import Label from "../utils/Label";
 
 const FilterByPrice = () => {
@@ -23,7 +23,7 @@ const FilterByPrice = () => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    
+    dispatch(setIsFilter({isFilter : true}));
     dispatch(
       setFilterByPriceByFilteredValue({filter: value })
     );

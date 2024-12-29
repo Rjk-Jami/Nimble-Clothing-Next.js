@@ -1,3 +1,4 @@
+"use client";
 import React, { useEffect, useMemo, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useGetProductsMutation } from "../../redux/products/productsApi";
@@ -56,18 +57,23 @@ const UseGetProductsWithFilter = () => {
 
   // Memoized filtered products
   const filteredProducts = useMemo(() => {
-    if (!filters?.isFilter && category === "allProducts") {
+    if (filters?.isFilter === false && category === "allProducts") {
       return products; // Return all products if no filters are active
     }
-
+    
     let filtered = [...products]; // Clone products array for filtering
 
+ if ( category !== "allProducts") {
+        filtered = filtered.filter(
+          (product) => product.categories === category
+        );
 
+      }
     // select active colors
     const activeColors = Object.keys(
       filters.colorTag.filterColorControl
     ).filter((color) => filters.colorTag.filterColorControl[color] === true).map((color) => color.toLowerCase().replace(/\s+/g, ''));
-    // console.log(activeColors, "activeColors");
+    console.log(activeColors, "activeColors");
 
 
 
@@ -81,6 +87,7 @@ const UseGetProductsWithFilter = () => {
 
     // Filter by price range
     if (filters?.range?.filter) {
+      console.log(filters?.range?.filter, "filters.range.filter")
       filtered = filtered.filter(
         (product) =>
           parseFloat(product.current_price) >= filters.range.min &&
@@ -101,12 +108,7 @@ const UseGetProductsWithFilter = () => {
         product.sizes.some(size => activeSizes.includes(size))
       );
     }
-    if (category !== "allProducts") {
-        filtered = filtered.filter(
-          (product) => product.categories === category
-        );
-
-      }
+   
 
     return filtered;
 
@@ -139,7 +141,7 @@ const UseGetProductsWithFilter = () => {
 //     }
 
     
-  }, [products, filters, category]);
+  }, [products, filters, category , ]);
 
 
 

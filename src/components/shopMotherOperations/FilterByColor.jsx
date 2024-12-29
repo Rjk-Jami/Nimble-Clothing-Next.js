@@ -1,6 +1,6 @@
 import { useSelector, useDispatch } from "react-redux";
 import Label from "../utils/Label";
-import { setFilterByColor } from "../../../redux/utils/filterSlice";
+import { setFilterByColor, setIsFilter } from "../../../redux/utils/filterSlice";
 import { useEffect } from "react";
 
 const ColorFilter = () => {
@@ -34,7 +34,7 @@ const ColorFilter = () => {
   };
 
   const handleColorChange = (color) => {
-
+    dispatch(setIsFilter({isFilter : true}));
     dispatch(setFilterByColor({ color: color }));
   };
 

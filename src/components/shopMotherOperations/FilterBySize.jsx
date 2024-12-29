@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Label from "../utils/Label";
-import { setFilterBySize } from "../../../redux/utils/filterSlice";
+import { setFilterBySize, setIsFilter } from "../../../redux/utils/filterSlice";
 
 const FilterBySize = () => {
   const sizes = useSelector((state) => state.filter.sizeTag.filterSizes);
@@ -15,6 +15,7 @@ const FilterBySize = () => {
   //     console.log(sizeControl);
   //   }, [sizeControl]);
   const handleSizeChange = (size) => {
+    dispatch(setIsFilter({isFilter : true}));
     dispatch(setFilterBySize({ size: size }));
   };
   return (

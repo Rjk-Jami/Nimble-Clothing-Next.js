@@ -1,18 +1,18 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
   setFilterByColor,
   setFilterByPrice,
   setFilterBySize,
   clearAllFilters,
-  setIsFilter, // Import the action to clear all filters
+  setIsFilter,
+  setFilterByPriceByFilteredValue, // Import the action to clear all filters
 } from "../../../redux/utils/filterSlice";
 
 const FilterSelection = () => {
   const colorControl = useSelector(
     (state) => state.filter.colorTag.filterColorControl
   );
-
   const range = useSelector((state) => state.filter.range);
   const sizeControl = useSelector(
     (state) => state.filter.sizeTag.filterSizeControl
@@ -20,33 +20,31 @@ const FilterSelection = () => {
   const dispatch = useDispatch();
 
   const handleClearFilters = () => {
-    if (!isAnyFilterActive) {
-      return false;
-    }
+   dispatch(setIsFilter({isFilter : false})); 
     dispatch(clearAllFilters());
   };
-
-  const isAnyFilterActive =
-    (range.filter && range.filter !== 0) ||
-    Object.values(colorControl).includes(true) ||
-    Object.values(sizeControl).includes(true);
-  //  controller for filter active or not
+  const [isAnyFilterActive, setIsAnyFilterActive] = useState(false);
   useEffect(() => {
-    if (isAnyFilterActive === true) {
-      dispatch(setIsFilter({ isFilter: true }));
-    } else {
-      dispatch(setIsFilter({ isFilter: false }));
-    }
-  }, [isAnyFilterActive]);
+    let isActive =
+      (range.filter && range.filter !== 0) ||
+      Object.values(colorControl).includes(true) ||
+      Object.values(sizeControl).includes(true);
 
-  // console.log(isAnyFilterActive);
+    setIsAnyFilterActive(isActive);
+
+    if (!isActive) {
+      dispatch(setIsFilter({ isFilter: false }));
+    } else {
+      dispatch(setIsFilter({ isFilter: true }));
+    }
+  }, [colorControl, sizeControl, range, dispatch]);
 
   return (
     <div className="flex gap-3 flex-wrap items-center">
       {/* Filter by color */}
       <div className="">
-        {isAnyFilterActive && (
-          <span
+        {
+          isAnyFilterActive && (<span
             className="hover:text-slate-600 cursor-pointer"
             onClick={handleClearFilters}
           >
@@ -54,12 +52,12 @@ const FilterSelection = () => {
             <span className="hover:text-slate-400  font-semibold">
               Clear Filters
             </span>
-          </span>
-        )}
+          </span>)
+        }
       </div>
-      {isAnyFilterActive &&<div className="">
+      <div className="">
         <span>|</span>
-      </div>}
+      </div>
       <div>
         <ul className="flex gap-3 flex-wrap">
           {Object.entries(colorControl).map(([color, isActive], i) =>
@@ -86,7 +84,7 @@ const FilterSelection = () => {
           <li
             onClick={() =>
               dispatch(
-                setFilterByPrice({ min: range.min, max: range.max, filter: 0 })
+                setFilterByPriceByFilteredValue({filter: 0 })
               )
             }
           >
