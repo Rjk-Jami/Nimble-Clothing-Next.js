@@ -55,9 +55,9 @@ const FilterSelection = () => {
           </span>)
         }
       </div>
-      <div className="">
+      { isAnyFilterActive && <div className="">
         <span>|</span>
-      </div>
+      </div>}
       <div>
         <ul className="flex gap-3 flex-wrap">
           {Object.entries(colorControl).map(([color, isActive], i) =>
