@@ -6,6 +6,7 @@ import { useSelector } from "react-redux";
 import { FaHeart } from "react-icons/fa6";
 import { FaRegHeart } from "react-icons/fa";
 import { GrCompare } from "react-icons/gr";
+import Link from "next/link";
 
 const ProductsCard = ({ product }) => {
   const {
@@ -14,7 +15,8 @@ const ProductsCard = ({ product }) => {
     4: colFour,
   } = useSelector((state) => state.filter.displayTag.filterDisplaysControl);
   return (
-    <div className="flex flex-col group border border-gray-200 dark:border-gray-700 pb-2  shadow-md cursor-pointer ">
+    <Link href={`/product/${product?._id}`} >
+    <div  className="flex flex-col group border border-gray-200 dark:border-gray-700 pb-2  shadow-md cursor-pointer ">
       <div className=" relative overflow-hidden">
         <span className="absolute inset-x-0 bottom-0 transform translate-y-5 bg-black dark:bg-white group-hover:translate-y-0 transition-all duration-300 ease-out delay-100 opacity-0 group-hover:opacity-100 flex justify-center items-center ">
           <FaCartPlus
@@ -58,6 +60,7 @@ const ProductsCard = ({ product }) => {
         </div>
       </div>
     </div>
+    </Link>
   );
 };
 

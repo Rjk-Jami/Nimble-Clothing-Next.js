@@ -100,7 +100,7 @@ const layout = ({ children }) => {
                   <FilterSelection></FilterSelection>
                 </div>
                 <div className=""></div>
-                <div className="">{children}</div>
+                <div className="mt-5">{children}</div>
               </div>
               {/* right side  end*/}
             </div>
