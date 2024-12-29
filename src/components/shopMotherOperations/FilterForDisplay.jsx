@@ -23,7 +23,7 @@ const FilterForDisplay = () => {
   };
   return (
     <div>
-      <div className="flex gap-2 ">
+      <div className="hidden md:flex gap-2 ">
         {displays?.map((display, i) => (
           <div className="flex gap-2 items-center" key={i}>
             <div

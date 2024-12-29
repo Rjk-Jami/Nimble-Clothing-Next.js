@@ -19,7 +19,7 @@ const FilterWithShow = () => {
   };
 
   return (
-    <div className="flex gap-2  mt-2">
+    <div className="hidden lg:flex gap-2  mt-2 ">
       <div className="">
         <Label size={"text-sm"} htmlFor={"show"}>
           Show :

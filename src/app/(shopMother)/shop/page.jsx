@@ -17,7 +17,7 @@ const page = () => {
         {/*products loading  */}
         {isLoading && <Loading />}
       </div>
-      <div className=" grid grid-cols-3 gap-2">
+      <div className=" grid grid-cols-1 md:grid-cols-4 gap-2">
         {products?.map((product, i) => (
           <ProductsCard key={i} product={product}></ProductsCard>
         ))}
