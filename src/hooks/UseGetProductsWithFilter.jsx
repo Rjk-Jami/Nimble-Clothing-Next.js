@@ -112,33 +112,6 @@ const UseGetProductsWithFilter = () => {
 
     return filtered;
 
-//     // Filter by category for shop page
-//     if (category === "allProducts") {
-        
-//         return filtered;
-        
-//     }
-     
-// // Sweatshirt
-//     else if (category === "Sweatshirt") {
-//         return filtered.filter((product) => product.categories === "Sweatshirt");
-//     }
-//     //  T-Shirts
-//     else if (category === "T-Shirts") {
-//         return filtered.filter((product) => product.categories === "T-Shirts");
-//     }
-//     // Hoodies
-//     else if (category === "Hoodies") {
-//         return filtered.filter((product) => product.categories === "Hoodies");
-//     }
-//     // Pants
-//     else if (category === "Pants") {
-//         return filtered.filter((product) => product.categories === "Pants");
-//     }
-//     // Boxers
-//     else if (category === "Boxers") {
-//         return filtered.filter((product) => product.categories === "Boxers");
-//     }
 
     
   }, [products, filters, category , ]);

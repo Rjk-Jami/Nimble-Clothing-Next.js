@@ -5,11 +5,11 @@ import { useDispatch, useSelector } from "react-redux";
 import Loading from "@/app/loading";
 import UseGetProductsWithFilter from "@/hooks/UseGetProductsWithFilter";
 import { setFilterByPrice } from "../../../../redux/utils/filterSlice";
+import ProductsCard from "@/components/ProductsCard/ProductsCard";
 
 const page = () => {
   const dispatch = useDispatch();
   const { products, isLoading, isError, error } = UseGetProductsWithFilter();
-  
 
   return (
     <div>
@@ -17,16 +17,10 @@ const page = () => {
         {/*products loading  */}
         {isLoading && <Loading />}
       </div>
-      <div className="">
-      {
-        products?.map((product, i) => (
-          <div key={i}>
-            <h1>{product.name}</h1>
-            <p>{product.current_price}</p>
-            <p className="text-red-500">{product.colors}</p>
-          </div>
-        ))
-      }
+      <div className=" grid grid-cols-3 gap-2">
+        {products?.map((product, i) => (
+          <ProductsCard key={i} product={product}></ProductsCard>
+        ))}
       </div>
     </div>
   );
