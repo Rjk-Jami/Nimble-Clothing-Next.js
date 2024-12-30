@@ -46,7 +46,7 @@ const layout = ({ children }) => {
       <div className="w-full lg:w-11/12 xl:w-10/12 mx-auto">
         <div className="pt-32 pb-5">
           <div className="flex justify-center items-center gap-2">
-            <TiArrowLeftThick className="text-2xl" />
+            <TiArrowLeftThick className="text-2xl" onClick={() => window.history.back()} />
             {/* title */}
             <h1 className="text-7xl font-bold">{getCategoryTitle()}</h1>
           </div>

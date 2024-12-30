@@ -7,6 +7,7 @@ import { GrCompare } from "react-icons/gr";
 import Underline from "../design/underline";
 import SocialMediaShare from "../SocialMediaShare/SocialMediaShare/SocialMediaShare";
 import ProductImageZoom from "../ProductImageZoom/ProductImageZoom";
+import { TiArrowLeftThick } from "react-icons/ti";
 
 const ProductDetails = ({ product, isLoading }) => {
   console.log(product, "product");
@@ -34,14 +35,7 @@ const ProductDetails = ({ product, isLoading }) => {
       <div className="mx-auto">
         {product?.image ? (
           <div className="">
-            {/* <Image
-          className="border-4 border-black dark:border-white"
-            alt={product.name || "Product Image"}
-            src={product.image}
-            width={500}
-            height={500}
-            priority // Optionally prioritize image loading
-          /> */}
+           
             <ProductImageZoom product={product}></ProductImageZoom>
           </div>
         ) : (
@@ -51,10 +45,13 @@ const ProductDetails = ({ product, isLoading }) => {
       {/* Details */}
       <div className="flex flex-col gap-6 mx-10 md:mx-0 ">
         {/* title */}
-        <h1 className=" text-2xl md:text-3xl lg:text-4xl font-bold">
-          {product.name}
-        </h1>
-        {/* price */}
+          <div className="flex items-center gap-2">
+            <TiArrowLeftThick className="text-2xl cursor-pointer" onClick={() => window.history.back()} />
+          <h1 className=" text-2xl md:text-3xl lg:text-4xl font-bold">
+            {product.name}
+          </h1>
+          </div>
+          {/* price */}
         <div className=" text-xl md:text-2xl font-bold flex gap-1 items-center ">
           <p className="  line-through text-slate-600 flex items-center">
             {product.original_price}

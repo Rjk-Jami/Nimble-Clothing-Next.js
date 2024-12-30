@@ -29,6 +29,7 @@ const AdditionalProductsDetails = ({ product, isLoading }) => {
       {/* header */}
       {!isLoading && product ? (
         <>
+        {/* pc version */}
           <div className="hidden  lg:grid lg:grid-cols-6 justify-items-center items-center uppercase font-semibold text-xs">
             {sections.map((section) => (
               <div
@@ -44,9 +45,11 @@ const AdditionalProductsDetails = ({ product, isLoading }) => {
               </div>
             ))}
           </div>
-          <div className="h-[1.5px] w-full bg-black"></div>
+
+
+          <div className="hidden lg:block h-[1.5px] w-full bg-black"></div>
           {/* content */}
-          <div className="mt-4">
+          <div className="mt-4 hidden lg:block">
             {/* Descriptions */}
             {activeSection === "Description" && (
               <Descriptions product={product}></Descriptions>
@@ -64,7 +67,46 @@ const AdditionalProductsDetails = ({ product, isLoading }) => {
             {activeSection === "Shipping & Delivery" && (
               <ShippingAndDelivery></ShippingAndDelivery>
             )}
-            {activeSection === "Size Chart" && (<SizeChart></SizeChart>)}
+            {activeSection === "Size Chart" && <SizeChart></SizeChart>}
+          </div>
+          {/* mobile version */}
+          <div className="block lg:hidden">
+            <div className="join rounded-none join-vertical w-full  p-8">
+              {sections.map((section) => (
+                <div
+                  key={section}
+                  className="collapse collapse-arrow join-item border-current  border"
+                >
+                  <input
+                    type="radio"
+                    name="accordion-sections"
+                    onClick={() => setActiveSection(section)}
+                  />
+                  <div className="collapse-title text-xl font-medium">
+                    {section}
+                  </div>
+                  <div className="collapse-content">
+                    {/* Dynamically render content based on the section */}
+                    {section === "Description" && (
+                      <Descriptions product={product}></Descriptions>
+                    )}
+                    {section === "Additional information" && (
+                      <AdditionalInformation
+                        product={product}
+                      ></AdditionalInformation>
+                    )}
+                    {section === "Reviews (0)" && (
+                      <AddReview product={product}></AddReview>
+                    )}
+                    {section === "About brand" && <AboutBrand></AboutBrand>}
+                    {section === "Shipping & Delivery" && (
+                      <ShippingAndDelivery></ShippingAndDelivery>
+                    )}
+                    {section === "Size Chart" && <SizeChart></SizeChart>}
+                  </div>
+                </div>
+              ))}
+            </div>
           </div>
         </>
       ) : (

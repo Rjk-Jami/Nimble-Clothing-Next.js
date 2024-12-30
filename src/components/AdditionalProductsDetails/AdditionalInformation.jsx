@@ -4,7 +4,7 @@ import Underline from '../design/underline'
 const AdditionalInformation = ({product}) => {
   return (
     <div>
-      <div className="w-3/4 lg:w-3/5 mx-auto ">
+      <div className=" mx-10 mt-10">
                 <div className="">
                   <div className="flex gap-2 justify-between">
                     <div className="">Size</div>

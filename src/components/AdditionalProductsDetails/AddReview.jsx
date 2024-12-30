@@ -22,7 +22,7 @@ const AddReview = ({ product }) => {
   const { values, touched, errors, handleChange, handleSubmit } = formik;
 
 return (
-    <div className="text-sm grid grid-cols-1 md:grid-cols-2 gap-4 m-10 lg:m-0 ">
+    <div className="text-sm grid grid-cols-1 md:grid-cols-2 gap-4  mx-10 mt-10">
         <div className="">
             <h1 className="uppercase font-bold">Reviews</h1>
             <div className="">

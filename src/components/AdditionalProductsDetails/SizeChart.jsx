@@ -2,7 +2,7 @@ import React from 'react'
 
 const SizeChart = () => {
 return (
-    <div className="overflow-x-auto mx-10 lg:mx-0 text-sm ">
+    <div className="overflow-x-auto  mx-10 mt-10 text-sm ">
         <table className="table w-full">
             <thead>
                 <tr>

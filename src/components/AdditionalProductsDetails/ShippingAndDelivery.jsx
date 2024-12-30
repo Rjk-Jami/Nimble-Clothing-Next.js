@@ -4,7 +4,7 @@ import { TbPackages } from "react-icons/tb";
 
 const ShippingAndDelivery = () => {
 return (
-    <div className='w-3/4 lg:w-4/5 mx-auto text-sm'>
+    <div className=' mx-10 mt-10 text-sm'>
         <div className="">
             <div className="  ">
             <div className=" mb-4 flex justify-between items-center">

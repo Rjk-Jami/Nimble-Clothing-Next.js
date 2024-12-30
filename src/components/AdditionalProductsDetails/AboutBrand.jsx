@@ -6,7 +6,7 @@ import Link from "next/link";
 
 const AboutBrand = () => {
   return (
-    <div className="w-3/4 lg:w-4/5 mx-auto ">
+    <div className=" mx-10 mt-10 ">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-5  text-sm">
         <div className="flex flex-col gap-2">
           {/* logo */}
