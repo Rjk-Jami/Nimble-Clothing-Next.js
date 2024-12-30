@@ -16,7 +16,7 @@ const layout = ({children, params}) => {
       <div className=" ">
         {children}
       </div>
-      <div className=" mt-8">
+      <div className=" mt-8 pb-20">
       <AdditionalProductsDetails product={product} isLoading={isLoading}></AdditionalProductsDetails>
       </div>
     </div>

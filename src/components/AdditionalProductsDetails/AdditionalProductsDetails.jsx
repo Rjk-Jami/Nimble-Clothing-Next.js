@@ -8,6 +8,9 @@ import Underline from "../design/underline";
 import AdditionalInformation from "./AdditionalInformation";
 import Descriptions from "./Descriptions";
 import AddReview from "./AddReview";
+import AboutBrand from "./AboutBrand";
+import ShippingAndDelivery from "./ShippingAndDelivery";
+import SizeChart from "./SizeChart";
 
 const AdditionalProductsDetails = ({ product, isLoading }) => {
   const [activeSection, setActiveSection] = useState("Description");
@@ -31,7 +34,9 @@ const AdditionalProductsDetails = ({ product, isLoading }) => {
               <div
                 key={section}
                 className={`w-full text-center ${LinkButtonStyle}  ${
-                  activeSection === section ? "before:w-full" : "hover:before:w-full"
+                  activeSection === section
+                    ? "before:w-full"
+                    : "hover:before:w-full"
                 }`}
                 onClick={() => setActiveSection(section)}
               >
@@ -42,18 +47,24 @@ const AdditionalProductsDetails = ({ product, isLoading }) => {
           <div className="h-[1.5px] w-full bg-black"></div>
           {/* content */}
           <div className="mt-4">
+            {/* Descriptions */}
             {activeSection === "Description" && (
               <Descriptions product={product}></Descriptions>
             )}
+            {/* AdditionalInformation */}
             {activeSection === "Additional information" && (
               <AdditionalInformation product={product}></AdditionalInformation>
             )}
+            {/* AddReview */}
             {activeSection === "Reviews (0)" && (
               <AddReview product={product}></AddReview>
             )}
-            {activeSection === "About brand" && <div>{""}</div>}
-            {activeSection === "Shipping & Delivery" && <div>{""}</div>}
-            {activeSection === "Size Chart" && <div>{""}</div>}
+
+            {activeSection === "About brand" && <AboutBrand></AboutBrand>}
+            {activeSection === "Shipping & Delivery" && (
+              <ShippingAndDelivery></ShippingAndDelivery>
+            )}
+            {activeSection === "Size Chart" && (<SizeChart></SizeChart>)}
           </div>
         </>
       ) : (

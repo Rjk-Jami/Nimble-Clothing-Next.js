@@ -5,7 +5,7 @@ import { FaClone, FaCottonBureau, FaFireFlameCurved } from 'react-icons/fa6'
 const Descriptions = ({product}) => {
   return (
     <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 m-10 lg:m-0 ">
-    <div className="text-sm mx-auto w-fu text-center">
+    <div className="text-sm mx-auto w-fu  text-justify">
       {product?.description}
     </div>
     <div className="grid grid-cols-2 gap-4 text-sm  ">
