@@ -4,7 +4,7 @@ const layout = ({children}) => {
   return (
     <div className='pt-20'>
         
-      <div className=" h-screen">
+      <div className=" ">
         {children}
       </div>
     </div>

@@ -43,7 +43,7 @@ const layout = ({ children }) => {
   return (
     // 5
     <div className="">
-      <div className="lg:w-11/12 xl:w-10/12 mx-auto">
+      <div className="w-full lg:w-11/12 xl:w-10/12 mx-auto">
         <div className="pt-32 pb-5">
           <div className="flex justify-center items-center gap-2">
             <TiArrowLeftThick className="text-2xl" />

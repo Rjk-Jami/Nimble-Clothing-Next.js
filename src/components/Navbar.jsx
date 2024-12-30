@@ -19,13 +19,13 @@ import SidebarLoginRegister from "./features/sidebarLoginRegister";
 const Navbar = () => {
   const isScrolled = UseScroll();
   const pathname = usePathname();
-  console.log(pathname);
+  // console.log(pathname);
   
   
   return (
     <div>
       <div
-        className={` dark:text-white navbar fixed z-40  ${pathname === "/" ? "": "bg-white dark:bg-black" }  ${
+        className={`  dark:text-white navbar fixed z-50  ${pathname === "/" ? "": "bg-white dark:bg-black" }  ${
           isScrolled
             ? "bg-white shadow-md lg:px-20 dark:bg-black lg:transition-all delay-100"
             : "dark:bg-black/50 lg:transition-all delay-0"
