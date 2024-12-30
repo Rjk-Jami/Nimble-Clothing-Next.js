@@ -82,6 +82,11 @@ const UseGetProductsWithFilter = () => {
       filters.sizeTag.filterSizeControl
     ).filter((size) => filters.sizeTag.filterSizeControl[size] === true);
     // console.log(activeSizes, "activeSizes");
+    // select active sizes
+    const activeSort = Object.keys(
+      filters.sortTag.filterSortControl
+    ).filter((sort) => filters.sortTag.filterSortControl[sort] === true);
+    console.log(activeSort, "activeSort");
 
 
 
@@ -108,6 +113,23 @@ const UseGetProductsWithFilter = () => {
         product.sizes.some(size => activeSizes.includes(size))
       );
     }
+
+    if (activeSort.length > 0) {
+      if (activeSort[0] === "latest") {
+        filtered = filtered.sort((a, b) => {
+          return new Date(b?.created_at) - new Date(a?.created_at);
+        });
+      } else if (activeSort[0] === "PriceLowToHigh") {
+        filtered = filtered.sort((a, b) => {
+          return parseFloat(a.current_price) - parseFloat(b.current_price);
+        });
+      } else if (activeSort[0] === "PriceHighToLow") {
+        filtered = filtered.sort((a, b) => {
+          return parseFloat(b.current_price) - parseFloat(a.current_price);
+        });
+      }
+    }
+
    
 
     return filtered;

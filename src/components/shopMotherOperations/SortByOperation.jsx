@@ -1,22 +1,42 @@
 import React from "react";
 import Label from "../utils/Label";
 import { useDispatch, useSelector } from "react-redux";
-import { setFilterForSort } from "../../../redux/utils/filterSlice";
+import { setFilterForSort, setIsFilter } from "../../../redux/utils/filterSlice";
 
 const SortByOperation = () => {
   const filterSort = useSelector((state) => state.filter.sortTag.filterSort);
   const filterSortControl = useSelector(
-    (state) => state.filter.sortTag.filterSortControl
+    (state) => state?.filter?.sortTag?.filterSortControl
   );
+
+
+
   const dispatch = useDispatch();
 
+
   const handleSortChange = (sortValue) => {
-    dispatch(setFilterForSort({ sort: sortValue }));
+    const sortMapping = {
+      "default sorting": "defaultSorting",
+      latest: "latest",
+      "Price: Low to High": "PriceLowToHigh",
+      "Price: High to Low": "PriceHighToLow",
+    };
+  
+    const sortKey = sortMapping[sortValue]; 
+    if (sortKey) {
+      dispatch(setFilterForSort({ sort: sortKey })); // Dispatch with the mapped key
+    } 
+    if (sortKey === "defaultSorting") {
+      dispatch(setIsFilter({ isFilter: false }));
+    } else {
+      dispatch(setIsFilter({ isFilter: true }));
+    }
   };
+  
 
   return (
     <div>
-      <div className="flex gap-2 ">
+      <div className="flex gap-2">
         <div className="mt-2">
           <Label size={"text-sm"} htmlFor={"show"}>
             Sort by:

@@ -42,20 +42,22 @@ const initialState = {
       2: false,
       3: true,
       4: false,
-      
     },
   },
   sortTag: {
-    filterSort: ["default sorting", "latest", "Price: Low to High" , "Price: High to Low"],
+    filterSort: [
+      "default sorting",
+      "latest",
+      "Price: Low to High",
+      "Price: High to Low",
+    ],
     filterSortControl: {
-    "default sorting" : false ,
-    "latest": false,
-      "Price: Low to High": false,
-      "Price: High to Low": false,
-      
+      defaultSorting: true,
+      latest: false,
+      PriceLowToHigh: false,
+      PriceHighToLow: false,
     },
   },
-    
 };
 
 export const filterSlice = createSlice({
@@ -64,7 +66,8 @@ export const filterSlice = createSlice({
   reducers: {
     // filter on/off state
     setIsFilter: (state, action) => {
-      state.isFilter = action.payload.isFilter},
+      state.isFilter = action.payload.isFilter;
+    },
     // price
     setFilterByPrice: (state, action) => {
       state.range.min = action.payload.min;
@@ -94,53 +97,62 @@ export const filterSlice = createSlice({
     // show
     setFilterWithShow: (state, action) => {
       const show = action.payload.show;
-      // Toggle (true/false)
-      if (state.showTag.filterShowControl[show] !== undefined) {
-        // Reset all shows to false
-        Object.keys(state.showTag.filterShowControl).forEach((key) => {
+
+      // Check if the show key exists in filterShowControl
+      if (show in state.showTag.filterShowControl) {
+        // Reset all show controls to false
+        for (const key in state.showTag.filterShowControl) {
           state.showTag.filterShowControl[key] = false;
-        });
+        }
 
         // Set the selected show to true
         state.showTag.filterShowControl[show] = true;
       }
     },
-    // show
-    setFilterForDisplay: (state, action) => {
-      const display= action.payload.display;
-      // Toggle (true/false)
-      if (state.displayTag.filterDisplaysControl[display] !== undefined) {
-        // Reset all shows to false
-        Object.keys(state.displayTag.filterDisplaysControl).forEach((key) => {
-          state.displayTag.filterDisplaysControl[key] = false;
-        });
 
-        // Set the selected show to true
+    // display
+    setFilterForDisplay: (state, action) => {
+      const display = action.payload.display;
+
+      // Check if the display key exists in filterDisplaysControl
+      if (display in state.displayTag.filterDisplaysControl) {
+        // Reset all display controls to false
+        for (const key in state.displayTag.filterDisplaysControl) {
+          state.displayTag.filterDisplaysControl[key] = false;
+        }
+
+        // Set the selected display to true
         state.displayTag.filterDisplaysControl[display] = true;
       }
     },
-    setFilterForSort: (state, action) => {
-      const sort= action.payload.sort;
-      // Toggle (true/false)
-      if (state.sortTag.filterSortControl[sort] !== undefined) {
-        // Reset all shows to false
-        Object.keys(state.sortTag.filterSortControl).forEach((key) => {
-          state.sortTag.filterSortControl[key] = false;
-        });
 
-        // Set the selected show to true
+    setFilterForSort: (state, action) => {
+      const sort = action.payload.sort;
+
+      if (sort in state.sortTag.filterSortControl) {
+        // Reset all filters to false
+        for (const key in state.sortTag.filterSortControl) {
+          state.sortTag.filterSortControl[key] = false;
+        }
+
+        // Enable the selected sort option
         state.sortTag.filterSortControl[sort] = true;
       }
     },
+
     clearAllFilters: (state) => {
-      // Reset all filters to their initial state
+      // Reset range filter
       state.range.filter = 0;
-      Object.keys(state.colorTag.filterColorControl).forEach((key) => {
+
+      // Reset colorTag filters
+      for (const key in state.colorTag.filterColorControl) {
         state.colorTag.filterColorControl[key] = false;
-      });
-      Object.keys(state.sizeTag.filterSizeControl).forEach((key) => {
+      }
+
+      // Reset sizeTag filters
+      for (const key in state.sizeTag.filterSizeControl) {
         state.sizeTag.filterSizeControl[key] = false;
-      });
+      }
     },
   },
 });
