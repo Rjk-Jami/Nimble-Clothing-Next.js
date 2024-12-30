@@ -24,7 +24,7 @@ const { default: Link } = require("next/link");
       url: "/products-category/boxers",
     },
   ];
-  export const LinkButtonStyle = `relative text-lg before:content-[''] before:absolute before:top-full before:left-0 before:w-0 before:h-[2px] before:bg-primary dark:before:bg-white before:transition-[width] before:duration-400 before:ease-[cubic-bezier(0.19,1,0.22,1)]`
+  export const LinkButtonStyle = `relative  before:content-[''] before:absolute before:top-full before:left-0 before:w-0 before:h-[2px] before:bg-primary dark:before:bg-white before:transition-[width] before:duration-400 before:ease-[cubic-bezier(0.19,1,0.22,1)]`
   const NavProductsItem = ({ pathname }) => {
     
     return (
@@ -32,7 +32,7 @@ const { default: Link } = require("next/link");
         {navProductsItemsData.map((navItem, index) => (
           <Link href={navItem.url} key={index}>
             <span
-              className={`${LinkButtonStyle} ${
+              className={`text-lg ${LinkButtonStyle} ${
                 pathname === navItem.url ? "before:w-full" : "hover:before:w-2/3"
               }`}
             >

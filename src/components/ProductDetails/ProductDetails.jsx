@@ -5,6 +5,8 @@ import React, { useState } from "react";
 import { FaBangladeshiTakaSign, FaRegHeart } from "react-icons/fa6";
 import { GrCompare } from "react-icons/gr";
 import Underline from "../design/underline";
+import SocialMediaShare from "../SocialMediaShare/SocialMediaShare/SocialMediaShare";
+import ProductImageZoom from "../ProductImageZoom/ProductImageZoom";
 
 const ProductDetails = ({ product, isLoading }) => {
   console.log(product, "product");
@@ -27,26 +29,32 @@ const ProductDetails = ({ product, isLoading }) => {
     }
   };
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+    <div className="grid grid-cols-1 md:grid-cols-2 gap-5 mx-0 md:mx-10 lg:mx-0">
       {/* Image */}
-      <div className="ms-auto">
+      <div className="mx-auto">
         {product?.image ? (
-          <Image
+          <div className="">
+            {/* <Image
+          className="border-4 border-black dark:border-white"
             alt={product.name || "Product Image"}
             src={product.image}
             width={500}
             height={500}
             priority // Optionally prioritize image loading
-          />
+          /> */}
+            <ProductImageZoom product={product}></ProductImageZoom>
+          </div>
         ) : (
-          <div className="text-gray-500">No image available</div> // Fallback if no image
+          ""
         )}
       </div>
       {/* Details */}
-      <div className="flex flex-col gap-6 mt-6">
+      <div className="flex flex-col gap-6 mx-10 md:mx-0 ">
+        {/* title */}
         <h1 className=" text-2xl md:text-3xl lg:text-4xl font-bold">
           {product.name}
         </h1>
+        {/* price */}
         <div className=" text-xl md:text-2xl font-bold flex gap-1 items-center ">
           <p className="  line-through text-slate-600 flex items-center">
             {product.original_price}
@@ -67,11 +75,14 @@ const ProductDetails = ({ product, isLoading }) => {
             </span>
           </p>
         </div>
+        {/* description */}
         <div className="text-sm md:text-base font-medium">
           <p>{product.description}</p>
         </div>
+
+        {/* selection size */}
         <div className="text-sm flex gap-2 items-center">
-          <p className="font-bold">Size:</p>
+          <p className="font-semibold">Size:</p>
           <div className="flex gap-2">
             {product.sizes.map((size, i) => (
               <span
@@ -83,6 +94,7 @@ const ProductDetails = ({ product, isLoading }) => {
             ))}
           </div>
         </div>
+        {/* select quantity */}
         <div className="flex items-center gap-3">
           <div className="flex items-center ">
             <button
@@ -101,13 +113,15 @@ const ProductDetails = ({ product, isLoading }) => {
               +
             </button>
           </div>
+          {/* add to cart section */}
           <div className="">
             <button className="uppercase text-sm font-bold bg-black dark:bg-white text-white dark:text-black px-3 py-3">
               Add to cart
             </button>
           </div>
+          {/* feature section */}
         </div>
-        <div className="flex gap-3 text-sm font-bold">
+        <div className="flex gap-3 text-sm font-semibold">
           <div className="flex items-center gap-2 cursor-pointer">
             <GrCompare></GrCompare>
             <span>Compare</span>
@@ -117,11 +131,25 @@ const ProductDetails = ({ product, isLoading }) => {
             <span>Add to wishlist</span>
           </div>
         </div>
+
+
         <div className="">
-        <Underline height={"h-[1px]"} width={"w-full"}></Underline>
+          <Underline height={"h-[1px]"} width={"w-full"}></Underline>
         </div>
-        <div className="text-sm font-bold">
-            <p>Category: <span className="font-medium">{product.categories}</span></p>
+
+
+        <div className="flex flex-col gap-1 lg:gap-2 xl:gap-3">
+          {/* category  */}
+          <div className="text-sm font-semibold">
+            <p>
+              Category:{" "}
+              <span className="font-medium">{product.categories}</span>
+            </p>
+          </div>
+          {/* share to social media section */}
+          <div className="">
+            <SocialMediaShare id={product._id}></SocialMediaShare>
+          </div>
         </div>
       </div>
     </div>

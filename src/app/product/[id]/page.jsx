@@ -13,7 +13,7 @@ const page = () => {
     const {product, isLoading, isError, error} = UseGetProductById(id)
     // console.log(product)
   return (
-    <div className="w-full lg:w-11/12 xl:w-10/12 mx-auto">
+    <div className="">
       <div>
       <ProductDetails product={product} isLoading={isLoading}></ProductDetails>
     </div>
