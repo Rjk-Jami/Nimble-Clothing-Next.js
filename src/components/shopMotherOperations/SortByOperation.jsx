@@ -26,11 +26,9 @@ const SortByOperation = () => {
     if (sortKey) {
       dispatch(setFilterForSort({ sort: sortKey })); // Dispatch with the mapped key
     } 
-    if (sortKey === "defaultSorting") {
-      dispatch(setIsFilter({ isFilter: false }));
-    } else {
+   
       dispatch(setIsFilter({ isFilter: true }));
-    }
+    
   };
   
 

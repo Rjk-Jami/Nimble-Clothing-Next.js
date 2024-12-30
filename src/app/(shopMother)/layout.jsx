@@ -107,7 +107,7 @@ const layout = ({ children }) => {
           </div>
         </div>
       </div>
-      <Footer></Footer>
+      <div className=" mt-10"><Footer></Footer></div>
     </div>
   );
 };
