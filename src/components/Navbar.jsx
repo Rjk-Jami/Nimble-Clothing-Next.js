@@ -61,6 +61,7 @@ const Navbar = () => {
         </div>
 
         <div className="navbar-end">
+          {/* right side  */}
           <div className="">
             <Drawer
               labelType="nav"
@@ -78,7 +79,7 @@ const Navbar = () => {
             <Themes height="h-5" weight="w-5" color="fill-current" />
             {/*  height="h-5" weight="w-5" color="fill-current" */}
           </button>
-
+{/* left side  */}
           <div className="">
             <Drawer labelType="menu" position="left" drawerId="my-drawer">
             <div className=" flex flex-col gap-2 justify-center p-4">

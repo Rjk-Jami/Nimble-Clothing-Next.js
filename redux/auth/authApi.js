@@ -20,6 +20,7 @@ export const authApi = rootApi.injectEndpoints({
         } catch (error) {}
       },
     }),
+   
   }),
 });
 

@@ -6,14 +6,14 @@ export const rootApi = createApi({
   baseQuery: fetchBaseQuery({ baseUrl: "http://localhost:5000/api/v1" }),
   endpoints: (builder) => ({
     registration: builder.mutation({
-      query: ({ email, password }) => ({
-        url: "/users",
+      query: ({ emailForRegister }) => ({
+        url: "/users/register",
         method: "POST",
         body: {
-          email,
-          password,
+          emailForRegister,
+          
         },
-        // credentials: "include",
+        credentials: "include",
         headers: {
             "Content-Type": "application/json",
           },
@@ -21,11 +21,11 @@ export const rootApi = createApi({
       async onQueryStarted( arg , { dispatch, queryFulfilled }) {
         try {
           const res = await queryFulfilled;
-          // console.log(res, 'jami')
+          console.log(res, 'jami')
           dispatch(
             userRegistration({
-              token: '4654534sdkajdhjbas',
-              user: res.data,
+              token: res.data.accessToken,
+              user: res.data.user,
             })
           );
         } catch (error) {

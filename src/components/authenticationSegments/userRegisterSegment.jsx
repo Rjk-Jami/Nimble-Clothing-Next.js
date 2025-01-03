@@ -9,43 +9,28 @@ import { useGetUserMutation } from "../../../redux/user/userSlice";
 
 
 const schema = Yup.object({ 
-  email: Yup.string().email().required(),
-  password: Yup.string().min(6).required(),
+  emailForRegister: Yup.string().email().required(),
+  // password: Yup.string().min(6).required(),
 });
 
 const UserRegisterSegment = () => {
   const [register, { isLoading, isError, error }] = useRegistrationMutation();
 
   
-  // useEffect(() => {
-  //   const fetchCourses = async () => {
-   
-  //     try {
-  //       const result = await getUser()
-  //       console.log(result?.data)
-        
-  //       setUser(result?.data)
-  //     } catch (error) {
-  //     } finally {
-    
-  //     }
-  //   };
 
-  //   fetchCourses();
-  // }, [getUser]);
   
 
 const dispatch = useDispatch()
   const formik = useFormik({
     initialValues: {
-      email: "",
-      password: "",
+      emailForRegister: "",
+      // password: "",
     },
     validationSchema: schema,
     onSubmit: async (values) => {
       // console.log(values);
-      const { email, password} = values
-      await register({ email, password})
+      const { emailForRegister} = values
+      await register({ emailForRegister})
      
        
 
@@ -60,28 +45,32 @@ const dispatch = useDispatch()
 
     handleSubmit,
   } = formik;
-  const strength = UsePasswordStrength(values.password);
+  // const strength = UsePasswordStrength(values.password);
   // console.log(strength);
   return (
     <div className="max-w-md mx-auto lg:mb-10 ">
       <form onSubmit={handleSubmit}>
         <div className="mb-4">
-          <label htmlFor="email" className="block text-sm  font-semibold mb-1">
+          <label htmlFor="emailForRegister" className="block text-sm  font-semibold mb-1">
             Email address <span className="text-red-500">*</span>
           </label>
           <input
-            id="email"
-            name="email"
+            id="emailForRegister"
+            name="emailForRegister"
             type="email"
             onChange={handleChange}
-            value={values.email}
+            value={values.emailForRegister}
             className={`w-full px-3 py-2 text-sm font-thin border rounded-none ${
-              errors.email ? "border-red-500" : "border-gray-300"
+              errors.emailForRegister ? "border-red-500" : "border-gray-300"
             } rounded-md`}
-            aria-describedby={errors.email ? "email-error" : ""}
+            aria-describedby={errors.emailForRegister ? "email-error" : ""}
           />
         </div>
-        <div className="mb-2">
+        <div className="mb-4 text-sm">
+          <p className="mb-4">A link to set a new password will be sent to your email address.</p >
+          <p>Your personal data will be used to support your experience throughout this website, to manage access to your account, and for other purposes described in our privacy policy.</p>
+        </div>
+        {/* <div className="mb-2">
           <label
             htmlFor="password"
             className="block text-sm  font-semibold mb-1"
@@ -110,7 +99,7 @@ const dispatch = useDispatch()
           ) : (
             <p id="password-error" className=" text-sm mt-1 ">&nbsp;</p>
           )}
-        </div>
+        </div> */}
         <button
           type="submit"
           className="w-full uppercase font-bold btn btn-primary rounded-none "

@@ -1,20 +1,34 @@
-
+"use client"
 import { IoClose } from "react-icons/io5";
 import Underline from "../design/underline";
 import { LuUserRound } from "react-icons/lu";
 import Link from "next/link";
 import UserLoginSegment from "../authenticationSegments/UserLoginSegment";
+import { useState } from "react";
+import { usePathname } from "next/navigation";
+ 
+export const handleCloseSidebar = (drawerId) => {
+   
+  const drawerInput = document.getElementById(drawerId);
+  if (drawerInput) drawerInput.checked = false;
+};
 
 const SidebarLoginRegister = () => {
   // for close sidebar
-  const handleCloseSidebar = () => {
-   
-    const drawerInput = document.getElementById("my-drawer-4");
-    if (drawerInput) drawerInput.checked = false;
-  };
+const [isHide, setIsHide] = useState(true);
+const pathname = usePathname();
+const handleHideAndClose = (drawerId2) => {
+  handleCloseSidebar(drawerId2)
+if (pathname === "/my-account") {
+  setIsHide(false);
+}
+else{
+  setIsHide(true);  
+}
+}
 
   return (
-    <div className="text-base font-semibold">
+    <div className={`text-base font-semibold  ${isHide ? "block" : "opacity-0"}`}>
       <div className="flex justify-between">
         <span>Sign in</span>
         <label htmlFor="my-drawer-4" aria-label="Close sidebar menu">
@@ -32,7 +46,7 @@ const SidebarLoginRegister = () => {
           href="/my-account"
           className="btn btn-link text-base text-black dark:text-white"
           aria-label="Create an account"
-          onClick={handleCloseSidebar} // Add this click handler
+          onClick={()=>handleHideAndClose("my-drawer-4")} // Add this click handler
         >
           Create an Account
         </Link>

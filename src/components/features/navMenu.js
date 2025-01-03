@@ -1,6 +1,7 @@
 "use client"
 import Link from "next/link";
 import Underline from "../design/underline";
+import { handleCloseSidebar } from "./sidebarLoginRegister";
 
 const navMenuItemsData = [
     {
@@ -43,7 +44,7 @@ const navMenuItemsData = [
       <>
         {navMenuItemsData?.map((navItem, index) => (
                   
-                  <Link href={navItem.url} key={index} className="hover:text-black dark:hover:text-white hover:tracking-wider">
+                  <Link onClick={()=>handleCloseSidebar("my-drawer")}  href={navItem.url} key={index} className="hover:text-black dark:hover:text-white hover:tracking-wider">
                     <div  className="">
                     
                       <span className={`text-base font-semibold uppercase `}>

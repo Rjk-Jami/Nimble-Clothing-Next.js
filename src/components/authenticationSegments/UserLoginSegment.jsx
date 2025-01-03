@@ -6,16 +6,19 @@ import Link from "next/link";
 import { useDispatch, useSelector } from "react-redux";
 import { setIsHidePassword } from "../../../redux/utils/stateControllerSlice";
 import { useLoginMutation } from "../../../redux/auth/authApi";
+import { usePathname } from "next/navigation";
 
 const schema = Yup.object({
   email: Yup.string().email().required(),
   password: Yup.string().min(6).required(),
 });
 
+
 const UserLoginSegment = () => {
   const [login, { isLoading, isError, error }] = useLoginMutation();
   const isHide = useSelector((state)=>(state.stateController.isHidePassword))
 const dispatch = useDispatch()
+const pathname = usePathname()
 
   const formik = useFormik({
     initialValues: {
