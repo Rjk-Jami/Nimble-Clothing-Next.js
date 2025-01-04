@@ -32,17 +32,22 @@ export const authApi = rootApi.injectEndpoints({
     }),
     login: builder.mutation({
       query: ({ email, password }) => ({
-        url: "/users",
+        url: "/users/login",
         method: "POST",
         body: { email, password },
+        credentials: "include",
+        headers: {
+          "Content-Type": "application/json",
+        },
         
       }),
 
       async onQueryStarted(arg, { queryFulfilled, dispatch }) {
         try {
           const res = await queryFulfilled;
+          console.log(res, "login");
           dispatch(
-            userLogin({ token: "00000000000000000000000000", user: res.data })
+            userLogin({ token: res.data?.accessToken, user: res.data?.user })
           );
         } catch (error) {}
       },
@@ -68,8 +73,30 @@ export const authApi = rootApi.injectEndpoints({
         } catch (error) {}
       },
     }),
+    resetPass: builder.mutation({
+      query: ({resetPassword,token}) => ({
+        url: `/users/resetPassword/${token}`,
+        method: "POST",
+        body: { resetPassword },
+        credentials: "include",
+        headers: {
+            "Content-Type": "application/json",
+          },
+        
+      }),
+
+      async onQueryStarted(arg, { queryFulfilled, dispatch }) {
+        try {
+          const res = await queryFulfilled;
+          console.log(res, "reset password");
+          // dispatch(
+          //   userLogOut()
+          // );
+        } catch (error) {}
+      },
+    }),
    
   }),
 });
 
-export const {useRegistrationMutation, useLoginMutation, useLogoutMutation} = authApi
+export const {useRegistrationMutation, useLoginMutation, useLogoutMutation, useResetPassMutation} = authApi
