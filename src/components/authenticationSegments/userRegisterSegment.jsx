@@ -4,8 +4,8 @@ import { useFormik } from "formik";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import * as Yup from "yup";
-import { useRegistrationMutation } from "../../../redux/api/rootApi";
 import { useGetUserMutation } from "../../../redux/user/userSlice";
+import { useRegistrationMutation } from "../../../redux/auth/authApi";
 
 
 const schema = Yup.object({ 
@@ -16,7 +16,6 @@ const schema = Yup.object({
 const UserRegisterSegment = () => {
   const [register, { isLoading, isError, error }] = useRegistrationMutation();
 
-  
 
   
 
@@ -70,36 +69,7 @@ const dispatch = useDispatch()
           <p className="mb-4">A link to set a new password will be sent to your email address.</p >
           <p>Your personal data will be used to support your experience throughout this website, to manage access to your account, and for other purposes described in our privacy policy.</p>
         </div>
-        {/* <div className="mb-2">
-          <label
-            htmlFor="password"
-            className="block text-sm  font-semibold mb-1"
-          >
-            Password <span className="text-red-500">*</span>
-          </label>
-          <input
-            id="password"
-            name="password"
-            type="text"
-            onChange={handleChange}
-            value={values.password}
-            className={`w-full px-3 py-2 text-sm font-thin border rounded-none ${
-              errors.password && touched.password
-                ? "border-red-500"
-                : "border-gray-300"
-            } rounded-md`}
-            aria-describedby={
-              errors.password && touched.password ? "password-error" : ""
-            }
-          />
-          {values.password && strength ? (
-            <p id="password-error" className=" text-sm mt-1 ">
-              {strength}
-            </p>
-          ) : (
-            <p id="password-error" className=" text-sm mt-1 ">&nbsp;</p>
-          )}
-        </div> */}
+        
         <button
           type="submit"
           className="w-full uppercase font-bold btn btn-primary rounded-none "

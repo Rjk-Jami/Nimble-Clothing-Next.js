@@ -15,17 +15,23 @@ import Drawer from "./DynamicComponents/DrawerLayouts.jsx/DrawerLayouts";
 import NavProductsItem from "./features/produtsMenu";
 import NavMenu from "./features/navMenu";
 import SidebarLoginRegister from "./features/sidebarLoginRegister";
+import { useDispatch, useSelector } from "react-redux";
+import { userLogOut } from "../../redux/auth/authSlice";
+import { useLogoutMutation } from "../../redux/auth/authApi";
 
 const Navbar = () => {
   const isScrolled = UseScroll();
   const pathname = usePathname();
   // console.log(pathname);
-  
-  
+  const user = useSelector((state) => state.auth.user);
+const dispatch = useDispatch()
+const [logout, { isLoading, isError, error }] = useLogoutMutation();
   return (
     <div>
       <div
-        className={`  dark:text-white navbar fixed z-50  ${pathname === "/" ? "": "bg-white dark:bg-black" }  ${
+        className={`  dark:text-white navbar fixed z-50  ${
+          pathname === "/" ? "" : "bg-white dark:bg-black"
+        }  ${
           isScrolled
             ? "bg-white shadow-md lg:px-20 dark:bg-black lg:transition-all delay-100"
             : "dark:bg-black/50 lg:transition-all delay-0"
@@ -54,36 +60,55 @@ const Navbar = () => {
 
         <div className="navbar-center hidden lg:flex">
           <div className="px-1 flex gap-5 font-bold">
-           
             <NavProductsItem pathname={pathname}></NavProductsItem>
-            
           </div>
         </div>
 
         <div className="navbar-end">
           {/* right side  */}
-          <div className="">
-            <Drawer
-              labelType="nav"
-              labelContent="Login / Register"
-              position="right"
-              drawerId="my-drawer-4"
-            >
-              <div className=" flex flex-col gap-2 justify-center p-4">
-              <SidebarLoginRegister></SidebarLoginRegister>
+          {user?.email ? (
+            <div className="">
+              <div className="dropdown dropdown-hover">
+                <div tabIndex={0} role="button" className="font-bold px-2">
+                  <Link href="/my-account">My Account</Link>
+                </div>
+                <ul
+                  tabIndex={0}
+                  className="dropdown-content  bg-base-100  z-[1] w-52 p-4 "
+                >
+                  <li className="cursor-pointer font-semibold hover text-stone-700 hover:text-black dark:hover:text-white dark:text-slate-200">
+                    <div onClick={()=>logout()} className="">
+                    Logout
+                    </div>
+                  </li>
+                  
+                </ul>
               </div>
-            </Drawer>
-          </div>
+            </div>
+          ) : (
+            <div className="">
+              <Drawer
+                labelType="nav"
+                labelContent="Login / Register"
+                position="right"
+                drawerId="my-drawer-4"
+              >
+                <div className=" flex flex-col gap-2 justify-center p-4">
+                  <SidebarLoginRegister></SidebarLoginRegister>
+                </div>
+              </Drawer>
+            </div>
+          )}
 
           <button className="btn btn-ghost btn-circle">
             <Themes height="h-5" weight="w-5" color="fill-current" />
             {/*  height="h-5" weight="w-5" color="fill-current" */}
           </button>
-{/* left side  */}
+          {/* left side  */}
           <div className="">
             <Drawer labelType="menu" position="left" drawerId="my-drawer">
-            <div className=" flex flex-col gap-2 justify-center p-4">
-            <NavMenu></NavMenu>
+              <div className=" flex flex-col gap-2 justify-center p-4">
+                <NavMenu></NavMenu>
               </div>
             </Drawer>
           </div>
