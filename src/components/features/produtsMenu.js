@@ -32,7 +32,7 @@ const { default: Link } = require("next/link");
         {navProductsItemsData.map((navItem, index) => (
           <Link href={navItem.url} key={index}>
             <span
-              className={`text-lg ${LinkButtonStyle} ${
+              className={` ${LinkButtonStyle} ${
                 pathname === navItem.url ? "before:w-full" : "hover:before:w-2/3"
               }`}
             >

@@ -6,7 +6,7 @@ const page = () => {
  
   // console.log(colTwo, colThree, colFour, "state");
   return (
-    <div>
+    <div className=" ">
       <ProductsContainer></ProductsContainer>
     </div>
   );

@@ -5,16 +5,23 @@ import { rootApi } from "../api/rootApi";
 import filterReducer from "../utils/filterSlice";
 import storage from "redux-persist/lib/storage"; 
 import { persistStore, persistReducer } from "redux-persist";
+import  productReducer  from "../products/productSlice";
 
 
-const persistConfig = {
+const persistConfigForAuth = {
   key: "auth", 
   storage,
   whitelist: ["token", "user"], 
 };
+const persistConfigForProductsMaster = {
+  key: 'productsMaster',
+  storage, 
+  whitelist: ['productCompare', 'productWishList', 'productsCart'], 
+};
 
+const persistedProductsMasterReducer = persistReducer(persistConfigForProductsMaster, productReducer);
 
-const persistedAuthReducer = persistReducer(persistConfig, authReducer);
+const persistedAuthReducer = persistReducer(persistConfigForAuth, authReducer);
 
 export const store = configureStore({
   reducer: {
@@ -22,7 +29,8 @@ export const store = configureStore({
     [rootApi.reducerPath]: rootApi.reducer,
     auth: persistedAuthReducer, 
     filter: filterReducer,
-  },
+    productsMaster:persistedProductsMasterReducer,
+ },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
       serializableCheck: {

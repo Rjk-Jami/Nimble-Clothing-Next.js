@@ -19,7 +19,7 @@ const Drawer = ({
         return (
           <label
             htmlFor={drawerId}
-            className="drawer drawer-end font-bold px-2 drawer-button cursor-pointer"
+            className="drawer drawer-end font-bold px-2 drawer-button cursor-pointer "
           >
             {labelContent}
           </label>
@@ -30,7 +30,7 @@ const Drawer = ({
         return (
           <label
             htmlFor={drawerId}
-            className="btn btn-ghost btn-circle drawer-button"
+            className=" text-xl drawer-button"
           >
            {menuIcons}
           </label>

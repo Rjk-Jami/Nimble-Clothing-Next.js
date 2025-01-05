@@ -1,5 +1,9 @@
 "use client";
+import { GrCart } from "react-icons/gr";
 
+import { FaSearch } from "react-icons/fa";
+import { FaRegHeart } from "react-icons/fa";
+import { GrCompare } from "react-icons/gr";
 import React from "react";
 import logoForLight from "../../public/Logo for light.png";
 import logoForDark from "../../public/2-removebg-preview.png";
@@ -20,20 +24,40 @@ import { userLogOut } from "../../redux/auth/authSlice";
 import { useLogoutMutation } from "../../redux/auth/authApi";
 
 const Navbar = () => {
+  const logoSection = <>
+  <div className="h-14 dark:hidden">
+    <Link className="" href={"/"}>
+      <Image
+        height={56}
+        src={logoForLight}
+        alt="Logo for Light Theme"
+      />{" "}
+    </Link>
+  </div>
+  <div className={`h-14 hidden dark:flex`}>
+    <Link className="" href={"/"}>
+      <Image
+        height={56}
+        src={logoForDark}
+        alt="Logo for Dark Theme Scrolled"
+      />{" "}
+    </Link>
+  </div>
+</>
   const isScrolled = UseScroll();
   const pathname = usePathname();
   // console.log(pathname);
   const user = useSelector((state) => state?.auth?.user);
-const dispatch = useDispatch()
-const [logout, { isLoading, isError, error }] = useLogoutMutation();
+  const dispatch = useDispatch();
+  const [logout, { isLoading, isError, error }] = useLogoutMutation();
 
-const  handleLogout = async()=>{
-  try {
-    await logout({user})
-  } catch (error) {
-    console.log(error, "nav")
-  }
-}
+  const handleLogout = async () => {
+    try {
+      await logout({ user });
+    } catch (error) {
+      console.log(error, "nav");
+    }
+  };
   return (
     <div>
       <div
@@ -46,113 +70,93 @@ const  handleLogout = async()=>{
         }`}
       >
         <div className="navbar-start">
-          <div className="h-14 dark:hidden">
-            <Link className="" href={"/"}>
-              <Image
-                height={56}
-                src={logoForLight}
-                alt="Logo for Light Theme"
-              />{" "}
-            </Link>
+          <div className="hidden lg:flex">
+            {logoSection}
           </div>
-          <div className={`h-14 hidden dark:flex`}>
-            <Link className="" href={"/"}>
-              <Image
-                height={56}
-                src={logoForDark}
-                alt="Logo for Dark Theme Scrolled"
-              />{" "}
-            </Link>
-          </div>
-        </div>
-
-        <div className="navbar-center hidden lg:flex">
-          <div className="px-1 flex gap-5 font-bold">
-            <NavProductsItem pathname={pathname}></NavProductsItem>
-          </div>
-        </div>
-
-        <div className="navbar-end">
-          {/* right side  */}
-          {user?.email ? (
-            <div className="">
-              <div className="dropdown dropdown-hover">
-                <div tabIndex={0} role="button" className="font-bold px-2">
-                  <Link href="/my-account">My Account</Link>
-                </div>
-                <ul
-                  tabIndex={0}
-                  className="dropdown-content  bg-base-100  z-[1] w-52 p-4 "
-                >
-                  <li className="cursor-pointer font-semibold hover text-stone-700 hover:text-black dark:hover:text-white dark:text-slate-200">
-                    <div onClick={handleLogout} className="">
-                    Logout
-                    </div>
-                  </li>
-                  
-                </ul>
-              </div>
-            </div>
-          ) : (
-            <div className="">
-              <Drawer
-                labelType="nav"
-                labelContent="Login / Register"
-                position="right"
-                drawerId="my-drawer-4"
-              >
-                <div className=" flex flex-col gap-2 justify-center p-4">
-                  <SidebarLoginRegister></SidebarLoginRegister>
-                </div>
-              </Drawer>
-            </div>
-          )}
-
-          <button className="btn btn-ghost btn-circle">
-            <Themes height="h-5" weight="w-5" color="fill-current" />
-            {/*  height="h-5" weight="w-5" color="fill-current" */}
-          </button>
-          {/* left side  */}
-          <div className="">
+          <div className=" block lg:hidden">
             <Drawer labelType="menu" position="left" drawerId="my-drawer">
               <div className=" flex flex-col gap-2 justify-center p-4">
                 <NavMenu></NavMenu>
               </div>
             </Drawer>
           </div>
+        </div>
 
-          <button className="btn btn-ghost btn-circle">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              className="h-5 w-5"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth="2"
-                d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
-              />
-            </svg>
-          </button>
-          <button className="btn btn-ghost btn-circle">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              className="h-5 w-5"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth="2"
-                d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"
-              />
-            </svg>
-          </button>
+        <div className="navbar-center ">
+          <div className="px-1  hidden lg:flex gap-5 font-bold">
+            <NavProductsItem pathname={pathname}></NavProductsItem>
+          </div>
+          <div className="block lg:hidden">
+          {logoSection}
+          </div>
+          
+        </div>
+
+        <div className="navbar-end">
+          {/* right side  */}
+          <div className="hidden lg:flex">
+            {user?.email ? (
+              <div className="">
+                <div className="dropdown dropdown-hover">
+                  <div tabIndex={0} role="button" className="font-bold p-4">
+                    <Link href="/my-account">My Account</Link>
+                  </div>
+                  <ul
+                    tabIndex={0}
+                    className="dropdown-content  bg-base-100  z-[1] w-52 p-4 "
+                  >
+                    <li className="cursor-pointer font-semibold hover text-stone-700 hover:text-black dark:hover:text-white dark:text-slate-200">
+                      <div onClick={handleLogout} className="">
+                        Logout
+                      </div>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            ) : (
+              <div className="">
+                <Drawer
+                  labelType="nav"
+                  labelContent="Login / Register"
+                  position="right"
+                  drawerId="my-drawer-4"
+                >
+                  <div className=" flex flex-col gap-2 justify-center p-4">
+                    <SidebarLoginRegister></SidebarLoginRegister>
+                  </div>
+                </Drawer>
+              </div>
+            )}
+          </div>
+
+          <div className="flex  justify-items-center items-center gap-3">
+            <Themes className={"hidden lg:block"} />
+            {/*  height="h-5" weight="w-5" color="fill-current" */}
+
+            {/* left side   */}
+            {/* for lg */}
+            <div className="hidden lg:block">
+              <Drawer labelType="menu" position="left" drawerId="my-drawer">
+                <div className=" flex flex-col gap-2 justify-center p-4">
+                  <NavMenu></NavMenu>
+                </div>
+              </Drawer>
+            </div>
+
+            <button className=" hidden lg:block text-xl">
+              <FaSearch></FaSearch>
+            </button>
+            <button className="hidden lg:block text-xl">
+              <GrCompare></GrCompare>
+            </button>
+
+            <button className="hidden lg:block text-xl">
+              <FaRegHeart></FaRegHeart>
+            </button>
+            <button className=" text-xl">
+              <GrCart></GrCart>
+            </button>
+          </div>
         </div>
       </div>
     </div>

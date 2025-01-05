@@ -74,7 +74,7 @@ const layout = ({ children }) => {
                 </div>
               </div>
               {/* right side  start*/}
-              <div className="col-span-3">
+              <div className="col-span-3 mx-4 lg:mx-0">
                 {/* filter menu */}
                 <div className="flex justify-between items-center ">
                   <div className="">
@@ -100,7 +100,7 @@ const layout = ({ children }) => {
                   <FilterSelection></FilterSelection>
                 </div>
                 <div className=""></div>
-                <div className="mt-5">{children}</div>
+                <div className="mt-5 ">{children}</div>
               </div>
               {/* right side  end*/}
             </div>
