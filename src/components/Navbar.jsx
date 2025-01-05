@@ -23,9 +23,17 @@ const Navbar = () => {
   const isScrolled = UseScroll();
   const pathname = usePathname();
   // console.log(pathname);
-  const user = useSelector((state) => state.auth.user);
+  const user = useSelector((state) => state?.auth?.user);
 const dispatch = useDispatch()
 const [logout, { isLoading, isError, error }] = useLogoutMutation();
+
+const  handleLogout = async()=>{
+  try {
+    await logout({user})
+  } catch (error) {
+    console.log(error, "nav")
+  }
+}
   return (
     <div>
       <div
@@ -77,7 +85,7 @@ const [logout, { isLoading, isError, error }] = useLogoutMutation();
                   className="dropdown-content  bg-base-100  z-[1] w-52 p-4 "
                 >
                   <li className="cursor-pointer font-semibold hover text-stone-700 hover:text-black dark:hover:text-white dark:text-slate-200">
-                    <div onClick={()=>logout()} className="">
+                    <div onClick={handleLogout} className="">
                     Logout
                     </div>
                   </li>

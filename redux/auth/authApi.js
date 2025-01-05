@@ -53,10 +53,11 @@ export const authApi = rootApi.injectEndpoints({
       },
     }),
     logout: builder.mutation({
-      query: () => ({
+      query: ({user}) => ({
         url: "/users/logout",
         method: "POST",
         credentials: "include",
+        body: {user},
         headers: {
             "Content-Type": "application/json",
           },
@@ -73,6 +74,7 @@ export const authApi = rootApi.injectEndpoints({
         } catch (error) {}
       },
     }),
+
     resetPass: builder.mutation({
       query: ({resetPassword,token}) => ({
         url: `/users/resetPassword/${token}`,
@@ -88,10 +90,8 @@ export const authApi = rootApi.injectEndpoints({
       async onQueryStarted(arg, { queryFulfilled, dispatch }) {
         try {
           const res = await queryFulfilled;
-          console.log(res, "reset password");
-          // dispatch(
-          //   userLogOut()
-          // );
+          
+          
         } catch (error) {}
       },
     }),

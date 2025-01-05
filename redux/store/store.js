@@ -33,3 +33,15 @@ export const store = configureStore({
 });
 
 export const persistor = persistStore(store);
+
+
+// call refreshTokenMaster function to refresh token page load
+const refreshTokenMaster = async () => {
+    try {
+        const res = await store.dispatch(rootApi.endpoints.refreshToken.initiate({}, { forceRefetch: true }));
+        console.log(res, "refreshTokenMaster");
+    } catch (error) {
+        console.log(error, "refreshTokenMaster");
+    }
+}
+refreshTokenMaster();

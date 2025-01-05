@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { setIsHidePassword } from "../../../redux/utils/stateControllerSlice";
 import { useLoginMutation } from "../../../redux/auth/authApi";
 import { usePathname } from "next/navigation";
+import Loading from "@/app/loading";
 
 const schema = Yup.object({
   email: Yup.string().email().required(),
@@ -41,6 +42,7 @@ const pathname = usePathname()
 
   return (
     <div className="max-w-md mx-auto ">
+      <div className="">{isLoading && <Loading></Loading>}</div>
       <form onSubmit={handleSubmit}>
         {/* Email Field */}
         <div className="mb-4">
