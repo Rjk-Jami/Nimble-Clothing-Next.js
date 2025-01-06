@@ -1,77 +1,27 @@
 import React from 'react'
+import Table from '../Table/Table'
 
 const SizeChart = () => {
+    const columns = [
+        { header: 'Size', tag: 'size' },
+        { header: 'Chest (in)', tag: 'chest' },
+        { header: 'Waist (in)', tag: 'waist' },
+        { header: 'Hip (in)', tag: 'hip' },
+        { header: 'Inseam (in)', tag: 'inseam' },
+        { header: 'Neck (in)', tag: 'neck' },
+        { header: 'Sleeve (in)', tag: 'sleeve' },  
+    ]
+    const data = [
+        { size: 'XS', chest: '32-34', waist: '24-26', hip: '34-36', inseam: 30, neck: 15, sleeve: 32 },
+    { size: 'S', chest: '34-36', waist: '26-28', hip: '36-38', inseam: 30, neck: 15.5, sleeve: 33 },
+    { size: 'M', chest: '36-38', waist: '28-30', hip: '38-40', inseam: 30, neck: 16, sleeve: 33.5 },
+    { size: 'L', chest: '38-40', waist: '30-32', hip: '40-42', inseam: 30, neck: 16.5, sleeve: 34 },
+    { size: 'XL', chest: '40-42', waist: '32-34', hip: '42-44', inseam: 30, neck: 17, sleeve: 34.5 },
+    { size: 'XXL', chest: '42-44', waist: '34-36', hip: '44-46', inseam: 30, neck: 17.5, sleeve: 35 },
+    ]
 return (
-    <div className="overflow-x-auto  mx-10 mt-10 text-sm ">
-        <table className="table w-full">
-            <thead>
-                <tr>
-                    <th>Size</th>
-                    <th>Chest (in)</th>
-                    <th>Waist (in)</th>
-                    <th>Hip (in)</th>
-                    <th>Inseam (in)</th>
-                    <th>Neck (in)</th>
-                    <th>Sleeve (in)</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>XS</td>
-                    <td>32-34</td>
-                    <td>24-26</td>
-                    <td>34-36</td>
-                    <td>30</td>
-                    <td>15</td>
-                    <td>32</td>
-                </tr>
-                <tr>
-                    <td>S</td>
-                    <td>34-36</td>
-                    <td>26-28</td>
-                    <td>36-38</td>
-                    <td>30</td>
-                    <td>15.5</td>
-                    <td>33</td>
-                </tr>
-                <tr>
-                    <td>M</td>
-                    <td>36-38</td>
-                    <td>28-30</td>
-                    <td>38-40</td>
-                    <td>30</td>
-                    <td>16</td>
-                    <td>33.5</td>
-                </tr>
-                <tr>
-                    <td>L</td>
-                    <td>38-40</td>
-                    <td>30-32</td>
-                    <td>40-42</td>
-                    <td>30</td>
-                    <td>16.5</td>
-                    <td>34</td>
-                </tr>
-                <tr>
-                    <td>XL</td>
-                    <td>40-42</td>
-                    <td>32-34</td>
-                    <td>42-44</td>
-                    <td>30</td>
-                    <td>17</td>
-                    <td>34.5</td>
-                </tr>
-                <tr>
-                    <td>XXL</td>
-                    <td>42-44</td>
-                    <td>34-36</td>
-                    <td>44-46</td>
-                    <td>30</td>
-                    <td>17.5</td>
-                    <td>35</td>
-                </tr>
-            </tbody>
-        </table>
+    <div className="mx-10 mt-10">
+       <Table columns={columns} data={data} className={'mx-10 mt-10'} ></Table>
     </div>
 )
 }

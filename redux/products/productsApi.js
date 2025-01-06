@@ -24,17 +24,26 @@ export const productsApi = rootApi.injectEndpoints({
         url: `/products/${productId}`,
         method: "GET",
       }),
-      async onQueryStarted(arg, { queryFulfilled, dispatch }) {
-        try {
-          const res = await queryFulfilled;
-          // console.log(res?.data);
-        } catch (error) {
-          console.error("Error fetching products:", error);
-        }
-      },
+     
     }),
+
+    compareProducts: builder.mutation({
+      query: ({productsId})=>({
+        url:"/products/compare/selectedProduct",
+        method: "POST",
+        body:{productsId}
+      })
+    }),
+    wishListedProducts: builder.mutation({
+      query: ({productsId})=>({
+        url:"/products/wishList/selectedProduct",
+        method: "POST",
+        body:{productsId}
+      })
+    })
+
   }),
 });
 
-export const { useGetProductsMutation, useGetProductsByIdMutation } =
+export const { useGetProductsMutation, useGetProductsByIdMutation , useCompareProductsMutation, useWishListedProductsMutation} =
   productsApi;

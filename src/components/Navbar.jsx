@@ -24,26 +24,24 @@ import { userLogOut } from "../../redux/auth/authSlice";
 import { useLogoutMutation } from "../../redux/auth/authApi";
 
 const Navbar = () => {
-  const logoSection = <>
-  <div className="h-14 dark:hidden">
-    <Link className="" href={"/"}>
-      <Image
-        height={56}
-        src={logoForLight}
-        alt="Logo for Light Theme"
-      />{" "}
-    </Link>
-  </div>
-  <div className={`h-14 hidden dark:flex`}>
-    <Link className="" href={"/"}>
-      <Image
-        height={56}
-        src={logoForDark}
-        alt="Logo for Dark Theme Scrolled"
-      />{" "}
-    </Link>
-  </div>
-</>
+  const logoSection = (
+    <>
+      <div className="h-14 dark:hidden">
+        <Link className="" href={"/"}>
+          <Image height={56} src={logoForLight} alt="Logo for Light Theme" />{" "}
+        </Link>
+      </div>
+      <div className={`h-14 hidden dark:flex`}>
+        <Link className="" href={"/"}>
+          <Image
+            height={56}
+            src={logoForDark}
+            alt="Logo for Dark Theme Scrolled"
+          />{" "}
+        </Link>
+      </div>
+    </>
+  );
   const isScrolled = UseScroll();
   const pathname = usePathname();
   // console.log(pathname);
@@ -70,13 +68,11 @@ const Navbar = () => {
         }`}
       >
         <div className="navbar-start">
-          <div className="hidden lg:flex">
-            {logoSection}
-          </div>
+          <div className="hidden lg:flex">{logoSection}</div>
           <div className=" block lg:hidden">
             <Drawer labelType="menu" position="left" drawerId="my-drawer">
               <div className=" flex flex-col gap-2 justify-center p-4">
-                <NavMenu></NavMenu>
+                <NavMenu closeDrawer={"my-drawer"}></NavMenu>
               </div>
             </Drawer>
           </div>
@@ -86,10 +82,7 @@ const Navbar = () => {
           <div className="px-1  hidden lg:flex gap-5 font-bold">
             <NavProductsItem pathname={pathname}></NavProductsItem>
           </div>
-          <div className="block lg:hidden">
-          {logoSection}
-          </div>
-          
+          <div className="block lg:hidden">{logoSection}</div>
         </div>
 
         <div className="navbar-end">
@@ -114,7 +107,7 @@ const Navbar = () => {
                 </div>
               </div>
             ) : (
-              <div className="">
+             
                 <Drawer
                   labelType="nav"
                   labelContent="Login / Register"
@@ -125,7 +118,7 @@ const Navbar = () => {
                     <SidebarLoginRegister></SidebarLoginRegister>
                   </div>
                 </Drawer>
-              </div>
+             
             )}
           </div>
 
@@ -135,24 +128,25 @@ const Navbar = () => {
 
             {/* left side   */}
             {/* for lg */}
+
             <div className="hidden lg:block">
-              <Drawer labelType="menu" position="left" drawerId="my-drawer">
-                <div className=" flex flex-col gap-2 justify-center p-4">
-                  <NavMenu></NavMenu>
-                </div>
-              </Drawer>
+            <Drawer labelType="menu" position="left" drawerId="my-drawer-2">
+              <div className="flex flex-col gap-2 justify-center p-4">
+                <NavMenu closeDrawer={"my-drawer-2"} />
+              </div>
+            </Drawer>
             </div>
 
             <button className=" hidden lg:block text-xl">
               <FaSearch></FaSearch>
             </button>
-            <button className="hidden lg:block text-xl">
+            <Link href={"/compare"} className="hidden lg:block text-xl">
               <GrCompare></GrCompare>
-            </button>
+            </Link>
 
-            <button className="hidden lg:block text-xl">
+            <Link href={"/wishList"} className="hidden lg:block text-xl">
               <FaRegHeart></FaRegHeart>
-            </button>
+            </Link>
             <button className=" text-xl">
               <GrCart></GrCart>
             </button>

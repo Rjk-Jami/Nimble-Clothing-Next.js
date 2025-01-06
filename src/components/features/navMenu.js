@@ -39,12 +39,12 @@ const navMenuItemsData = [
   ];
 
   
-  const NavMenu = () => {
+  const NavMenu = ({closeDrawer}) => {
     return (
       <>
         {navMenuItemsData?.map((navItem, index) => (
                   
-                  <Link onClick={()=>handleCloseSidebar("my-drawer")}  href={navItem.url} key={index} className="hover:text-black dark:hover:text-white hover:tracking-wider">
+                  <Link onClick={()=>handleCloseSidebar(closeDrawer)}  href={navItem.url} key={index} className="hover:text-black dark:hover:text-white hover:tracking-wider">
                     <div  className="">
                     
                       <span className={`text-base font-semibold uppercase `}>

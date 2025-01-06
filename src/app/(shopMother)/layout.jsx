@@ -15,6 +15,7 @@ import Link from "next/link";
 import Footer from "@/components/Footer";
 import Loading from "../loading";
 import FilterSelection from "@/components/features/FilterSelection";
+import Header from "@/utils/Header/Header";
 
 const layout = ({ children }) => {
   const pathname = usePathname();
@@ -34,27 +35,21 @@ const layout = ({ children }) => {
         return "Boxers";
       case "/shop":
         return "Shop";
-        default: notFound();
+      default:
+        notFound();
     }
   };
-
-  
 
   return (
     // 5
     <div className="">
       <div className="w-full lg:w-11/12 xl:w-10/12 mx-auto">
-        <div className="pt-32 pb-5">
-          <div className="flex justify-center items-center gap-2">
-            <TiArrowLeftThick className="text-2xl" onClick={() => window.history.back()} />
-            {/* title */}
-            <h1 className="text-7xl font-bold">{getCategoryTitle()}</h1>
-          </div>
-          {/* subtitle */}
-          <div className="">{/* add korte hobe */}</div>
-        </div>
-        <div className="relative">
+        <Header>
          
+          {/* title */}
+          {getCategoryTitle()}
+        </Header>
+        <div className="relative">
           <div className="">
             <Underline height="h-[2px]" width="w-full" css="mt-6 mb-6" />
             <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
@@ -95,7 +90,6 @@ const layout = ({ children }) => {
                   </div>
                 </div>
 
-
                 <div className="">
                   <FilterSelection></FilterSelection>
                 </div>
@@ -107,7 +101,9 @@ const layout = ({ children }) => {
           </div>
         </div>
       </div>
-      <div className=" mt-10"><Footer></Footer></div>
+      <div className=" mt-10">
+        <Footer></Footer>
+      </div>
     </div>
   );
 };
