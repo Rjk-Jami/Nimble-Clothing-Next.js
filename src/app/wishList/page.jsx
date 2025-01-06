@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 import { useWishListedProductsMutation } from '../../../redux/products/productsApi'
 import Table from '@/components/Table/Table'
+import ProductsCard from '@/components/ProductsCard/ProductsCard'
 
 const Page = () => {
   const state = useSelector((state)=>state.productsMaster.productWishList)
@@ -28,21 +29,14 @@ const Page = () => {
     }, [state, wishListedProducts]);
 
     console.log(wishProducts, "wishProducts")
-    const columns = [
-      {header: "Name", tag: "name"},
-      {header: "Image", tag: "image"},
-      {header: "Price", tag: "price"},
-      {header: "View Product", tag: "viewProduct"},
-      {header: "Description", tag: "description"},
-      {header: "Size", tag: "size"},
-      {header: "Availability", tag: "availability"},
-    ]
-    const data =[
-      {name:"", image:"",price:"",viewProduct:"", description:"",size:"",availability:""}
-    ]
+    
   return (
-    <div>
-      <Table columns={columns} data={data} className={"mt-10"}></Table>
+    <div className="mx-10">
+      <div className='grid grid-cols-1 md:grid-cols-3 lg:grid-cols-6  gap-5'>
+      {wishProducts?.map((product, i) => (
+          <ProductsCard key={i} product={product}></ProductsCard>
+        ))}
+    </div>
     </div>
   )
 }
