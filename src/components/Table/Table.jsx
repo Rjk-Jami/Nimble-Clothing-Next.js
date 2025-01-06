@@ -2,48 +2,31 @@ import React from 'react'
 
 const Table = ( {columns, data, className}) => {
   return (
+ 
     <div className={`overflow-x-auto   text-sm ${className}`}>
-       <div className="flex w-full">
-       {/* <div>
-        <div>
+       <table className="table w-full">
+       <thead>
+        <tr>
             {columns?.map((col, colIndex)=>(
-                <span key={colIndex}>
+                <th key={colIndex}>
                     {col.header}
-                </span>
+                </th>
             ))}
-        </div>
-       </div> */}
-       
-       
-       
-      
-       </div>
-       </div>
-  
-    // <div className={`overflow-x-auto   text-sm ${className}`}>
-    //    <table className="table w-full">
-    //    <thead>
-    //     <tr>
-    //         {columns?.map((col, colIndex)=>(
-    //             <th key={colIndex}>
-    //                 {col.header}
-    //             </th>
-    //         ))}
-    //     </tr>
-    //    </thead>
-    //    <tbody>
-    //     {data?.map((row, rowIndex)=>(
-    //         <tr key={rowIndex}>
-    //             {columns?.map((col, colIndex)=>(
-    //                 <td key={colIndex}>
-    //                     {row[col.tag]}
-    //                 </td>
-    //             ))}
-    //         </tr>
-    //     ))}
-    //    </tbody>
-    //    </table>
-    // </div>
+        </tr>
+       </thead>
+       <tbody>
+        {data?.map((row, rowIndex)=>(
+            <tr key={rowIndex}>
+                {columns?.map((col, colIndex)=>(
+                    <td key={colIndex}>
+                        {row[col.tag]}
+                    </td>
+                ))}
+            </tr>
+        ))}
+       </tbody>
+       </table>
+    </div>
   )
 }
 

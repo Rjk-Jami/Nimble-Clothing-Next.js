@@ -1,26 +1,55 @@
 "use client";
-import Table from "@/components/Table/Table";
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useCompareProductsMutation } from "../../../redux/products/productsApi";
 import Image from "next/image";
-import { FaCheck } from "react-icons/fa6";
 import Link from "next/link";
+import Table from "@/components/Table/Table";
 
 const Page = () => {
   const state = useSelector((state) => state.productsMaster.productCompare);
-  // console.log(state)
+
   const [compareProducts, { isLoading, isError, isSuccess, error }] =
     useCompareProductsMutation();
 
   const [compProducts, setCompProducts] = useState([]);
+
   useEffect(() => {
     const fetchData = async () => {
       if (state && state.length > 0) {
         try {
           const response = await compareProducts({ productsId: state });
-          // console.log('Response:', response);
-          setCompProducts(response.data?.products);
+          setCompProducts(
+            response.data?.products.map((product) => ({
+              image: (
+                <Image
+                  src={product.image}
+                  alt={product.name}
+                  width={100}
+                  height={100}
+                  className="mx-auto"
+                />
+              ),
+              name: product.name,
+              price: product.current_price || "N/A",
+              description: product.description || "No description available.",
+              sizes: product.sizes?.join(", ") || "N/A",
+              availability:
+                product.quantity > 0 ? (
+                  <span className="text-green-500">In Stock</span>
+                ) : (
+                  <span className="text-red-500">Out of Stock</span>
+                ),
+              actions: product._id ? (
+                <Link
+                  href={`/product/${product._id}`}
+                  className="btn btn-sm bg-blue-500 text-white px-2 py-1 rounded hover:bg-blue-600"
+                >
+                  View Details
+                </Link>
+              ) : null,
+            }))
+          );
         } catch (error) {
           console.error("Error:", error);
         }
@@ -29,73 +58,34 @@ const Page = () => {
 
     fetchData();
   }, [state, compareProducts]);
-  console.log(compProducts, "compProducts");
+
   const columns = [
-    { header: "", tag: "name" },
-    { header: "", tag: "image" },
-    { header: (<span className="">Current Price:</span>), tag: "price" },
-    { header: "", tag: "viewProduct" },
-    { header: "", tag: "description" },
-    { header: "Size: ", tag: "size" },
-    { header: "", tag: "availability" },
+    { header: "Image", tag: "image" },
+    { header: "Name", tag: "name" },
+    { header: "Price", tag: "price" },
+    { header: "Description", tag: "description" },
+    { header: "Sizes", tag: "sizes" },
+    { header: "Availability", tag: "availability" },
+    { header: "Actions", tag: "actions" },
   ];
-  const data = compProducts?.map((product, index) => ({
-    name:
-      (product?.name && <div className="font-bold h-16 text-center flex justify-center items-center">{product.name}</div>) || "",
-    image:
-      (product?.image && (
-        <Image
-          className="mx-auto cursor-default transform group-hover:scale-110 transition-transform duration-300 ease-out"
-          src={product?.image}
-          alt={product.name}
-          width={430}
-          height={430}
-        />
-      )) ||
-      "",
-    price: (product?.current_price && <span className="font-bold ">{product.current_price}</span>) || "",
-    viewProduct:
-      (product?._id && (
-        <Link
-          className="text-sm font-fold btn btn-sm rounded-none btn-accent"
-          href={`/product/${product?._id}`}
-        >
-          View Details
-        </Link>
-      )) ||
-      "",
-    description: product?.description || "",
-    size:
-      product?.sizes.map((p, i) => (
-        <span key={i}>
-          {p}
-          {i < product.sizes.length - 1 && ", "}
-        </span>
-      )) || "",
-    availability:
-      (product?.quantity !== 0 ? (
-        <div className="flex items-center gap-2">
-          <FaCheck></FaCheck>In stock
-        </div>
-      ) : (
-        "jami "
-      )) || "",
-  }));
+
   return (
-    <div className="grid grid-flow-col auto-rows-min  gap-2 w-full">
-      {data?.map((row, rowIndex) => (
-        <div
-          className="border p-1 grid grid-flow-row  w-full items-center"
-          key={rowIndex}
-        >
-          {columns?.map((col, colIndex) => (
-            <div className="" key={colIndex}>
-              {col.header}
-              {row[col.tag]}
-            </div>
-          ))}
-        </div>
-      ))}
+    <div className="mx-10 my-5">
+     <div className={`overflow-x-auto text-sm`}>
+    <table className="table w-full">
+      
+      <tbody>
+        {columns.map((col, colIndex) => (
+          <tr className="" key={colIndex}>
+            <td className="font-semibold ">{col.header}</td>
+            {compProducts.map((row, rowIndex) => (
+              <td className="border-2" key={rowIndex}>{row[col.tag]}</td>
+            ))}
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
     </div>
   );
 };
