@@ -1,4 +1,5 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
+import { userLogOut } from "../auth/authSlice";
 
 
 export const rootApi = createApi({
@@ -18,14 +19,16 @@ export const rootApi = createApi({
         try {
           const res = await queryFulfilled;
           console.log(res, "auth refreshToken");
-          // dispatch(
-          //   userRegistration({
-          //     token: res.data.accessToken,
-          //     user: res.data.user,
-          //   })
-          // );
+          if(res.data.success === true){
+            console.log(res.data.success, "refresh true")
+          }
+          
         } catch (error) {
           console.log(error);
+          if(error?.error?.data.success === false){
+            dispatch(userLogOut())
+            console.log(error.error.data.success , "refresh false")
+          }
         }
       },
     }),

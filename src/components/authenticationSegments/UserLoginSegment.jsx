@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { IoEye, IoEyeOff } from "react-icons/io5"; // Import icons for show/hide
@@ -14,30 +14,32 @@ const schema = Yup.object({
   password: Yup.string().min(6).required(),
 });
 
-
 const UserLoginSegment = () => {
-  const [login, { isLoading, isError, error }] = useLoginMutation();
-  const isHide = useSelector((state)=>(state.stateController.isHidePassword))
-const dispatch = useDispatch()
-const pathname = usePathname()
-
+  const [login, { isLoading, isError, error, isSuccess }] = useLoginMutation();
+  const isHide = useSelector((state) => state.stateController.isHidePassword);
+  const dispatch = useDispatch();
+  const pathname = usePathname();
+  console.log(isSuccess, "isSuccess");
   const formik = useFormik({
     initialValues: {
       email: "",
       password: "",
       rememberMe: false,
-      
     },
     validationSchema: schema,
-    onSubmit: async(values) => {
+    onSubmit: async (values) => {
       // console.log(values);
-      const {email , password}= values
-      await login({email , password})
+      const { email, password } = values;
+      await login({ email, password });
+      console.log(pathname);
+      if (pathname !== "/my-account") {
+        window.location.href = "/my-account";
+      }
     },
   });
 
   const { values, touched, errors, handleChange, handleSubmit } = formik;
-
+  console.log(isSuccess, "isSuccess3");
   // Toggle password visibility
 
   return (
@@ -46,7 +48,7 @@ const pathname = usePathname()
       <form onSubmit={handleSubmit}>
         {/* Email Field */}
         <div className="mb-4">
-          <label htmlFor="email" className="block text-sm font-semibold mb-1">
+          <label className="block text-sm font-semibold mb-1">
             Email address <span className="text-red-500">*</span>
           </label>
           <input
@@ -64,10 +66,7 @@ const pathname = usePathname()
 
         {/* Password Field */}
         <div className="mb-5 relative">
-          <label
-            htmlFor="password"
-            className="block text-sm font-semibold mb-1"
-          >
+          <label className="block text-sm font-semibold mb-1">
             Password <span className="text-red-500">*</span>
           </label>
           <input
@@ -88,7 +87,7 @@ const pathname = usePathname()
           {/* Show/Hide Password Button */}
           <button
             type="button"
-            onClick={()=>dispatch(setIsHidePassword(!isHide))}
+            onClick={() => dispatch(setIsHidePassword(!isHide))}
             className="absolute inset-y-0 right-2  items-center justify-center "
             aria-label={isHide ? "Show password" : "Hide password"}
           >
@@ -119,13 +118,14 @@ const pathname = usePathname()
             />
             <span className="ml-2 text-sm font-thin  ">Remember me</span>
           </label>
-            {/* lost section */}
-      <div className="">
-        <Link className="text-sm font-thin text-error" href={'/'}>Lost your password?</Link>
-      </div>
+          {/* lost section */}
+          <div className="">
+            <Link className="text-sm font-thin text-error" href={"/"}>
+              Lost your password?
+            </Link>
+          </div>
         </div>
       </form>
-    
     </div>
   );
 };

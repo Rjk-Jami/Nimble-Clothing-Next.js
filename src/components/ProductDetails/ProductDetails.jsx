@@ -1,17 +1,44 @@
 "use client";
 import Loading from "@/app/loading";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { FaBangladeshiTakaSign, FaRegHeart } from "react-icons/fa6";
 import { GrCompare } from "react-icons/gr";
 import Underline from "../design/underline";
 import SocialMediaShare from "../SocialMediaShare/SocialMediaShare/SocialMediaShare";
 import ProductImageZoom from "../ProductImageZoom/ProductImageZoom";
 import { TiArrowLeftThick } from "react-icons/ti";
+import { useDispatch, useSelector } from "react-redux";
+import { GiCheckMark } from "react-icons/gi";
+import { userAddCompare, userAddWishList, userDeleteCompare, userDeleteWhishList } from "../../../redux/products/productSlice";
 
 const ProductDetails = ({ product, isLoading }) => {
   const [userSize, setUserSize] = useState(null);
   const [errorSize, setErrorForSize] = useState(false);
   const [quantity, setQuantity] = useState(1);
+  const [isCompare, setIsCompare] = useState(false);
+  const [isFav, setIsFav] = useState(false);
+  const state = useSelector((state) => state.productsMaster);
+  const dispatch = useDispatch();
+  useEffect(() => {
+    // Check if the product is already in the compare or wishlist when the component mounts
+    const isProductInCompare = state.productCompare.includes(product?._id);
+    setIsCompare(isProductInCompare);
+
+    const isProductInWishList = state.productWishList.includes(product?._id);
+    setIsFav(isProductInWishList);
+  }, [state.productCompare, state.productWishList, product?._id]);
+  
+  const handleCompare = (_id) => {
+   
+      dispatch(userAddCompare(_id));
+    
+  };
+
+  const handleWishList = (_id) => {
+   
+      dispatch(userAddWishList(_id));
+    
+  };
 
   if (isLoading) {
     return <Loading />;
@@ -33,7 +60,7 @@ const ProductDetails = ({ product, isLoading }) => {
 
   const handleSize = (size) => {
     setUserSize(size);
-    setErrorForSize(false); 
+    setErrorForSize(false);
   };
 
   const handleAddToCart = () => {
@@ -97,14 +124,24 @@ const ProductDetails = ({ product, isLoading }) => {
             {product.sizes.map((size, i) => (
               <span
                 onClick={() => handleSize(size)}
-                className={`text-sm cursor-pointer hover:bg-black dark:hover:bg-white hover:text-white dark:hover:text-black border border-1 rounded-full px-2 ${size === userSize ? "bg-black text-white dark:bg-white dark:text-black" : ""} ${errorSize ? "border-red-500" : "border-black dark:border-white"}`}
+                className={`text-sm cursor-pointer hover:bg-black dark:hover:bg-white hover:text-white dark:hover:text-black border border-1 rounded-full px-2 ${
+                  size === userSize
+                    ? "bg-black text-white dark:bg-white dark:text-black"
+                    : ""
+                } ${
+                  errorSize
+                    ? "border-red-500"
+                    : "border-black dark:border-white"
+                }`}
                 key={i}
               >
                 {size}
               </span>
             ))}
           </div>
-          {errorSize && <p className="text-red-500 text-xs mt-1">Please select a size!</p>}
+          {errorSize && (
+            <p className="text-red-500 text-xs mt-1">Please select a size!</p>
+          )}
         </div>
 
         {/* select quantity */}
@@ -116,7 +153,9 @@ const ProductDetails = ({ product, isLoading }) => {
             >
               -
             </button>
-            <span className="px-2 py-2 border-2 border-current">{quantity}</span>
+            <span className="px-2 py-2 border-2 border-current">
+              {quantity}
+            </span>
             <button
               onClick={incrementQuantity}
               className="px-2 py-2 border-t-2 border-r-2 border-b-2 border-current"
@@ -138,14 +177,34 @@ const ProductDetails = ({ product, isLoading }) => {
 
         {/* feature section */}
         <div className="flex gap-3 text-sm font-semibold">
-          <div className="flex items-center gap-2 cursor-pointer">
-            <GrCompare />
-            <span>Compare</span>
+
+
+          <div  onClick={() => handleCompare(product?._id)} className="">
+          {
+            isCompare ?<div className="flex items-center gap-2 cursor-pointer">
+             <GiCheckMark ></GiCheckMark>
+            <span>Added to Compare</span>
+          </div>  :<div className="flex items-center gap-2 cursor-pointer">
+              <GrCompare />
+              <span>Compare</span>
+            </div>
+          }
           </div>
-          <div className="cursor-pointer flex items-center gap-2">
-            <FaRegHeart />
-            <span>Add to wishlist</span>
+
+
+          <div onClick={() => handleWishList(product?._id)} className="">
+            {
+              isFav ? <div className="cursor-pointer flex items-center gap-2">
+              <GiCheckMark />
+              <span>Added to wishlist</span>
+            </div> :<div className="cursor-pointer flex items-center gap-2">
+              <FaRegHeart />
+              <span>Wishlist</span>
+            </div>
+            }
           </div>
+
+
         </div>
 
         <div>
@@ -156,7 +215,8 @@ const ProductDetails = ({ product, isLoading }) => {
           {/* category */}
           <div className="text-sm font-semibold">
             <p>
-              Category: <span className="font-medium">{product.categories}</span>
+              Category:{" "}
+              <span className="font-medium">{product.categories}</span>
             </p>
           </div>
 

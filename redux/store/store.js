@@ -47,7 +47,7 @@ export const persistor = persistStore(store);
 const refreshTokenMaster = async () => {
     try {
         const res = await store.dispatch(rootApi.endpoints.refreshToken.initiate({}, { forceRefetch: true }));
-        console.log(res, "refreshTokenMaster");
+        // console.log(res, "refreshTokenMaster");
     } catch (error) {
         console.log(error, "refreshTokenMaster");
     }
