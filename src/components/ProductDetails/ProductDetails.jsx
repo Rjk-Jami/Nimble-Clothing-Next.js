@@ -9,7 +9,13 @@ import ProductImageZoom from "../ProductImageZoom/ProductImageZoom";
 import { TiArrowLeftThick } from "react-icons/ti";
 import { useDispatch, useSelector } from "react-redux";
 import { GiCheckMark } from "react-icons/gi";
-import { userAddCompare, userAddWishList, userDeleteCompare, userDeleteWhishList } from "../../../redux/products/productSlice";
+import {
+  userAddCompare,
+  userAddToCart,
+  userAddWishList,
+  userDeleteCompare,
+  userDeleteWhishList,
+} from "../../../redux/products/productSlice";
 
 const ProductDetails = ({ product, isLoading }) => {
   const [userSize, setUserSize] = useState(null);
@@ -19,6 +25,10 @@ const ProductDetails = ({ product, isLoading }) => {
   const [isFav, setIsFav] = useState(false);
   const state = useSelector((state) => state.productsMaster);
   const dispatch = useDispatch();
+  const handleOpenSidebar = (drawerId) => {
+    const drawerInput = document.getElementById(drawerId);
+    if (drawerInput) drawerInput.checked = true;
+  };
   useEffect(() => {
     // Check if the product is already in the compare or wishlist when the component mounts
     const isProductInCompare = state.productCompare.includes(product?._id);
@@ -27,17 +37,13 @@ const ProductDetails = ({ product, isLoading }) => {
     const isProductInWishList = state.productWishList.includes(product?._id);
     setIsFav(isProductInWishList);
   }, [state.productCompare, state.productWishList, product?._id]);
-  
+
   const handleCompare = (_id) => {
-   
-      dispatch(userAddCompare(_id));
-    
+    dispatch(userAddCompare(_id));
   };
 
   const handleWishList = (_id) => {
-   
-      dispatch(userAddWishList(_id));
-    
+    dispatch(userAddWishList(_id));
   };
 
   if (isLoading) {
@@ -64,13 +70,32 @@ const ProductDetails = ({ product, isLoading }) => {
   };
 
   const handleAddToCart = () => {
-    console.log(quantity, "quantity");
-    console.log(userSize, "userSize");
-
     if (userSize === null) {
       setErrorForSize(true);
     } else {
       setErrorForSize(false);
+    }
+
+    if (
+      userSize !== null &&
+      product?.current_price !== null &&
+      quantity !== 0
+    ) {
+      console.log(quantity, "quantity");
+      console.log(userSize, "userSize");
+      console.log(product?.current_price, "userSize");
+      dispatch(
+        userAddToCart({
+          product_id: product?._id,
+          size: userSize,
+          quantity: quantity,
+          price: product?.current_price,
+          image: product?.image,
+          name:product?.name
+        })
+       
+      );
+      handleOpenSidebar("cart-drawer")
     }
   };
 
@@ -177,34 +202,33 @@ const ProductDetails = ({ product, isLoading }) => {
 
         {/* feature section */}
         <div className="flex gap-3 text-sm font-semibold">
-
-
-          <div  onClick={() => handleCompare(product?._id)} className="">
-          {
-            isCompare ?<div className="flex items-center gap-2 cursor-pointer">
-             <GiCheckMark ></GiCheckMark>
-            <span>Added to Compare</span>
-          </div>  :<div className="flex items-center gap-2 cursor-pointer">
-              <GrCompare />
-              <span>Compare</span>
-            </div>
-          }
+          <div onClick={() => handleCompare(product?._id)} className="">
+            {isCompare ? (
+              <div className="flex items-center gap-2 cursor-pointer">
+                <GiCheckMark></GiCheckMark>
+                <span>Added to Compare</span>
+              </div>
+            ) : (
+              <div className="flex items-center gap-2 cursor-pointer">
+                <GrCompare />
+                <span>Compare</span>
+              </div>
+            )}
           </div>
-
 
           <div onClick={() => handleWishList(product?._id)} className="">
-            {
-              isFav ? <div className="cursor-pointer flex items-center gap-2">
-              <GiCheckMark />
-              <span>Added to wishlist</span>
-            </div> :<div className="cursor-pointer flex items-center gap-2">
-              <FaRegHeart />
-              <span>Wishlist</span>
-            </div>
-            }
+            {isFav ? (
+              <div className="cursor-pointer flex items-center gap-2">
+                <GiCheckMark />
+                <span>Added to wishlist</span>
+              </div>
+            ) : (
+              <div className="cursor-pointer flex items-center gap-2">
+                <FaRegHeart />
+                <span>Wishlist</span>
+              </div>
+            )}
           </div>
-
-
         </div>
 
         <div>

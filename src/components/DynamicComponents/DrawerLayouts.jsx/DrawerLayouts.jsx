@@ -1,6 +1,7 @@
 import menuIcons from "@/utils/icons/menuIcons";
 import React from "react";
 import { FaBars } from "react-icons/fa"; // Fallback icon for menu button
+import { GrCart } from "react-icons/gr";
 
 const Drawer = ({
   position = "right",
@@ -33,13 +34,21 @@ const Drawer = ({
           className="text-xl drawer-button cursor-pointer"
         >
           {/* Fallback to hamburger icon if no menuIcons */}
-          {menuIcons && menuIcons.length > 0
-            ? menuIcons.map((icon, index) => (
-                <span key={index} className="mx-1">
-                  {icon}
-                </span>
-              ))
-            : <FaBars />} {/* Fallback to hamburger icon */}
+          <FaBars className="" /> {/* Fallback to hamburger icon */}
+        </label>
+      );
+    }
+    if (labelType === "cart") {
+      return (
+        <label
+          htmlFor={drawerId}
+          className="text-xl drawer-button cursor-pointer"
+        >
+         
+           <div className=" indicator">
+           <GrCart></GrCart>
+           <span  className="bg-black dark:bg-white text-white dark:text-black px-1 text-xs rounded-full indicator-item ">8</span>
+           </div>
         </label>
       );
     }
@@ -68,7 +77,7 @@ const Drawer = ({
           className="drawer-overlay"
         ></label>
         <div
-          className={`menu bg-white dark:bg-base-200 text-base-content min-h-full ${
+          className={`transition menu bg-white dark:bg-base-200 text-base-content min-h-full ${
             position === "right" ? "w-80 lg:w-[22rem]" : "w-80"
           }`}
         >

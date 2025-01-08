@@ -20,10 +20,10 @@ const pathname = usePathname();
 const handleHideAndClose = (drawerId2) => {
   handleCloseSidebar(drawerId2)
 if (pathname === "/my-account") {
-  setIsHide(false);
+  setIsHide(true);
 }
 else{
-  setIsHide(true);  
+  setIsHide(false);  
 }
 }
 

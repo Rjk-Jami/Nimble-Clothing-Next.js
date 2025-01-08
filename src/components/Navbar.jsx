@@ -22,6 +22,7 @@ import SidebarLoginRegister from "./features/sidebarLoginRegister";
 import { useDispatch, useSelector } from "react-redux";
 import { userLogOut } from "../../redux/auth/authSlice";
 import { useLogoutMutation } from "../../redux/auth/authApi";
+import SidebarCart from "./features/SidebarCart";
 
 const Navbar = () => {
   const logoSection = (
@@ -70,7 +71,7 @@ const Navbar = () => {
         <div className="navbar-start">
           <div className="hidden lg:flex">{logoSection}</div>
           <div className=" block lg:hidden">
-            <Drawer labelType="menu" position="left" drawerId="my-drawer">
+            <Drawer labelType="menu" position="left" drawerId="my-drawer-3">
               <div className=" flex flex-col gap-2 justify-center p-4">
                 <NavMenu closeDrawer={"my-drawer"}></NavMenu>
               </div>
@@ -107,49 +108,69 @@ const Navbar = () => {
                 </div>
               </div>
             ) : (
-             
-                <Drawer
-                  labelType="nav"
-                  labelContent="Login / Register"
-                  position="right"
-                  drawerId="my-drawer-4"
-                >
-                  <div className=" flex flex-col gap-2 justify-center p-4">
-                    <SidebarLoginRegister></SidebarLoginRegister>
-                  </div>
-                </Drawer>
-             
+              <Drawer
+                labelType="nav"
+                labelContent="Login / Register"
+                position="right"
+                drawerId="my-drawer-4"
+              >
+                <div className=" flex flex-col gap-2 justify-center p-4">
+                  <SidebarLoginRegister></SidebarLoginRegister>
+                </div>
+              </Drawer>
             )}
           </div>
 
           <div className="flex  justify-items-center items-center gap-3">
             <Themes className={"hidden lg:block"} />
-            {/*  height="h-5" weight="w-5" color="fill-current" */}
 
             {/* left side   */}
             {/* for lg */}
 
             <div className="hidden lg:block">
-            <Drawer labelType="menu" position="left" drawerId="my-drawer-2">
-              <div className="flex flex-col gap-2 justify-center p-4">
-                <NavMenu closeDrawer={"my-drawer-2"} />
-              </div>
-            </Drawer>
+              <Drawer labelType="menu" position="left" drawerId="my-drawer-2">
+                <div className="flex flex-col gap-2 justify-center p-4">
+                  <NavMenu closeDrawer={"my-drawer-2"} />
+                </div>
+              </Drawer>
             </div>
 
-            <button className=" hidden lg:block text-xl">
-              <FaSearch></FaSearch>
-            </button>
+            <div className="">
+              <button className=" hidden lg:block text-xl">
+                <FaSearch></FaSearch>
+              </button>
+            </div>
             <Link href={"/compare"} className="hidden lg:block text-xl">
-              <GrCompare></GrCompare>
+              <div className="indicator">
+                <GrCompare></GrCompare>
+
+                <span className="bg-black dark:bg-white text-white dark:text-black px-1 text-xs rounded-full indicator-item ">
+                  8
+                </span>
+              </div>
             </Link>
 
             <Link href={"/wishList"} className="hidden lg:block text-xl">
               <FaRegHeart></FaRegHeart>
             </Link>
-            <button className=" text-xl">
-              <GrCart></GrCart>
-            </button>
+            <div className="">
+              {pathname === "/viewCart" ? (
+                <Link href={"/viewCart"}>
+                  <div className="indicator">
+                  <GrCart className="text-xl drawer-button cursor-pointer"></GrCart>
+                  <span  className="bg-black dark:bg-white text-white dark:text-black px-1 text-xs rounded-full indicator-item ">8</span>
+                  </div>
+                </Link>
+              ) : (
+                <Drawer
+                  labelType="cart"
+                  position="right"
+                  drawerId="cart-drawer"
+                >
+                  <SidebarCart></SidebarCart>
+                </Drawer>
+              )}
+            </div>
           </div>
         </div>
       </div>

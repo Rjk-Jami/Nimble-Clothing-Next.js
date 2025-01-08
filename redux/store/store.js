@@ -16,7 +16,8 @@ const persistConfigForAuth = {
 const persistConfigForProductsMaster = {
   key: 'productsMaster',
   storage, 
-  whitelist: ['productCompare', 'productWishList', 'productsCart'], 
+
+  whitelist: ['productCompare', 'productWishList', 'productsCart', 'totalPrice'], 
 };
 
 const persistedProductsMasterReducer = persistReducer(persistConfigForProductsMaster, productReducer);
@@ -30,6 +31,7 @@ export const store = configureStore({
     auth: persistedAuthReducer, 
     filter: filterReducer,
     productsMaster:persistedProductsMasterReducer,
+   
  },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({

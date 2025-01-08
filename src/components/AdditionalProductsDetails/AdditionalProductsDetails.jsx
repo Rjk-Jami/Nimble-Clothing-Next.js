@@ -34,7 +34,7 @@ const AdditionalProductsDetails = ({ product, isLoading }) => {
             {sections.map((section) => (
               <div
                 key={section}
-                className={`w-full text-center ${LinkButtonStyle}  ${
+                className={`w-full text-center cursor-pointer ${LinkButtonStyle}  ${
                   activeSection === section
                     ? "before:w-full"
                     : "hover:before:w-full"

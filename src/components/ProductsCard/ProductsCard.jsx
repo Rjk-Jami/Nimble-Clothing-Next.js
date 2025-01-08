@@ -8,6 +8,7 @@ import { FaRegHeart } from "react-icons/fa";
 import { GrCompare } from "react-icons/gr";
 import Link from "next/link";
 import { GiCheckMark } from "react-icons/gi";
+import { GrFormView } from "react-icons/gr";
 
 import {
   userAddCompare,
@@ -60,16 +61,18 @@ const ProductsCard = ({ product }) => {
   return (
     <div className="flex flex-col group border border-gray-200 dark:border-gray-700 pb-2 shadow-md cursor-pointer">
       <div className="relative overflow-hidden">
-        <span
-          className="absolute z-40 inset-x-0 bottom-0 transform translate-y-5 bg-black dark:bg-white group-hover:translate-y-0 transition-all duration-300 ease-out delay-100 opacity-0 group-hover:opacity-100 flex justify-center items-center"
-          onClick={handleCartClick} 
-        >
-          <FaCartPlus
-            className={`text-white dark:text-black ${
-              colTwo ? "text-3xl" : "text-2xl"
-            } m-2`}
-          ></FaCartPlus>
-        </span>
+        <Link href={`/product/${product?._id}`}>
+          <span
+            className="absolute z-40 inset-x-0 bottom-0 transform translate-y-5 bg-black dark:bg-white group-hover:translate-y-0 transition-all duration-300 ease-out delay-100 opacity-0 group-hover:opacity-100 flex justify-center items-center"
+            
+          >
+            <GrFormView 
+              className={`text-white dark:text-black ${
+                colTwo ? "text-3xl" : "text-2xl"
+              } m-2`}
+            ></GrFormView >
+          </span>
+        </Link>
         <div className="absolute z-40 top-0 right-0 transform translate-y-5 group transition-all bg-black dark:bg-white duration-300 ease-out delay-100 group-hover:translate-x-[-20px] opacity-0 group-hover:opacity-100 flex flex-col gap-3 items-center p-2">
           <div
             onClick={() => handleCompare(product?._id)}
@@ -107,23 +110,22 @@ const ProductsCard = ({ product }) => {
         </div>
       </div>
       <Link href={`/product/${product?._id}`}>
-      <div className="flex flex-col gap-1 justify-center items-center">
-        
+        <div className="flex flex-col gap-1 justify-center items-center">
           <h1 className="text-sm font-bold">{product.name}</h1>
-        
-        <p className="text-sm font-semibold">{product.categories}</p>
-        <div className="flex gap-1 items-center justify-center">
-          <p className="text-sm font-semibold line-through text-slate-600">
-            {product.original_price}
-          </p>
-          <p className="text-sm font-semibold text-orange-500">
-            {product.current_price} <span></span>
-          </p>
-          <p>
-            <FaBangladeshiTakaSign className="text-xs"></FaBangladeshiTakaSign>
-          </p>
+
+          <p className="text-sm font-semibold">{product.categories}</p>
+          <div className="flex gap-1 items-center justify-center">
+            <p className="text-sm font-semibold line-through text-slate-600">
+              {product.original_price}
+            </p>
+            <p className="text-sm font-semibold text-orange-500">
+              {product.current_price} <span></span>
+            </p>
+            <p>
+              <FaBangladeshiTakaSign className="text-xs"></FaBangladeshiTakaSign>
+            </p>
+          </div>
         </div>
-      </div>
       </Link>
     </div>
   );
