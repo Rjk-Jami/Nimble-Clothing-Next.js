@@ -1,44 +1,69 @@
-"use client"
-import React, { useEffect, useState } from 'react'
-import { useSelector } from 'react-redux'
-import { useWishListedProductsMutation } from '../../../redux/products/productsApi'
-import Table from '@/components/Table/Table'
-import ProductsCard from '@/components/ProductsCard/ProductsCard'
+"use client";
+
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useWishListedProductsMutation } from "../../../redux/products/productsApi";
+import ProductsCard from "@/components/ProductsCard/ProductsCard";
+import { IoClose } from "react-icons/io5";
+import { userDeleteWhishList } from "../../../redux/products/productSlice";
+import Loading from "../loading";
 
 const Page = () => {
-  const state = useSelector((state)=>state.productsMaster.productWishList)
-  console.log(state)
-  const [wishListedProducts, { isLoading, isError, isSuccess, error }] =
-  useWishListedProductsMutation();
-    const [wishProducts, setWishProducts] = useState([])
-  
-  useEffect(() => {
-      const fetchData = async () => {
-        if (state && state.length > 0) {
-          try {
-            const response = await wishListedProducts({productsId:state});
-            console.log('Response:', response);
-            setWishProducts(response.data?.products)
-          } catch (error) {
-            console.error('Error:', error);
-          }
-        }
-      };
-  
-      fetchData();
-    }, [state, wishListedProducts]);
+  const state = useSelector((state) => state.productsMaster.productWishList);
+  const dispatch = useDispatch();
 
-    console.log(wishProducts, "wishProducts")
-    
+  const [wishListedProducts, { isLoading }] = useWishListedProductsMutation();
+  const [wishProducts, setWishProducts] = useState([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      if (state && state.length > 0) {
+        try {
+          const response = await wishListedProducts({ productsId: state });
+          if (response?.data?.products) {
+            setWishProducts(response.data.products);
+          }
+        } catch (error) {
+          console.error("Error fetching wishlisted products:", error);
+        }
+      } else {
+        setWishProducts([]);
+      }
+    };
+
+    fetchData();
+  }, [state, wishListedProducts]);
+
+  const handleDeleteWishList = (_id) => {
+    dispatch(userDeleteWhishList(_id));
+  };
+
   return (
     <div className="mx-10">
-      <div className='grid grid-cols-1 md:grid-cols-3 lg:grid-cols-6  gap-5'>
-      {wishProducts?.map((product, i) => (
-          <ProductsCard key={i} product={product}></ProductsCard>
-        ))}
+      <div className="">
+        {
+          isLoading && <Loading></Loading>
+        }
+      </div>
+      {wishProducts.length > 0 ? (
+        <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-6 gap-5">
+          {wishProducts.map((product, i) => (
+            <div key={i} className="">
+              <div className="">
+                <IoClose
+                  onClick={() => handleDeleteWishList(product._id)}
+                  className="my-1 ms-auto text-2xl hover:cursor-pointer"
+                />
+              </div>
+              <ProductsCard product={product} />
+            </div>
+          ))}
+        </div>
+      ) : (
+        <div className="text-center font-bold">No Wishlisted Products Found!</div>
+      )}
     </div>
-    </div>
-  )
-}
+  );
+};
 
-export default Page
+export default Page;
