@@ -11,9 +11,8 @@ export const productSlice = createSlice({
   name: "productsMaster",
   initialState,
   reducers: {
-    
     userAddToCart: (state, action) => {
-      const { product_id, size, quantity, price,image ,name} = action.payload;
+      const { product_id, size, quantity, price, image, name } = action.payload;
 
       const existingProduct = state.productsCart.find(
         (item) => item.product_id === product_id && item.size === size
@@ -24,7 +23,14 @@ export const productSlice = createSlice({
         existingProduct.quantity += quantity;
       } else {
         // Otherwise, add the product to the cart
-        state.productsCart.push({ product_id, size, quantity, price, image, name });
+        state.productsCart.push({
+          product_id,
+          size,
+          quantity,
+          price,
+          image,
+          name,
+        });
       }
 
       // Recalculate the total price
@@ -33,23 +39,63 @@ export const productSlice = createSlice({
       }, 0);
     },
     //   dispatch(userAddToCart({ product_id: 1, size: "M", quantity: 2, price: 20 }));
- 
+
     userRemoveFromCart: (state, action) => {
-        const { product_id, size } = action.payload;
-      
-        // Remove the product from the cart based on _id and size
-        state.productsCart = state.productsCart.filter(
-          (item) => !(item._id === product_id && item.size === size)
-        );
-      
-        // Recalculate the total price after removing an item
-        state.totalPrice = state.productsCart.reduce((total, product) => {
-          return total + product.quantity * product.price;
-        }, 0);
-      },
+      const { product_id, size } = action.payload;
+
+      // Remove the product from the cart based on _id and size
+      state.productsCart = state.productsCart.filter(
+        (item) => !(item._id === product_id && item.size === size)
+      );
+
+      // Recalculate the total price after removing an item
+      state.totalPrice = state.productsCart.reduce((total, product) => {
+        return total + product.quantity * product.price;
+      }, 0);
+    },
 
     // dispatch(userRemoveFromCart({ product_id, size }));
+    userIncreaseQuantity: (state, action) => {
+      const { product_id, size } = action.payload;
 
+      const existingProduct = state.productsCart.find(
+        (item) => item.product_id === product_id && item.size === size
+      );
+
+      if (existingProduct) {
+        existingProduct.quantity += 1;
+      }
+
+      // Recalculate the total price
+      state.totalPrice = state.productsCart.reduce((total, product) => {
+        return total + product.quantity * product.price;
+      }, 0);
+    },
+    // dispatch(userIncreaseQuantity({ product_id: 1, size: "M" }));
+    userDecreaseQuantity: (state, action) => {
+      const { product_id, size } = action.payload;
+
+      const existingProduct = state.productsCart.find(
+        (item) => item.product_id === product_id && item.size === size
+      );
+
+      if (existingProduct) {
+        existingProduct.quantity -= 1;
+
+        if (existingProduct.quantity <= 0) {
+          state.productsCart = state.productsCart.filter(
+            (item) => !(item.product_id === product_id && item.size === size)
+          );
+        }
+      }
+
+      // Recalculate the total price
+      state.totalPrice = state.productsCart.reduce((total, product) => {
+        return total + product.quantity * product.price;
+      }, 0);
+    },
+
+    // dispatch(userDecreaseQuantity({ product_id: 1, size: "M" }));
     userAddCompare: (state, action) => {
       const product_id = action.payload;
       if (!state.productCompare.includes(product_id)) {
@@ -86,6 +132,8 @@ export const productSlice = createSlice({
 export const {
   userAddToCart,
   userRemoveFromCart,
+  userIncreaseQuantity,
+  userDecreaseQuantity,
   userAddCompare,
   userAddWishList,
   userDeleteCompare,

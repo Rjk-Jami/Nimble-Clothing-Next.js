@@ -1,11 +1,15 @@
-import React from 'react'
+import Header from "@/utils/Header/Header";
+import React from "react";
 
-const layout = ({children}) => {
+const layout = ({ children }) => {
   return (
     <div>
-      {children}
+      <Header>Shopping Cart</Header>
+      <div className="pt-10 w-11/12 xl:w-10/12 mx-auto">
+        {children}
+      </div>
     </div>
-  )
-}
+  );
+};
 
-export default layout
+export default layout;

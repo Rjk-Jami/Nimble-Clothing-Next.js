@@ -25,6 +25,8 @@ import { useLogoutMutation } from "../../redux/auth/authApi";
 import SidebarCart from "./features/SidebarCart";
 
 const Navbar = () => {
+
+  const cartQuantity = useSelector((state)=>state.productsMaster?.productsCart?.reduce((total, product) => total + product.quantity, 0))
   const logoSection = (
     <>
       <div className="h-14 dark:hidden">
@@ -141,10 +143,10 @@ const Navbar = () => {
               </button>
             </div>
             <Link href={"/compare"} className="hidden lg:block text-xl">
-              <div className="indicator">
+              <div className="indicator flex items-center">
                 <GrCompare></GrCompare>
 
-                <span className="bg-black dark:bg-white text-white dark:text-black px-1 text-xs rounded-full indicator-item ">
+                <span className="bg-orange-600 text-white dark:text-black px-1 text-xs rounded-full indicator-item ">
                   8
                 </span>
               </div>
@@ -158,7 +160,7 @@ const Navbar = () => {
                 <Link href={"/viewCart"}>
                   <div className="indicator">
                   <GrCart className="text-xl drawer-button cursor-pointer"></GrCart>
-                  <span  className="bg-black dark:bg-white text-white dark:text-black px-1 text-xs rounded-full indicator-item ">8</span>
+                  <span  className="bg-orange-600  text-white dark:text-black px-1 text-xs rounded-full indicator-item ">{cartQuantity}</span>
                   </div>
                 </Link>
               ) : (

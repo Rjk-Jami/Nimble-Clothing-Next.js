@@ -72,6 +72,7 @@ const Page = () => {
     };
 
     fetchData();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [state, compareProducts]);
 
   const columns = [

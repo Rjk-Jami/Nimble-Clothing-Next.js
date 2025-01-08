@@ -2,6 +2,7 @@ import menuIcons from "@/utils/icons/menuIcons";
 import React from "react";
 import { FaBars } from "react-icons/fa"; // Fallback icon for menu button
 import { GrCart } from "react-icons/gr";
+import { useSelector } from "react-redux";
 
 const Drawer = ({
   position = "right",
@@ -10,6 +11,8 @@ const Drawer = ({
   labelContent = "",
   children
 }) => {
+
+  const cartQuantity = useSelector((state)=>state.productsMaster?.productsCart?.reduce((total, product) => total + product.quantity, 0))
   // Determine the drawer class based on the position
   const drawerClass =
     position === "right" ? "drawer drawer-end " : "drawer drawer-start";
@@ -45,9 +48,9 @@ const Drawer = ({
           className="text-xl drawer-button cursor-pointer"
         >
          
-           <div className=" indicator">
+           <div className="flex items-center indicator">
            <GrCart></GrCart>
-           <span  className="bg-black dark:bg-white text-white dark:text-black px-1 text-xs rounded-full indicator-item ">8</span>
+           <span  className="bg-orange-600 text-white dark:text-black px-1 text-xs rounded-full indicator-item ">{cartQuantity}</span>
            </div>
         </label>
       );
