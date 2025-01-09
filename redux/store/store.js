@@ -6,6 +6,7 @@ import filterReducer from "../utils/filterSlice";
 import storage from "redux-persist/lib/storage"; 
 import { persistStore, persistReducer } from "redux-persist";
 import  productReducer  from "../products/productSlice";
+import  shippingAddressReducer  from "../shippingAddress/shippingAddressSlice";
 
 import themeReducer  from "../theme/themeSlice"
 const persistConfigForAuth = {
@@ -19,10 +20,22 @@ const persistConfigForProductsMaster = {
 
   whitelist: ['productCompare', 'productWishList', 'productsCart', 'totalPrice'], 
 };
+const persistConfigForTheme = {
+  key: "theme",
+  storage,
+  whitelist: ["theme"],
+};
+const persistConfigForShippingAddress = {
+  key: "shippingAddress",
+  storage,
+  whitelist: ["town", "zipcode", "district", 'shippingCost'],
+};
 
 const persistedProductsMasterReducer = persistReducer(persistConfigForProductsMaster, productReducer);
 
 const persistedAuthReducer = persistReducer(persistConfigForAuth, authReducer);
+const persistedTheme = persistReducer(persistConfigForTheme, themeReducer);
+const persistedShippingAddress = persistReducer(persistConfigForShippingAddress, shippingAddressReducer);
 
 export const store = configureStore({
   reducer: {
@@ -32,7 +45,8 @@ export const store = configureStore({
     auth: persistedAuthReducer, 
     filter: filterReducer,
     productsMaster:persistedProductsMasterReducer,
-    theme: themeReducer,
+    theme:persistedTheme,
+    shippingAddress: persistedShippingAddress
  },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({

@@ -15,6 +15,8 @@ import Underline from "@/components/design/underline";
 import Shipping from "@/components/ForCart/Shipping";
 
 const page = () => {
+  const {town,zipcode,district, shippingCost} = useSelector((state)=>state.shippingAddress)
+
   const subTotal = useSelector((state) => state.productsMaster.totalPrice);
   const productsCart = useSelector(
     (state) => state.productsMaster.productsCart
@@ -36,9 +38,8 @@ const page = () => {
       userDecreaseQuantity({ product_id: productId, size: productSize })
     );
   };
-
   return (
-    <div className="grid grid-cols-1 lg:grid-cols-4 gap-5">
+    <div className="grid grid-cols-1 lg:grid-cols-5 gap-5">
       <div className="lg:col-span-3">
         <FreeShipping subTotal={subTotal}></FreeShipping>
         <div className="overflow-x-auto mt-5 ">
@@ -121,18 +122,33 @@ const page = () => {
           </button>
         </div>
       </div>
-      <div className="text-sm">
-        <div className="">
+      <div className="text-sm lg:col-span-2 ">
+        <div className="border-2 p-4 border-gray-300">
           <h1 className="text-2xl font-bold uppercase">Cart totals</h1>
           <div className="flex justify-between">
-            <h4>Subtotal</h4>
+            <h4 className=" font-bold">Subtotal</h4>
             <p className="flex items-center">
               {subTotal}
               <FaBangladeshiTakaSign />
             </p>
           </div>
           <Underline height="h-[1px]" width="w-full" css="mt-2 mb-2" />
-              <Shipping></Shipping>
+          
+          <div className="my-2">
+          <Shipping></Shipping>
+          </div>
+
+          <Underline height="h-[1px]" width="w-full" css="mt-2 mb-2" />
+          <div className="flex justify-between text-xl font-bold">
+            <h4 className=" ">Total</h4>
+            <p className="flex items-center ">
+              {subTotal + shippingCost}
+              <FaBangladeshiTakaSign />
+            </p>
+          </div>
+          <button className="mt-6 w-full bg-orange-500 text-white py-2  shadow hover:bg-orange-600 transition">
+            Proceed to Checkout
+          </button>
         </div>
       </div>
     </div>

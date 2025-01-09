@@ -5,11 +5,16 @@ import { IoSunny } from "react-icons/io5";
 import { IoMdMoon } from "react-icons/io";
 import { useSelector, useDispatch } from "react-redux";
 import { toggleTheme } from "../../../redux/theme/themeSlice";
+import { useEffect } from "react";
 
 
 const Themes = ({ className }) => {
   const theme = useSelector((state) => state.theme.theme);
   const dispatch = useDispatch();
+  useEffect(() => {
+    localStorage.setItem("theme", theme);
+    document.documentElement.setAttribute("data-theme", theme);
+  }, [theme]);
 
   return (
     <label className="swap swap-rotate dark:bg-black/20">
