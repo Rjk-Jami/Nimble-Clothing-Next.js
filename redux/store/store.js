@@ -7,7 +7,7 @@ import storage from "redux-persist/lib/storage";
 import { persistStore, persistReducer } from "redux-persist";
 import  productReducer  from "../products/productSlice";
 
-
+import themeReducer  from "../theme/themeSlice"
 const persistConfigForAuth = {
   key: "auth", 
   storage,
@@ -26,12 +26,13 @@ const persistedAuthReducer = persistReducer(persistConfigForAuth, authReducer);
 
 export const store = configureStore({
   reducer: {
+    
     stateController: stateControllerReducer,
     [rootApi.reducerPath]: rootApi.reducer,
     auth: persistedAuthReducer, 
     filter: filterReducer,
     productsMaster:persistedProductsMasterReducer,
-   
+    theme: themeReducer,
  },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
