@@ -25,7 +25,7 @@ const ResetPassword = ({ token }) => {
       await resetPass({ resetPassword, token });
       resetForm()
       setTimeout(() => {
-        window.location.href = '/'// Redirect to home page
+        window.location.href = '/my-account'// Redirect to my account page
       }, 3000); 
     },
   });

@@ -10,6 +10,9 @@ import {
   userDecreaseQuantity,
   userIncreaseQuantity,
 } from "../../../redux/products/productSlice";
+import { FaBangladeshiTakaSign } from "react-icons/fa6";
+import Underline from "@/components/design/underline";
+import Shipping from "@/components/ForCart/Shipping";
 
 const page = () => {
   const subTotal = useSelector((state) => state.productsMaster.totalPrice);
@@ -51,7 +54,7 @@ const page = () => {
             </thead>
             <tbody>
               {productsCart?.map((product, index) => (
-                <tr key={index}>
+                <tr className="border-b" key={index}>
                   <td className="text-center">
                     <IoClose
                       className="text-2xl cursor-pointer hover:text-red-500"
@@ -106,8 +109,32 @@ const page = () => {
             </tbody>
           </table>
         </div>
+        <div className="text-sm flex gap-3 my-10">
+          <input
+            className="py-2.5 px-3    text-sm font-thin border border-black dark:border-white rounded-none"
+            type="text"
+            name="coupon"
+            id="coupon"
+          />
+          <button className="py-2.5 px-5  bg-black dark:bg-white text-white dark:text-black font-bold uppercase">
+            apply coupon
+          </button>
+        </div>
       </div>
-      <div className="">grid</div>
+      <div className="text-sm">
+        <div className="">
+          <h1 className="text-2xl font-bold uppercase">Cart totals</h1>
+          <div className="flex justify-between">
+            <h4>Subtotal</h4>
+            <p className="flex items-center">
+              {subTotal}
+              <FaBangladeshiTakaSign />
+            </p>
+          </div>
+          <Underline height="h-[1px]" width="w-full" css="mt-2 mb-2" />
+              <Shipping></Shipping>
+        </div>
+      </div>
     </div>
   );
 };

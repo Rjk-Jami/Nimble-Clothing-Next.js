@@ -10,10 +10,10 @@ const FreeShipping = ({subTotal}) => {
               and get free shipping!
             </p>
           ) : (
-            "Your order qualifies for free shipping!"
+            <p className='text-sm'>Your order qualifies for <span className='font-bold'>free</span> shipping!</p>
           )}
           <progress
-            className="progress w-full rounded-s-none"
+            className="progress progress-primary w-full rounded-s-none"
             value={subTotal}
             max="1200"
           ></progress>

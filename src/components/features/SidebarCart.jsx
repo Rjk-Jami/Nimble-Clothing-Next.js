@@ -8,6 +8,8 @@ import Image from "next/image";
 import { FaBangladeshiTakaSign } from "react-icons/fa6";
 import { userRemoveFromCart } from "../../../redux/products/productSlice";
 import Link from "next/link";
+import { BsCartX } from "react-icons/bs";
+import FreeShipping from "../ForCart/FreeShipping";
 
 const SidebarCart = () => {
   const productsCart = useSelector(
@@ -43,20 +45,23 @@ const SidebarCart = () => {
       <Underline height="h-[1px]" width="w-full" css="mt-2 mb-6" />
 
       {/* Cart Items */}
-      <div className="text-sm flex flex-col gap-4">
+      <div className="text-sm flex flex-col gap-3   w-full">
         {productsCart && productsCart.length > 0 ? (
           productsCart.map((product, index) => (
-            <div key={index} className="flex items-center gap-3   ">
+            <div key={index} className="grid grid-cols-3 w-full gap-3 ">
               <div className="flex items-center gap-1">
                 {/* Remove Button */}
+                <div className="">
                 <IoClose
-                  className="text-2xl transition cursor-pointer hover:text-red-500"
+                  className="text-xl transition cursor-pointer hover:text-red-500"
                   onClick={() =>handleRemoveProduct(product._id, product.size)}
                 />
+                </div>
 
                 {/* Product Image */}
                 <Image
-                  className=" border"
+                
+                  className="  border"
                   alt={product.name}
                   width={70}
                   height={70}
@@ -65,9 +70,9 @@ const SidebarCart = () => {
               </div>
 
               {/* Product Details */}
-              <div className="flex flex-col flex-grow gap-1">
-                <div className="font-medium ">
-                  {product.name} - <span className="font-bold">{product.size}</span>
+              <div className="col-span-2 flex flex-col justify-around gap-1">
+                <div className="font-medium text-balance ">
+                 <span className=" "> {product.name}</span> - <span className="font-bold">{product.size}</span>
                 </div>
                 <div className="text-sm flex items-center gap-1">
                   {product.quantity} x
@@ -80,7 +85,14 @@ const SidebarCart = () => {
             </div>
           ))
         ) : (
-          <div className="text-center  mt-6">Your cart is empty.</div>
+          <div className="flex flex-col items-center gap-5" >
+            <div className="flex flex-col items-center">
+            <BsCartX  className="text-slate-400 text-8xl"/>
+            <div className="text-center  my-3">No products in the cart.</div>
+            </div>
+            <Link onClick={()=>handleCloseSidebar('cart-drawer')} href={'/shop'} className="rounded-none uppercase btn btn-wide btn-primary">Return To Shop</Link>
+
+          </div>
         )}
       </div>
       {/* Divider */}
@@ -97,6 +109,7 @@ const SidebarCart = () => {
               {cartTotal}
             </span>
           </div>
+          <FreeShipping subTotal={cartTotal}></FreeShipping>
           <Link onClick={()=>handleCloseSidebar('cart-drawer')} href={'/viewCart'} className="w-full bg-black dark:bg-white dark:text-black text-white py-2  shadow dark:hover:bg-slate-200 hover:bg-zinc-900 transition text-center">
             View Cart
           </Link>
