@@ -9,6 +9,7 @@ import  productReducer  from "../products/productSlice";
 import  shippingAddressReducer  from "../shippingAddress/shippingAddressSlice";
 
 import themeReducer  from "../theme/themeSlice"
+import orderReducer  from "../api/order/orderSlice";
 const persistConfigForAuth = {
   key: "auth", 
   storage,
@@ -46,7 +47,8 @@ export const store = configureStore({
     filter: filterReducer,
     productsMaster:persistedProductsMasterReducer,
     theme:persistedTheme,
-    shippingAddress: persistedShippingAddress
+    shippingAddress: persistedShippingAddress,
+    order: orderReducer
  },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({

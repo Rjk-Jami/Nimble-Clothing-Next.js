@@ -12,7 +12,7 @@ const YourOrder = () => {
 
   console.log(productsCart, totalPrice);
   return (
-    <div className="bg-gray-100 dark:bg-zinc-800 p-4">
+    <div className="bg-gray-100 dark:bg-neutral-800 p-4">
       <h1 className="uppercase text-2xl font-bold text-center my-2">
         Your order
       </h1>
