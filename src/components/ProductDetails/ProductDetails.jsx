@@ -25,10 +25,12 @@ const ProductDetails = ({ product, isLoading }) => {
   const [isFav, setIsFav] = useState(false);
   const state = useSelector((state) => state.productsMaster);
   const dispatch = useDispatch();
-  const handleOpenSidebar = (drawerId) => {
+
+   const handleOpenSidebar = (drawerId) => {
     const drawerInput = document.getElementById(drawerId);
     if (drawerInput) drawerInput.checked = true;
   };
+  
   useEffect(() => {
     // Check if the product is already in the compare or wishlist when the component mounts
     const isProductInCompare = state.productCompare.includes(product?._id);

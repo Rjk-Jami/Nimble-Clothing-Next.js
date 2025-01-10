@@ -32,9 +32,9 @@ const UserLoginSegment = () => {
       const { email, password } = values;
       await login({ email, password });
       console.log(pathname);
-      if (pathname !== "/my-account") {
-        window.location.href = "/my-account";
-      }
+      // if (pathname !== "/my-account") {
+      //   window.location.href = "/my-account";
+      // }
     },
   });
 

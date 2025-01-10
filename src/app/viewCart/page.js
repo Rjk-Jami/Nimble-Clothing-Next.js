@@ -13,6 +13,7 @@ import {
 import { FaBangladeshiTakaSign } from "react-icons/fa6";
 import Underline from "@/components/design/underline";
 import Shipping from "@/components/ForCart/Shipping";
+import Link from "next/link";
 
 const page = () => {
   const {town,zipcode,district, shippingCost} = useSelector((state)=>state.shippingAddress)
@@ -146,9 +147,9 @@ const page = () => {
               <FaBangladeshiTakaSign />
             </p>
           </div>
-          <button className="mt-6 w-full bg-orange-500 text-white py-2  shadow hover:bg-orange-600 transition">
+          <Link href={'/checkout'}><button className="mt-6 w-full bg-orange-500 text-white py-2  shadow hover:bg-orange-600 transition">
             Proceed to Checkout
-          </button>
+          </button></Link>
         </div>
       </div>
     </div>
