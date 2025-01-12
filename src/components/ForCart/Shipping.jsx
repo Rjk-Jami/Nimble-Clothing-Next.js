@@ -1,3 +1,4 @@
+"use client"
 import React, { useState } from "react";
 import ShippingAddress from "./ShippingAddress";
 import { useSelector } from "react-redux";
@@ -6,8 +7,8 @@ import { FaBangladeshiTakaSign } from "react-icons/fa6";
 const Shipping = () => {
   const [open, setOpen] = useState(false);
 
-  console.log(open, "change Address");
-const {town,zipcode,district, shippingCost} = useSelector((state)=>state.shippingAddress)
+  // console.log(open, "change Address")
+const {town,zipcode,district, shippingCost} = useSelector((state)=>state?.shippingAddress)
   return (
     <div className="grid grid-cols-6 lg:gap-1 gap-8 items-center">
       <div className="col-span-2">
