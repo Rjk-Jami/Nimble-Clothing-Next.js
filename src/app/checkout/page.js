@@ -25,15 +25,19 @@ const BillingSchema = Yup.object().shape({
   phone: Yup.string()
     .matches(/^[0-9]+$/, "Phone number must contain only digits")
     .required("Phone number is required"),
-  district: Yup.object().required("District is required"),
+  
 });
 const page = () => {
   const theme = useSelector((state) => state.theme.theme);
+  const { productsCart, totalPrice } = useSelector(
+      (state) => state?.productsMaster
+    );
   const shippingAddress = useSelector((state) => state?.shippingAddress);
   const { town, zipcode, district, shippingCost } = shippingAddress;
   const dispatch = useDispatch();
-  console.log(town, zipcode, district, shippingCost, "shippingAddress");
+  // console.log(town, zipcode, district, shippingCost, "shippingAddress");
   const customStyles = UseGetClassForSelectForm({ theme });
+    const paymentMethod = useSelector((state) => state.order.paymentMethod); 
   
   // eslint-disable-next-line react-hooks/rules-of-hooks
   const formik = useFormik({
@@ -50,7 +54,8 @@ const page = () => {
     },
     validationSchema: BillingSchema,
     onSubmit: (values) => {
-      console.log("Form submitted:", values);
+      console.log("jami chekout")
+      console.log("Form submitted:", values, productsCart,paymentMethod);
     },
   });
   const {
@@ -64,7 +69,7 @@ const page = () => {
 
   const handleDistrictChange = (selectedOption) => {
     console.log(selectedOption,'selectedOption')
-    setFieldValue("district", selectedOption);
+    setFieldValue("district", selectedOption.value);
     if(selectedOption !== null){
       dispatch(
         setShippingAddress({
@@ -79,7 +84,7 @@ const page = () => {
     ? { value: values.district, label: values.district }
     : null;
 
-  console.log(values.district, "values.district");
+  // console.log(values.district, "values.district");
   return (
     <form onSubmit={handleSubmit}>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-5 mb-20">
@@ -98,7 +103,7 @@ const page = () => {
               type="text"
               onChange={handleChange}
               className={`w-full px-3 py-2 text-sm font-thin border rounded-none ${
-                errors.name ? "border-red-500" : "border-gray-300"
+                errors.name && touched.name ? "border-red-500" : "border-gray-300"
               } `}
               value={values.name}
             />
@@ -116,7 +121,7 @@ const page = () => {
               type="text"
               onChange={handleChange}
               className={`w-full px-3 py-2 text-sm font-thin border rounded-none ${
-                errors.streetAddress ? "border-red-500" : "border-gray-300"
+                errors.streetAddress && touched.streetAddress ? "border-red-500" : "border-gray-300"
               } `}
               value={values.streetAddress}
             />
@@ -153,7 +158,7 @@ const page = () => {
               type="text"
               onChange={handleChange}
               className={`w-full px-3 py-2 text-sm font-thin border rounded-none ${
-                errors.zip ? "border-red-500" : "border-gray-300"
+                errors.zip && touched.zip ? "border-red-500" : "border-gray-300"
               } `}
               value={values.zip}
             />
@@ -171,7 +176,7 @@ const page = () => {
               type="text"
               onChange={handleChange}
               className={`w-full px-3 py-2 text-sm font-thin border rounded-none ${
-                errors.phone ? "border-red-500" : "border-gray-300"
+                errors.phone && touched.phone ? "border-red-500" : "border-gray-300"
               } `}
               value={values.phone}
             />
@@ -189,29 +194,29 @@ const page = () => {
               type="email"
               onChange={handleChange}
               className={`w-full px-3 py-2 text-sm font-thin border rounded-none ${
-                errors.email ? "border-red-500" : "border-gray-300"
+                errors.email && touched.email ? "border-red-500" : "border-gray-300"
               } `}
+             
               value={values.email}
             />
           </div>
-          <div className="mb-4">
-            <label
-              className={"block text-sm  font-semibold mb-1"}
-              htmlFor="createAccount"
-            >
-              Create an account?
-            </label>
+          <div className="mb-4 flex items-center gap-2">
+            
             <input
               id="createAccount"
               name="createAccount"
               type="checkbox"
               onChange={handleChange}
               checked={formik.values.createAccount}
-              className={`w-full px-3 py-2 text-sm font-thin border rounded-none ${
-                errors.createAccount ? "border-red-500" : "border-gray-300"
-              } `}
+              className={`  text-sm  border rounded-none `}
               value={values.createAccount}
             />
+            <label
+              className={" text-sm  font-semibold "}
+              htmlFor="createAccount"
+            >
+              Create an account?
+            </label>
           </div>
           <div className="mb-4">
             <label
@@ -223,9 +228,7 @@ const page = () => {
             <textarea
               name="orderNotes"
               onChange={handleChange}
-              className={`w-full px-3 py-2 text-sm font-thin border rounded-none ${
-                errors.orderNotes ? "border-red-500" : "border-gray-300"
-              } `}
+              className={`w-full px-3 py-2 text-sm font-thin border rounded-none border-gray-300`}
               value={values.orderNotes}
             ></textarea>
           </div>
@@ -250,7 +253,7 @@ const page = () => {
 
           <button
             type="submit"
-            className="mt-6 w-full bg-orange-500 text-white py-2.5 font-bold uppercase  shadow hover:bg-orange-600 transition"
+            className="mt-6 w-full bg-orange-500 text-white py-2.5 font-bold uppercase  shadow hover:bg-orange-600 transition border-gray-300"
           >
             Place order
           </button>

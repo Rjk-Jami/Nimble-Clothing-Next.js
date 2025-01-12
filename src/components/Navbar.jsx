@@ -156,7 +156,7 @@ const Navbar = () => {
               <FaRegHeart></FaRegHeart>
             </Link>
             <div className="">
-              {pathname === "/viewCart" ? (
+              {pathname === "/viewCart" || pathname === "/checkout" ? (
                 <Link href={"/viewCart"}>
                   <div className="indicator">
                   <GrCart className="text-xl drawer-button cursor-pointer"></GrCart>
