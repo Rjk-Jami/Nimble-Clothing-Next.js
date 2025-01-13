@@ -1,9 +1,10 @@
-/* eslint-disable react-hooks/rules-of-hooks */
 "use client";
 import {
   districtsOptions,
   loadOptions,
 } from "@/components/Data/districtsOptions";
+import { useRouter } from 'next/navigation'
+
 import Underline from "@/components/design/underline";
 import BillingDetails from "@/components/ForCheckout/BillingDetails";
 import PaymentMethod from "@/components/ForCheckout/PaymentMethod";
@@ -11,11 +12,12 @@ import YourOrder from "@/components/ForCheckout/YourOrder";
 import UseGetClassForSelectForm from "@/hooks/UseGetClassForSelectForm";
 import { useFormik } from "formik";
 import Link from "next/link";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import AsyncSelect from "react-select/async";
 import * as Yup from "yup";
 import { setShippingAddress } from "../../../redux/shippingAddress/shippingAddressSlice";
+import { setPaymentData } from "../../../redux/payment/paymentSlice";
 
 const BillingSchema = Yup.object().shape({
   name: Yup.string().required("Name is required"),
@@ -25,27 +27,38 @@ const BillingSchema = Yup.object().shape({
   phone: Yup.string()
     .matches(/^[0-9]+$/, "Phone number must contain only digits")
     .required("Phone number is required"),
-  
 });
-const page = () => {
+
+const BillingPage = () => {
+  const router = useRouter();
   const theme = useSelector((state) => state.theme.theme);
   const { productsCart, totalPrice } = useSelector(
-      (state) => state?.productsMaster
-    );
+    (state) => state?.productsMaster
+  );
   const shippingAddress = useSelector((state) => state?.shippingAddress);
   const { town, zipcode, district, shippingCost } = shippingAddress;
   const dispatch = useDispatch();
-  // console.log(town, zipcode, district, shippingCost, "shippingAddress");
   const customStyles = UseGetClassForSelectForm({ theme });
-    const paymentMethod = useSelector((state) => state.order.paymentMethod); 
-  
-  // eslint-disable-next-line react-hooks/rules-of-hooks
+  const paymentMethod = useSelector((state) => state.order.paymentMethod);
+  const paymentResult = useSelector((state) => state.payment.paymentResult);
+
+  // Using URLSearchParams to extract query params
+  const [paymentStatus, setPaymentStatus] = useState(null);
+  const [paymentDetails, setPaymentDetails] = useState(null);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    const queryParams = new URLSearchParams(window.location.search);
+    setPaymentStatus(queryParams.get("paymentStatus"));
+    setPaymentDetails(queryParams.get("paymentDetails"));
+    setError(queryParams.get("error"));
+  }, []);
+
   const formik = useFormik({
     initialValues: {
       name: "",
       streetAddress: "",
       zip: "",
-
       phone: "",
       email: "",
       createAccount: false,
@@ -54,37 +67,57 @@ const page = () => {
     },
     validationSchema: BillingSchema,
     onSubmit: (values) => {
-      console.log("jami chekout")
-      console.log("Form submitted:", values, productsCart,paymentMethod);
+      if (paymentMethod === "card") {
+        // Dispatch payment data to Redux store
+        dispatch(setPaymentData({ values, productsCart }));
+  
+        // Open payment window for card payment
+        const paymentWindow = window.open("/payment", "_blank");
+        if (!paymentWindow) {
+          alert("Payment window was blocked by your browser. Please allow popups for this site.");
+          return;
+        }
+  
+        // Set interval to check if payment window is closed
+        const checkPaymentStatus = setInterval(() => {
+          if (paymentWindow.closed) {
+            clearInterval(checkPaymentStatus);
+  
+            // Check payment result
+            if (paymentResult?.success) {
+              console.log("Form submitted:", values, productsCart, paymentResult.details);
+            } else {
+              console.log("Payment failed or canceled.");
+            }
+          }
+        }, 1000);
+      } else {
+        console.log("Form submitted:", values, productsCart, paymentMethod);
+        
+      }
     },
   });
-  const {
-    values,
-    errors,
-    touched,
-    handleChange,
-    setFieldValue,
-    handleSubmit,
-  } = formik;
+
+  const { values, errors, touched, handleChange, setFieldValue, handleSubmit } =
+    formik;
 
   const handleDistrictChange = (selectedOption) => {
-    console.log(selectedOption,'selectedOption')
     setFieldValue("district", selectedOption.value);
-    if(selectedOption !== null){
+    if (selectedOption !== null) {
       dispatch(
         setShippingAddress({
           town: town,
           zipcode: zipcode,
           district: selectedOption?.value,
         })
-      ); // Dispatch to Redux store
+      );
     }
   };
+
   const districtDefault = values?.district
     ? { value: values.district, label: values.district }
     : null;
 
-  // console.log(values.district, "values.district");
   return (
     <form onSubmit={handleSubmit}>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-5 mb-20">
@@ -121,7 +154,9 @@ const page = () => {
               type="text"
               onChange={handleChange}
               className={`w-full px-3 py-2 text-sm font-thin border rounded-none ${
-                errors.streetAddress && touched.streetAddress ? "border-red-500" : "border-gray-300"
+                errors.streetAddress && touched.streetAddress
+                  ? "border-red-500"
+                  : "border-gray-300"
               } `}
               value={values.streetAddress}
             />
@@ -146,10 +181,7 @@ const page = () => {
             />
           </div>
           <div className="mb-4">
-            <label
-              className={"block text-sm  font-semibold mb-1"}
-              htmlFor="zip"
-            >
+            <label className={"block text-sm  font-semibold mb-1"} htmlFor="zip">
               Postcode / ZIP (optional)
             </label>
             <input
@@ -164,10 +196,7 @@ const page = () => {
             />
           </div>
           <div className="mb-4">
-            <label
-              className={"block text-sm  font-semibold mb-1"}
-              htmlFor="phone"
-            >
+            <label className={"block text-sm  font-semibold mb-1"} htmlFor="phone">
               Phone<span className="text-red-500">*</span>
             </label>
             <input
@@ -182,10 +211,7 @@ const page = () => {
             />
           </div>
           <div className="mb-4">
-            <label
-              className={"block text-sm  font-semibold mb-1"}
-              htmlFor="email"
-            >
+            <label className={"block text-sm  font-semibold mb-1"} htmlFor="email">
               Email Address
             </label>
             <input
@@ -196,12 +222,10 @@ const page = () => {
               className={`w-full px-3 py-2 text-sm font-thin border rounded-none ${
                 errors.email && touched.email ? "border-red-500" : "border-gray-300"
               } `}
-             
               value={values.email}
             />
           </div>
           <div className="mb-4 flex items-center gap-2">
-            
             <input
               id="createAccount"
               name="createAccount"
@@ -211,18 +235,12 @@ const page = () => {
               className={`  text-sm  border rounded-none `}
               value={values.createAccount}
             />
-            <label
-              className={" text-sm  font-semibold "}
-              htmlFor="createAccount"
-            >
+            <label className={" text-sm  font-semibold "} htmlFor="createAccount">
               Create an account?
             </label>
           </div>
           <div className="mb-4">
-            <label
-              className={"block text-sm  font-semibold mb-1"}
-              htmlFor="orderNotes"
-            >
+            <label className={"block text-sm  font-semibold mb-1"} htmlFor="orderNotes">
               Order notes (optional)
             </label>
             <textarea
@@ -234,13 +252,18 @@ const page = () => {
           </div>
         </div>
         <div className="">
-          <YourOrder></YourOrder>
+          <YourOrder />
 
-          <PaymentMethod></PaymentMethod>
+          <PaymentMethod />
 
+          <div>
+            <h1>Checkout Page</h1>
+            {paymentStatus === "success" && <p>Your payment was successful!</p>}
+            {paymentStatus === "failure" && <p>Payment failed. Please try again.</p>}
+          </div>
           <Underline height="h-[1px]" width="w-full" css="mt-2 mb-2" />
           <section className="text-sm mt-5">
-            <header className="mb-2 ">A warning message!!</header>
+            <header className="mb-2">A warning message!!</header>
             <p className="text-justify ">
               Dear customer, We will be liable to take legal action if the
               product is not picked up without proper reason after order
@@ -253,7 +276,7 @@ const page = () => {
 
           <button
             type="submit"
-            className="mt-6 w-full bg-orange-500 text-white py-2.5 font-bold uppercase  shadow hover:bg-orange-600 transition border-gray-300"
+            className="mt-6 w-full bg-orange-500 text-white py-2.5 font-bold uppercase shadow hover:bg-orange-600 transition border-gray-300"
           >
             Place order
           </button>
@@ -263,4 +286,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default BillingPage;

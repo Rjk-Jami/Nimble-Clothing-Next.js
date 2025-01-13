@@ -10,6 +10,7 @@ import  shippingAddressReducer  from "../shippingAddress/shippingAddressSlice";
 
 import themeReducer  from "../theme/themeSlice"
 import orderReducer  from "../api/order/orderSlice";
+import  paymentReducer from "../payment/paymentSlice";
 const persistConfigForAuth = {
   key: "auth", 
   storage,
@@ -31,12 +32,18 @@ const persistConfigForShippingAddress = {
   storage,
   whitelist: ["town", "zipcode", "district", 'shippingCost'],
 };
+const persistConfigForPayment = {
+  key: "payment",
+  storage,
+  whitelist: ["paymentData", "paymentResult"],
+};
 
 const persistedProductsMasterReducer = persistReducer(persistConfigForProductsMaster, productReducer);
 
 const persistedAuthReducer = persistReducer(persistConfigForAuth, authReducer);
 const persistedTheme = persistReducer(persistConfigForTheme, themeReducer);
 const persistedShippingAddress = persistReducer(persistConfigForShippingAddress, shippingAddressReducer);
+const persistedPayment = persistReducer(persistConfigForPayment, paymentReducer);
 
 export const store = configureStore({
   reducer: {
@@ -48,7 +55,8 @@ export const store = configureStore({
     productsMaster:persistedProductsMasterReducer,
     theme:persistedTheme,
     shippingAddress: persistedShippingAddress,
-    order: orderReducer
+    order: orderReducer,
+    payment:persistedPayment
  },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
