@@ -49,6 +49,7 @@ const Navbar = () => {
   const pathname = usePathname();
   // console.log(pathname);
   const user = useSelector((state) => state?.auth?.user);
+  const compareProductsLength = useSelector((state)=>state?.productsMaster.productCompare.length)
   const dispatch = useDispatch();
   const [logout, { isLoading, isError, error }] = useLogoutMutation();
 
@@ -147,7 +148,7 @@ const Navbar = () => {
                 <GrCompare></GrCompare>
 
                 <span className="bg-orange-600 text-white dark:text-black px-1 text-xs rounded-full indicator-item ">
-                  8
+                  {compareProductsLength}
                 </span>
               </div>
             </Link>
