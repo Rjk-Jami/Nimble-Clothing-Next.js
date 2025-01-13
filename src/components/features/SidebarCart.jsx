@@ -113,9 +113,9 @@ const SidebarCart = () => {
           <Link onClick={()=>handleCloseSidebar('cart-drawer')} href={'/viewCart'} className="w-full bg-black dark:bg-white dark:text-black text-white py-2  shadow dark:hover:bg-slate-200 hover:bg-zinc-900 transition text-center">
             View Cart
           </Link>
-          <button className="w-full bg-orange-500 text-white py-2  shadow hover:bg-orange-600 transition">
+          <Link href={'/checkout'} className="w-full bg-orange-500 text-white py-2  shadow hover:bg-orange-600 transition text-center">
             Proceed to Checkout
-          </button>
+          </Link >
         </div>
       )}
     </div>

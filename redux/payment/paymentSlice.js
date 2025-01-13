@@ -13,11 +13,14 @@ export const paymentSlice = createSlice({
         console.log("trigger")
       state.paymentData = action.payload;
     },
+    deletePaymentData:(state, action)=>{
+      state.paymentData = null
+    },
     setPaymentResult: (state, action) => {
       state.paymentResult = action.payload;
     },
   },
 });
 
-export const {setPaymentData,setPaymentResult } = paymentSlice.actions
+export const {setPaymentData,setPaymentResult, deletePaymentData } = paymentSlice.actions
 export default paymentSlice.reducer

@@ -3,7 +3,7 @@ import {
   districtsOptions,
   loadOptions,
 } from "@/components/Data/districtsOptions";
-import { useRouter } from 'next/navigation'
+import { useRouter } from "next/navigation";
 
 import Underline from "@/components/design/underline";
 import BillingDetails from "@/components/ForCheckout/BillingDetails";
@@ -17,7 +17,11 @@ import { useDispatch, useSelector } from "react-redux";
 import AsyncSelect from "react-select/async";
 import * as Yup from "yup";
 import { setShippingAddress } from "../../../redux/shippingAddress/shippingAddressSlice";
-import { setPaymentData } from "../../../redux/payment/paymentSlice";
+import {
+  deletePaymentData,
+  setPaymentData,
+  setPaymentResult,
+} from "../../../redux/payment/paymentSlice";
 
 const BillingSchema = Yup.object().shape({
   name: Yup.string().required("Name is required"),
@@ -35,24 +39,33 @@ const BillingPage = () => {
   const { productsCart, totalPrice } = useSelector(
     (state) => state?.productsMaster
   );
+
   const shippingAddress = useSelector((state) => state?.shippingAddress);
   const { town, zipcode, district, shippingCost } = shippingAddress;
   const dispatch = useDispatch();
   const customStyles = UseGetClassForSelectForm({ theme });
   const paymentMethod = useSelector((state) => state.order.paymentMethod);
   const paymentResult = useSelector((state) => state.payment.paymentResult);
+  const [productsForPayment, setProductsForPayment] = useState([]);
 
-  // Using URLSearchParams to extract query params
-  const [paymentStatus, setPaymentStatus] = useState(null);
-  const [paymentDetails, setPaymentDetails] = useState(null);
-  const [error, setError] = useState(null);
+  // console.log(productsForPayment,"productsForPayment")
 
   useEffect(() => {
-    const queryParams = new URLSearchParams(window.location.search);
-    setPaymentStatus(queryParams.get("paymentStatus"));
-    setPaymentDetails(queryParams.get("paymentDetails"));
-    setError(queryParams.get("error"));
-  }, []);
+    const mappedProducts =
+      productsCart?.map((product) => ({
+        product_id: product.product_id,
+        size: product.size,
+        quantity: product.quantity,
+      })) || [];
+
+    if (productsCart.length === 0) {
+      console.log("mappedProducts is empty:", mappedProducts);
+
+      router.push("/shop");
+    }
+
+    setProductsForPayment(mappedProducts);
+  }, [productsCart, router]);
 
   const formik = useFormik({
     initialValues: {
@@ -69,31 +82,34 @@ const BillingPage = () => {
     onSubmit: (values) => {
       if (paymentMethod === "card") {
         // Dispatch payment data to Redux store
-        dispatch(setPaymentData({ values, productsCart }));
-  
+        dispatch(
+          setPaymentData({
+            values,
+            productsForPayment,
+            totalPayment: shippingCost + totalPrice,
+          })
+        );
+
         // Open payment window for card payment
         const paymentWindow = window.open("/payment", "_blank");
         if (!paymentWindow) {
-          alert("Payment window was blocked by your browser. Please allow popups for this site.");
+          alert(
+            "Payment window was blocked by your browser. Please allow popups for this site."
+          );
           return;
         }
-  
+
         // Set interval to check if payment window is closed
         const checkPaymentStatus = setInterval(() => {
           if (paymentWindow.closed) {
             clearInterval(checkPaymentStatus);
-  
-            // Check payment result
-            if (paymentResult?.success) {
-              console.log("Form submitted:", values, productsCart, paymentResult.details);
-            } else {
-              console.log("Payment failed or canceled.");
-            }
+
+         
+            dispatch(deletePaymentData());
           }
         }, 1000);
       } else {
         console.log("Form submitted:", values, productsCart, paymentMethod);
-        
       }
     },
   });
@@ -136,7 +152,9 @@ const BillingPage = () => {
               type="text"
               onChange={handleChange}
               className={`w-full px-3 py-2 text-sm font-thin border rounded-none ${
-                errors.name && touched.name ? "border-red-500" : "border-gray-300"
+                errors.name && touched.name
+                  ? "border-red-500"
+                  : "border-gray-300"
               } `}
               value={values.name}
             />
@@ -181,7 +199,10 @@ const BillingPage = () => {
             />
           </div>
           <div className="mb-4">
-            <label className={"block text-sm  font-semibold mb-1"} htmlFor="zip">
+            <label
+              className={"block text-sm  font-semibold mb-1"}
+              htmlFor="zip"
+            >
               Postcode / ZIP (optional)
             </label>
             <input
@@ -196,7 +217,10 @@ const BillingPage = () => {
             />
           </div>
           <div className="mb-4">
-            <label className={"block text-sm  font-semibold mb-1"} htmlFor="phone">
+            <label
+              className={"block text-sm  font-semibold mb-1"}
+              htmlFor="phone"
+            >
               Phone<span className="text-red-500">*</span>
             </label>
             <input
@@ -205,13 +229,18 @@ const BillingPage = () => {
               type="text"
               onChange={handleChange}
               className={`w-full px-3 py-2 text-sm font-thin border rounded-none ${
-                errors.phone && touched.phone ? "border-red-500" : "border-gray-300"
+                errors.phone && touched.phone
+                  ? "border-red-500"
+                  : "border-gray-300"
               } `}
               value={values.phone}
             />
           </div>
           <div className="mb-4">
-            <label className={"block text-sm  font-semibold mb-1"} htmlFor="email">
+            <label
+              className={"block text-sm  font-semibold mb-1"}
+              htmlFor="email"
+            >
               Email Address
             </label>
             <input
@@ -220,7 +249,9 @@ const BillingPage = () => {
               type="email"
               onChange={handleChange}
               className={`w-full px-3 py-2 text-sm font-thin border rounded-none ${
-                errors.email && touched.email ? "border-red-500" : "border-gray-300"
+                errors.email && touched.email
+                  ? "border-red-500"
+                  : "border-gray-300"
               } `}
               value={values.email}
             />
@@ -235,12 +266,18 @@ const BillingPage = () => {
               className={`  text-sm  border rounded-none `}
               value={values.createAccount}
             />
-            <label className={" text-sm  font-semibold "} htmlFor="createAccount">
+            <label
+              className={" text-sm  font-semibold "}
+              htmlFor="createAccount"
+            >
               Create an account?
             </label>
           </div>
           <div className="mb-4">
-            <label className={"block text-sm  font-semibold mb-1"} htmlFor="orderNotes">
+            <label
+              className={"block text-sm  font-semibold mb-1"}
+              htmlFor="orderNotes"
+            >
               Order notes (optional)
             </label>
             <textarea
@@ -258,8 +295,6 @@ const BillingPage = () => {
 
           <div>
             <h1>Checkout Page</h1>
-            {paymentStatus === "success" && <p>Your payment was successful!</p>}
-            {paymentStatus === "failure" && <p>Payment failed. Please try again.</p>}
           </div>
           <Underline height="h-[1px]" width="w-full" css="mt-2 mb-2" />
           <section className="text-sm mt-5">

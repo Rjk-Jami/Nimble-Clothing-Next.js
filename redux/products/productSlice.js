@@ -94,6 +94,11 @@ export const productSlice = createSlice({
         return total + product.quantity * product.price;
       }, 0);
     },
+    // remove all products from cart 
+    removeProductsFromCart :(state, action)=>{
+      state.productsCart = []
+      state.totalPrice= 0
+    },
 
     // dispatch(userDecreaseQuantity({ product_id: 1, size: "M" }));
     userAddCompare: (state, action) => {
@@ -134,6 +139,7 @@ export const {
   userRemoveFromCart,
   userIncreaseQuantity,
   userDecreaseQuantity,
+  removeProductsFromCart,
   userAddCompare,
   userAddWishList,
   userDeleteCompare,

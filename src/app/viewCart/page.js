@@ -9,6 +9,7 @@ import {
   userAddToCart,
   userDecreaseQuantity,
   userIncreaseQuantity,
+  userRemoveFromCart,
 } from "../../../redux/products/productSlice";
 import { FaBangladeshiTakaSign } from "react-icons/fa6";
 import Underline from "@/components/design/underline";
