@@ -63,7 +63,7 @@ const Navbar = () => {
     try {
       await logout({ user });
     } catch (error) {
-      console.log(error, "nav");
+      // console.log(error, "nav");
     }
   };
   return (

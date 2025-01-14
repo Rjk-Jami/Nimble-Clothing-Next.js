@@ -18,7 +18,7 @@ const SidebarCart = () => {
   const dispatch = useDispatch()
   const cartTotal = useSelector((state) => state.productsMaster.totalPrice);
 
-  console.log(productsCart, "productsCart");
+  // console.log(productsCart, "productsCart");
 
   const handleHideAndClose = (drawerId2) => {
     handleCloseSidebar(drawerId2);
