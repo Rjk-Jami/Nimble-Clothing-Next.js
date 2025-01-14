@@ -19,9 +19,8 @@ import * as Yup from "yup";
 import { setShippingAddress } from "../../../redux/shippingAddress/shippingAddressSlice";
 import {
   clearPaymentData,
-  
   setPaymentData,
-  setPaymentResult,
+
 } from "../../../redux/payment/paymentSlice";
 import { usePurchaseMutation } from "../../../redux/payment/paymentApi";
 import { removeProductsFromCart } from "../../../redux/products/productSlice";
@@ -50,8 +49,11 @@ const BillingPage = () => {
   const paymentMethod = useSelector((state) => state.order.paymentMethod);
   const paymentResult = useSelector((state) => state.payment.paymentResult);
   const [productsForPayment, setProductsForPayment] = useState([]);
-const [purchase, { isLoading }] = usePurchaseMutation()
+  const [purchase, { isLoading }] = usePurchaseMutation();
   // console.log(productsForPayment,"productsForPayment")
+  
+
+;
 
   useEffect(() => {
     const mappedProducts =
@@ -93,8 +95,8 @@ const [purchase, { isLoading }] = usePurchaseMutation()
           })
         );
 
-        // Open payment window for card payment
         const paymentWindow = window.open("/payment", "_blank");
+
         if (!paymentWindow) {
           alert(
             "Payment window was blocked by your browser. Please allow popups for this site."
@@ -102,14 +104,31 @@ const [purchase, { isLoading }] = usePurchaseMutation()
           return;
         }
 
-        // Set interval to check if payment window is closed
+        // Function to check if the payment window is closed
         const checkPaymentStatus = setInterval(() => {
-          if (paymentWindow.closed) {
-            clearInterval(checkPaymentStatus);
-
-            dispatch(clearPaymentData());
+          try {
+            if (paymentWindow.closed) {
+              clearInterval(checkPaymentStatus); // Clear the interval
+        
+              dispatch(clearPaymentData());
+        
+        
+              // alert("Payment process failed.");
+            }
+          } catch (error) {
+            console.error("Error while checking payment window status:", error);
+            clearInterval(checkPaymentStatus); // Clear the interval in case of an error
           }
         }, 1000);
+
+        
+        setTimeout(() => {
+          clearInterval(checkPaymentStatus);
+          if (!paymentWindow.closed) {
+            paymentWindow.close();
+            alert("Payment window timed out. Please try again.");
+          }
+        },5 * 60 * 1000); // 5 minutes  
       } else {
         // console.log(
         //   "Form submitted:",
@@ -118,33 +137,32 @@ const [purchase, { isLoading }] = usePurchaseMutation()
         //   paymentMethod
         // );
         const paymentDetails = {
-          name:values?.name,
-          email:values?.email,
-          phone:values?.phone,
-          district:values?.district,
-          streetAddress:values?.streetAddress,
-          orderNotes:values?.orderNotes || '',
-          zip:values?.zip || "",
+          name: values?.name,
+          email: values?.email,
+          phone: values?.phone,
+          district: values?.district,
+          streetAddress: values?.streetAddress,
+          orderNotes: values?.orderNotes || "",
+          zip: values?.zip || "",
           product: productsForPayment?.map((product) => ({
             _id: product?.product_id,
             size: product?.size,
-            quantity: product?.quantity
+            quantity: product?.quantity,
           })),
-          paymentMethod: "cash"
-
-        }
+          paymentMethod: "cash",
+        };
         // console.log(paymentDetails, "paymentDetails")
         try {
-          const {data} = await purchase({ paymentDetails });
+          const { data } = await purchase({ paymentDetails });
           console.log("Payment Response:", data.message);
-          if(data?.success === true){
+          if (data?.success === true) {
             alert("Order placed!");
-            dispatch(removeProductsFromCart())
+            dispatch(removeProductsFromCart());
             dispatch(clearPaymentData());
           }
         } catch (error) {
           console.error("Error during payment request:", error);
-        } 
+        }
       }
     },
   });
@@ -168,6 +186,8 @@ const [purchase, { isLoading }] = usePurchaseMutation()
   const districtDefault = values?.district
     ? { value: values.district, label: values.district }
     : null;
+
+
 
   return (
     <form onSubmit={handleSubmit}>
@@ -223,7 +243,6 @@ const [purchase, { isLoading }] = usePurchaseMutation()
             </label>
             <AsyncSelect
               defaultValue={districtDefault}
-              isClearable
               isSearchable
               onChange={handleDistrictChange}
               styles={customStyles}
@@ -328,9 +347,6 @@ const [purchase, { isLoading }] = usePurchaseMutation()
 
           <PaymentMethod />
 
-          <div>
-            <h1>Checkout Page</h1>
-          </div>
           <Underline height="h-[1px]" width="w-full" css="mt-2 mb-2" />
           <section className="text-sm mt-5">
             <header className="mb-2">A warning message!!</header>

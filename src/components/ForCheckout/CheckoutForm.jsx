@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react";
-import { setPaymentResult } from "../../../redux/payment/paymentSlice";
 import { useDispatch } from "react-redux";
 import { removeProductsFromCart } from "../../../redux/products/productSlice";
 import { useRouter } from "next/navigation";
+import { usePurchaseMutation } from "../../../redux/payment/paymentApi";
+import { clearPaymentData } from "../../../redux/payment/paymentSlice";
 
 const {
   CardElement,
@@ -11,12 +12,13 @@ const {
 } = require("@stripe/react-stripe-js");
 
 const CheckoutForm = ({ clientSecret, values, productsForPayment }) => {
-  const router = useRouter()
+  const router = useRouter();
   const dispatch = useDispatch();
   const stripe = useStripe();
   const elements = useElements();
   const [isProcessing, setIsProcessing] = useState(false);
   const [errorMessage, setErrorMessage] = useState(null);
+  const [purchase, { isLoading }] = usePurchaseMutation();
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -51,12 +53,48 @@ const CheckoutForm = ({ clientSecret, values, productsForPayment }) => {
           amount: paymentIntent.amount,
           _id: paymentIntent.id,
         };
-        dispatch(setPaymentResult({ success: true, paymentData }));
-        alert("Payment successful!");
 
-        dispatch(removeProductsFromCart())
+        const paymentDetails = {
+          name: values?.name,
+          email: values?.email,
+          phone: values?.phone,
+          district: values?.district,
+          streetAddress: values?.streetAddress,
+          orderNotes: values?.orderNotes || "",
+          zip: values?.zip || "",
+          product: productsForPayment?.map((product) => ({
+            _id: product?.product_id,
+            size: product?.size,
+            quantity: product?.quantity,
+          })),
+          paymentMethod: "card",
+          paymentData:paymentData
+        };
+        try {
+          const { data } = await purchase({ paymentDetails });
+          console.log("Payment Response:", data.message);
+          if (data?.success === true) {
+            alert("Order placed!");
+            dispatch(removeProductsFromCart());
+            dispatch(clearPaymentData());
+            if (window.opener) {
+         
+              window.opener.location.href = "/shop";
+              window.close(); 
+            } else {
+              
+              router.push("/shop"); 
+            }
 
-        router.push("/shop");
+          }
+        } catch (error) {
+          console.error("Error during payment request:", error);
+        }
+
+        
+
+
+       
       } else {
         const status = paymentIntent?.status || "unknown";
         setErrorMessage(`Payment failed with status: ${status}`);

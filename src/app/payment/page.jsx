@@ -6,7 +6,6 @@ import { useEffect, useState, useRef } from "react";
 import { loadStripe } from "@stripe/stripe-js";
 import { Elements } from "@stripe/react-stripe-js";
 import CheckoutForm from "@/components/ForCheckout/CheckoutForm";
-import { setPaymentResult } from "../../../redux/payment/paymentSlice";
 import { usePaymentRequestMutation } from "../../../redux/payment/paymentApi";
 
 
