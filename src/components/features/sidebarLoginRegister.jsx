@@ -6,14 +6,18 @@ import Link from "next/link";
 import UserLoginSegment from "../authenticationSegments/UserLoginSegment";
 import { useState } from "react";
 import { usePathname } from "next/navigation";
+import { useSelector } from "react-redux";
+import ErrorAlert from "../Alert/ErrorAlert";
  
 export const handleCloseSidebar = (drawerId) => {
-   
+
   const drawerInput = document.getElementById(drawerId);
   if (drawerInput) drawerInput.checked = false;
 };
 
 const SidebarLoginRegister = () => {
+    const errorMassage = useSelector((state) => state.auth.errorMassage);  
+
   // for close sidebar
 const [isHide, setIsHide] = useState(true);
 const pathname = usePathname();
@@ -27,6 +31,7 @@ else{
 }
 }
 
+
   return (
     <div className={`text-base font-semibold  ${isHide ? "block" : "opacity-0"}`}>
       <div className="flex justify-between">
@@ -36,6 +41,9 @@ else{
         </label>
       </div>
       <Underline height="h-[1px]" width="w-full" css="mt-2 mb-6" />
+      <div className="">
+        {errorMassage && <ErrorAlert>{errorMassage}</ErrorAlert>}
+      </div>
       <UserLoginSegment></UserLoginSegment>
       <Underline height="h-[1px]" width="w-full" css="mt-6 mb-6" />
 

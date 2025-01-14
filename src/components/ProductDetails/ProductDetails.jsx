@@ -150,9 +150,9 @@ const ProductDetails = ({ product, isLoading }) => {
           <div className="flex gap-2">
             {product.sizes.map((size, i) => (
               <span
-                onClick={() => handleSize(size)}
+                onClick={() => handleSize(size.name)}
                 className={`text-sm cursor-pointer hover:bg-black dark:hover:bg-white hover:text-white dark:hover:text-black border border-1 rounded-full px-2 ${
-                  size === userSize
+                  size.name === userSize
                     ? "bg-black text-white dark:bg-white dark:text-black"
                     : ""
                 } ${
@@ -162,7 +162,7 @@ const ProductDetails = ({ product, isLoading }) => {
                 }`}
                 key={i}
               >
-                {size}
+                {size.name}
               </span>
             ))}
           </div>

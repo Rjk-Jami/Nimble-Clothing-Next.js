@@ -20,7 +20,7 @@ const FilterSelection = () => {
   const dispatch = useDispatch();
 
   const handleClearFilters = () => {
-   dispatch(setIsFilter({isFilter : false})); 
+    dispatch(setIsFilter({ isFilter: false }));
     dispatch(clearAllFilters());
   };
   const [isAnyFilterActive, setIsAnyFilterActive] = useState(false);
@@ -43,8 +43,8 @@ const FilterSelection = () => {
     <div className="flex gap-3 flex-wrap items-center">
       {/* Filter by color */}
       <div className="">
-        {
-          isAnyFilterActive && (<span
+        {isAnyFilterActive && (
+          <span
             className="hover:text-slate-600 cursor-pointer"
             onClick={handleClearFilters}
           >
@@ -52,12 +52,14 @@ const FilterSelection = () => {
             <span className="hover:text-slate-400  font-semibold">
               Clear Filters
             </span>
-          </span>)
-        }
+          </span>
+        )}
       </div>
-      { isAnyFilterActive && <div className="">
-        <span>|</span>
-      </div>}
+      {isAnyFilterActive && (
+        <div className="">
+          <span>|</span>
+        </div>
+      )}
       <div>
         <ul className="flex gap-3 flex-wrap">
           {Object.entries(colorControl).map(([color, isActive], i) =>
@@ -83,9 +85,7 @@ const FilterSelection = () => {
         <ul>
           <li
             onClick={() =>
-              dispatch(
-                setFilterByPriceByFilteredValue({filter: 0 })
-              )
+              dispatch(setFilterByPriceByFilteredValue({ filter: 0 }))
             }
           >
             {range?.filter !== undefined && range?.filter !== 0 ? (

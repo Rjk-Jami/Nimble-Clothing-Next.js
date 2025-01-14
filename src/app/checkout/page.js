@@ -122,13 +122,7 @@ const BillingPage = () => {
         }, 1000);
 
         
-        setTimeout(() => {
-          clearInterval(checkPaymentStatus);
-          if (!paymentWindow.closed) {
-            paymentWindow.close();
-            alert("Payment window timed out. Please try again.");
-          }
-        },5 * 60 * 1000); // 5 minutes  
+        
       } else {
         // console.log(
         //   "Form submitted:",

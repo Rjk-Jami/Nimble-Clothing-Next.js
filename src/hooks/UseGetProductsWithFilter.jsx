@@ -73,9 +73,9 @@ const UseGetProductsWithFilter = () => {
     const activeColors = Object.keys(filters.colorTag.filterColorControl)
       .filter((color) => filters.colorTag.filterColorControl[color] === true)
       .map((color) => color.toLowerCase().replace(/\s+/g, ""));
-    console.log(activeColors, "activeColors");
+    // console.log(activeColors, "activeColors");
 
-    // console.log(activeSizes, "activeSizes");
+    
 
     // Filter by price range
     if (filters?.range?.filter) {
@@ -98,11 +98,11 @@ const UseGetProductsWithFilter = () => {
     const activeSizes = Object.keys(filters.sizeTag.filterSizeControl).filter(
       (size) => filters.sizeTag.filterSizeControl[size] === true
     );
-
+console.log(activeSizes, "activeSizes");
     // Filter by active sizes
     if (activeSizes.length > 0) {
       filtered = filtered.filter((product) =>
-        product.sizes.some((size) => activeSizes.includes(size))
+        product.sizes.some((size) => activeSizes.includes(size.name))
       );
     }
     // select active sort

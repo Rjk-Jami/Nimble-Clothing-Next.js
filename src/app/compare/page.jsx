@@ -46,12 +46,17 @@ const Page = () => {
                 name: product.name,
                 price: product.current_price || "N/A",
                 description: product.description || "No description available.",
-                sizes: product.sizes?.join(", ") || "N/A",
-                availability: product.quantity > 0 ? (
-                  <span className="text-green-500">In Stock</span>
-                ) : (
-                  <span className="text-red-500">Out of Stock</span>
-                ),
+                sizes: product.sizes.map((size)=>(size.name)).join(", ") || "N/A",
+                availability: product.sizes.map(size => (
+                  <div key={size.name}>
+                    <span>{size.name}: </span>
+                    {size.quantity > 0 ? (
+                      <span className="text-green-500">In Stock</span>
+                    ) : (
+                      <span className="text-red-500">Out of Stock</span>
+                    )}
+                  </div>
+                )),
                 actions: (
                   <Link
                     href={`/product/${product._id}`}

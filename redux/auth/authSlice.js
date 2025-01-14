@@ -3,6 +3,7 @@ import { createSlice } from "@reduxjs/toolkit"
 const initialState = {
     user: "",
     token: "",
+    errorMassage: ''
 }
 
 export const authSlice = createSlice({
@@ -20,10 +21,19 @@ export const authSlice = createSlice({
         userLogOut : (state,action)=>{
             state.token = ""
             state.user = ""
-        }
+        },
+        setErrorMassage :(state, action)=>{
+            state.errorMassage = action.payload.errorMassage
+            
+        },
+        removeErrorMassage :(state, action)=>{
+            state.errorMassage = ''
+            
+        },
+
     }
 })
 
-export const {userRegistration, userLogin, userLogOut} = authSlice.actions
+export const {userRegistration, userLogin, userLogOut,setErrorMassage,removeErrorMassage} = authSlice.actions
 
 export default authSlice.reducer

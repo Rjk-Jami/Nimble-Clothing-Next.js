@@ -6,8 +6,10 @@ import Link from "next/link";
 import { useDispatch, useSelector } from "react-redux";
 import { setIsHidePassword } from "../../../redux/utils/stateControllerSlice";
 import { useLoginMutation } from "../../../redux/auth/authApi";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import Loading from "@/app/loading";
+import { removeErrorMassage, setErrorMassage } from "../../../redux/auth/authSlice";
+import UseCloseSidebar from "@/hooks/UseCloseSidebar";
 
 const schema = Yup.object({
   email: Yup.string().email().required(),
@@ -15,10 +17,12 @@ const schema = Yup.object({
 });
 
 const UserLoginSegment = () => {
+  const router = useRouter()
   const [login, { isLoading, isError, error, isSuccess }] = useLoginMutation();
   const isHide = useSelector((state) => state.stateController.isHidePassword);
   const dispatch = useDispatch();
   const pathname = usePathname();
+  const closeSidebar = UseCloseSidebar();
   console.log(isSuccess, "isSuccess");
   const formik = useFormik({
     initialValues: {
@@ -30,11 +34,29 @@ const UserLoginSegment = () => {
     onSubmit: async (values) => {
       // console.log(values);
       const { email, password } = values;
-      await login({ email, password });
-      console.log(pathname);
-      // if (pathname !== "/my-account") {
-      //   window.location.href = "/my-account";
-      // }
+      try {
+        const loginUser = await login({ email, password });
+        
+        if(loginUser?.error){
+          console.log(loginUser?.error.data.message, "loginUser");
+         const  errorMassage =  loginUser?.error.data.message
+          dispatch(setErrorMassage({errorMassage}))
+          setTimeout(() => {
+            dispatch(removeErrorMassage())
+          }, 5000);
+        
+          if (!pathname === "/my-account") {
+            router.push('/my-account')
+          }
+          closeSidebar("my-drawer-4")
+        }
+        else{
+          dispatch(removeErrorMassage())
+        }
+      } catch (error) {
+       
+      }
+    
     },
   });
 

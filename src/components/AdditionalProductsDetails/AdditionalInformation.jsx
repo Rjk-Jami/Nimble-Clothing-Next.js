@@ -11,7 +11,7 @@ const AdditionalInformation = ({product}) => {
                     <div className="flex gap-2">
                     {product?.sizes.map((size, i) => (
                       <div key={i}>
-                        {size}
+                        {size.name}
                         {i < product.sizes.length - 1 ? ", " : ""}
                       </div>
                     ))}

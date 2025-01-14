@@ -25,8 +25,12 @@ import { useLogoutMutation } from "../../redux/auth/authApi";
 import SidebarCart from "./features/SidebarCart";
 
 const Navbar = () => {
-
-  const cartQuantity = useSelector((state)=>state.productsMaster?.productsCart?.reduce((total, product) => total + product.quantity, 0))
+  const cartQuantity = useSelector((state) =>
+    state.productsMaster?.productsCart?.reduce(
+      (total, product) => total + product.quantity,
+      0
+    )
+  );
   const logoSection = (
     <>
       <div className="h-14 dark:hidden">
@@ -49,7 +53,9 @@ const Navbar = () => {
   const pathname = usePathname();
   // console.log(pathname);
   const user = useSelector((state) => state?.auth?.user);
-  const compareProductsLength = useSelector((state)=>state?.productsMaster.productCompare.length)
+  const compareProductsLength = useSelector(
+    (state) => state?.productsMaster.productCompare.length
+  );
   const dispatch = useDispatch();
   const [logout, { isLoading, isError, error }] = useLogoutMutation();
 
@@ -93,23 +99,29 @@ const Navbar = () => {
           {/* right side  */}
           <div className="hidden lg:flex">
             {user?.email ? (
-              <div className="">
-                <div className="dropdown dropdown-hover">
-                  <div tabIndex={0} role="button" className="font-bold p-4">
-                    <Link href="/my-account">My Account</Link>
-                  </div>
-                  <ul
-                    tabIndex={0}
-                    className="dropdown-content  bg-base-100  z-[1] w-52 p-4 "
-                  >
-                    <li className="cursor-pointer font-semibold hover text-stone-700 hover:text-black dark:hover:text-white dark:text-slate-200">
-                      <div onClick={handleLogout} className="">
-                        Logout
-                      </div>
-                    </li>
-                  </ul>
+              <div className="dropdown dropdown-hover">
+                <div tabIndex={0} role="button" className="font-bold p-4">
+                  <Link href="/my-account">My Account</Link>
                 </div>
+                <ul
+                  tabIndex={0}
+                  className="dropdown-content bg-base-100 z-[1] w-52 p-4"
+                >
+                  <li className="cursor-pointer font-semibold hover:text-stone-700  dark:hover:text-white dark:text-slate-200">
+                    <div onClick={handleLogout} className="">
+                      Logout
+                    </div>
+                  </li>
+                </ul>
               </div>
+            ) : user?.email ? (
+              <Link href={"/my-account"} className="font-bold px-2">
+                My Account
+              </Link>
+            ) : pathname === "/my-account" ? (
+              <Link href={"/my-account"} className="font-bold px-2">
+                Login / Register
+              </Link>
             ) : (
               <Drawer
                 labelType="nav"
@@ -117,8 +129,8 @@ const Navbar = () => {
                 position="right"
                 drawerId="my-drawer-4"
               >
-                <div className=" flex flex-col gap-2 justify-center p-4">
-                  <SidebarLoginRegister></SidebarLoginRegister>
+                <div className="flex flex-col gap-2 justify-center p-4">
+                  <SidebarLoginRegister />
                 </div>
               </Drawer>
             )}
@@ -160,8 +172,10 @@ const Navbar = () => {
               {pathname === "/viewCart" || pathname === "/checkout" ? (
                 <Link href={"/viewCart"}>
                   <div className="indicator">
-                  <GrCart className="text-xl drawer-button cursor-pointer"></GrCart>
-                  <span  className="bg-orange-600  text-white dark:text-black px-1 text-xs rounded-full indicator-item ">{cartQuantity}</span>
+                    <GrCart className="text-xl drawer-button cursor-pointer"></GrCart>
+                    <span className="bg-orange-600  text-white dark:text-black px-1 text-xs rounded-full indicator-item ">
+                      {cartQuantity}
+                    </span>
                   </div>
                 </Link>
               ) : (

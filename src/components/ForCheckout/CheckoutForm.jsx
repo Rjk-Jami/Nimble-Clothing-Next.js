@@ -111,12 +111,23 @@ const CheckoutForm = ({ clientSecret, values, productsForPayment }) => {
 
   return (
     <form onSubmit={handleSubmit}>
-      <div>
-        <label htmlFor="card-element">Card Details</label>
-        <CardElement id="card-element" options={{ hidePostalCode: true }} />
+      <div className="">
+        <label htmlFor="card-element" className=" font-bold">Pay with Stripe</label>
+        <CardElement className=" px-2 py-2 border-2 rounded-lg " id="card-element" options={{ hidePostalCode: true, style: {
+                        base: {
+                            fontSize: '16px',
+                            color: '#424770',
+                            '::placeholder': {
+                                color: '#aab7c4',
+                            },
+                        },
+                        invalid: {
+                            color: '#9e2146',
+                        },
+                    }, }} />
       </div>
       {errorMessage && <div className="error-message">{errorMessage}</div>}
-      <button type="submit" disabled={isProcessing}>
+      <button className="btn mt-4 btn-secondary  mx-auto w-full rounded-lg" type="submit" disabled={isProcessing}>
         {isProcessing ? "Processing..." : "Pay"}
       </button>
     </form>
