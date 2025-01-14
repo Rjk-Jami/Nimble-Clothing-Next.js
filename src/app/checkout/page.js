@@ -18,10 +18,13 @@ import AsyncSelect from "react-select/async";
 import * as Yup from "yup";
 import { setShippingAddress } from "../../../redux/shippingAddress/shippingAddressSlice";
 import {
-  deletePaymentData,
+  clearPaymentData,
+  
   setPaymentData,
   setPaymentResult,
 } from "../../../redux/payment/paymentSlice";
+import { usePurchaseMutation } from "../../../redux/payment/paymentApi";
+import { removeProductsFromCart } from "../../../redux/products/productSlice";
 
 const BillingSchema = Yup.object().shape({
   name: Yup.string().required("Name is required"),
@@ -47,7 +50,7 @@ const BillingPage = () => {
   const paymentMethod = useSelector((state) => state.order.paymentMethod);
   const paymentResult = useSelector((state) => state.payment.paymentResult);
   const [productsForPayment, setProductsForPayment] = useState([]);
-
+const [purchase, { isLoading }] = usePurchaseMutation()
   // console.log(productsForPayment,"productsForPayment")
 
   useEffect(() => {
@@ -79,7 +82,7 @@ const BillingPage = () => {
       district: district || null,
     },
     validationSchema: BillingSchema,
-    onSubmit: (values) => {
+    onSubmit: async (values) => {
       if (paymentMethod === "card") {
         // Dispatch payment data to Redux store
         dispatch(
@@ -104,12 +107,44 @@ const BillingPage = () => {
           if (paymentWindow.closed) {
             clearInterval(checkPaymentStatus);
 
-         
-            dispatch(deletePaymentData());
+            dispatch(clearPaymentData());
           }
         }, 1000);
       } else {
-        console.log("Form submitted:", values, productsCart, paymentMethod);
+        // console.log(
+        //   "Form submitted:",
+        //   values,
+        //   productsForPayment,
+        //   paymentMethod
+        // );
+        const paymentDetails = {
+          name:values?.name,
+          email:values?.email,
+          phone:values?.phone,
+          district:values?.district,
+          streetAddress:values?.streetAddress,
+          orderNotes:values?.orderNotes || '',
+          zip:values?.zip || "",
+          product: productsForPayment?.map((product) => ({
+            _id: product?.product_id,
+            size: product?.size,
+            quantity: product?.quantity
+          })),
+          paymentMethod: "cash"
+
+        }
+        // console.log(paymentDetails, "paymentDetails")
+        try {
+          const {data} = await purchase({ paymentDetails });
+          console.log("Payment Response:", data.message);
+          if(data?.success === true){
+            alert("Order placed!");
+            dispatch(removeProductsFromCart())
+            dispatch(clearPaymentData());
+          }
+        } catch (error) {
+          console.error("Error during payment request:", error);
+        } 
       }
     },
   });

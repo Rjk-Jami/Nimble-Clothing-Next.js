@@ -9,8 +9,16 @@ export const paymentApi = rootApi.injectEndpoints({
                 body:{totalPayment}
 
             }),
+        }),
+        purchase : builder.mutation({
+            query : ({paymentDetails}) => ({
+                url: "/payments/purchase",
+                method: "POST",
+                body:{paymentDetails}
+
+            }),
         })
     })
 })
 
-export const {usePaymentRequestMutation} = paymentApi
+export const {usePaymentRequestMutation, usePurchaseMutation} = paymentApi

@@ -44,7 +44,6 @@ const CheckoutForm = ({ clientSecret, values, productsForPayment }) => {
 
       if (error) {
         setErrorMessage(error.message);
-        dispatch(setPaymentResult({ success: false, error }));
         alert("Payment failed. Please try again.");
       } else if (paymentIntent?.status === "succeeded") {
         console.log("Payment succeeded:", paymentIntent);
