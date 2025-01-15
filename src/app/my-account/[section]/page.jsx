@@ -1,4 +1,9 @@
 "use client";
+import NotFound from "@/app/not-found";
+import DashboardAccountDetails from "@/components/Dashboard/DashboardNavCompoments/DashboardAccountDetails/DashboardAccountDetails";
+import DashboardAddresses from "@/components/Dashboard/DashboardNavCompoments/DashboardAddresses/DashboardAddresses";
+import DashboardOrder from "@/components/Dashboard/DashboardNavCompoments/DashboardOrder/DashboardOrder";
+import DashboardWishlist from "@/components/Dashboard/DashboardNavCompoments/DashboardWishlist/DashboardWishlist";
 import { usePathname } from "next/navigation";
 import React from "react";
 
@@ -8,22 +13,22 @@ const DashboardSection = () => {
 
   const renderDashboard = () => {
     switch (pathname) {
-      case "/my-account":
-        return ;
       case "/my-account/order":
-        return ;
+        return <DashboardOrder></DashboardOrder>;
       case "/my-account/address":
-        return ;
+        return <DashboardAddresses></DashboardAddresses>;
       case "/my-account/account-details":
-        return ;
+        return <DashboardAccountDetails></DashboardAccountDetails> ;
       case "/my-account/wishlist":
-        return ;
+        return <DashboardWishlist></DashboardWishlist>;
       default:
-        null;
+       return <NotFound></NotFound>
     }
   };
 
-  return <div></div>;
+  return <>
+    {renderDashboard()}
+  </>;
 };
 
 export default DashboardSection;

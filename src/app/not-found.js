@@ -5,7 +5,7 @@ const NotFound = () => {
   const pathname = usePathname();
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100">
+    <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100 dark:bg-zinc-900">
       <h1 className="text-4xl font-bold text-red-600 mb-4">404 - Page Not Found</h1>
       <p className="text-lg text-gray-600">
         The path <span className="font-mono text-blue-500">{pathname}</span> does not exist.

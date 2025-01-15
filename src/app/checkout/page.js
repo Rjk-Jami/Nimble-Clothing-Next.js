@@ -20,7 +20,6 @@ import { setShippingAddress } from "../../../redux/shippingAddress/shippingAddre
 import {
   clearPaymentData,
   setPaymentData,
-
 } from "../../../redux/payment/paymentSlice";
 import { usePurchaseMutation } from "../../../redux/payment/paymentApi";
 import { removeProductsFromCart } from "../../../redux/products/productSlice";
@@ -44,6 +43,7 @@ const BillingPage = () => {
 
   const shippingAddress = useSelector((state) => state?.shippingAddress);
   const { town, zipcode, district, shippingCost } = shippingAddress;
+
   const dispatch = useDispatch();
   const customStyles = UseGetClassForSelectForm({ theme });
   const paymentMethod = useSelector((state) => state.order.paymentMethod);
@@ -51,9 +51,6 @@ const BillingPage = () => {
   const [productsForPayment, setProductsForPayment] = useState([]);
   const [purchase, { isLoading }] = usePurchaseMutation();
   // console.log(productsForPayment,"productsForPayment")
-  
-
-;
 
   useEffect(() => {
     const mappedProducts =
@@ -82,6 +79,8 @@ const BillingPage = () => {
       createAccount: false,
       orderNotes: "",
       district: district || null,
+      totalPrice: totalPrice,
+      shippingCost: shippingCost,
     },
     validationSchema: BillingSchema,
     onSubmit: async (values) => {
@@ -109,10 +108,9 @@ const BillingPage = () => {
           try {
             if (paymentWindow.closed) {
               clearInterval(checkPaymentStatus); // Clear the interval
-        
+
               dispatch(clearPaymentData());
-        
-        
+
               // alert("Payment process failed.");
             }
           } catch (error) {
@@ -120,9 +118,6 @@ const BillingPage = () => {
             clearInterval(checkPaymentStatus); // Clear the interval in case of an error
           }
         }, 1000);
-
-        
-        
       } else {
         // console.log(
         //   "Form submitted:",
@@ -144,8 +139,11 @@ const BillingPage = () => {
             quantity: product?.quantity,
           })),
           paymentMethod: "cash",
+          totalPrice: values?.totalPrice,
+          shippingCost: values?.shippingCost,
+          isPayed:false
         };
-        // console.log(paymentDetails, "paymentDetails")
+        console.log(paymentDetails, "paymentDetails")
         try {
           const { data } = await purchase({ paymentDetails });
           console.log("Payment Response:", data.message);
@@ -180,8 +178,6 @@ const BillingPage = () => {
   const districtDefault = values?.district
     ? { value: values.district, label: values.district }
     : null;
-
-
 
   return (
     <form onSubmit={handleSubmit}>
@@ -236,7 +232,7 @@ const BillingPage = () => {
               District<span className="text-red-500">*</span>
             </label>
             <AsyncSelect
-              defaultValue={districtDefault}
+              
               isSearchable
               onChange={handleDistrictChange}
               styles={customStyles}

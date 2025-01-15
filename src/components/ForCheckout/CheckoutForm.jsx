@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { removeProductsFromCart } from "../../../redux/products/productSlice";
 import { useRouter } from "next/navigation";
 import { usePurchaseMutation } from "../../../redux/payment/paymentApi";
@@ -19,7 +19,9 @@ const CheckoutForm = ({ clientSecret, values, productsForPayment }) => {
   const [isProcessing, setIsProcessing] = useState(false);
   const [errorMessage, setErrorMessage] = useState(null);
   const [purchase, { isLoading }] = usePurchaseMutation();
-
+  const { productsCart, totalPrice } = useSelector((state) => state?.productsMaster);
+  const shippingAddress = useSelector((state) => state?.shippingAddress);
+  const { town, zipcode, district, shippingCost } = shippingAddress;
   const handleSubmit = async (event) => {
     event.preventDefault();
     setIsProcessing(true);
@@ -68,33 +70,28 @@ const CheckoutForm = ({ clientSecret, values, productsForPayment }) => {
             quantity: product?.quantity,
           })),
           paymentMethod: "card",
-          paymentData:paymentData
+          paymentData: paymentData,
+          totalPrice: totalPrice,
+          shippingCost: shippingCost,
+          isPayed: true,
         };
         try {
           const { data } = await purchase({ paymentDetails });
           console.log("Payment Response:", data.message);
           if (data?.success === true) {
             alert("Order placed!");
-            dispatch(removeProductsFromCart());
+            // dispatch(removeProductsFromCart());
             dispatch(clearPaymentData());
             if (window.opener) {
-         
               window.opener.location.href = "/shop";
-              window.close(); 
+              window.close();
             } else {
-              
-              router.push("/shop"); 
+              router.push("/shop");
             }
-
           }
         } catch (error) {
           console.error("Error during payment request:", error);
         }
-
-        
-
-
-       
       } else {
         const status = paymentIntent?.status || "unknown";
         setErrorMessage(`Payment failed with status: ${status}`);
@@ -112,22 +109,35 @@ const CheckoutForm = ({ clientSecret, values, productsForPayment }) => {
   return (
     <form onSubmit={handleSubmit}>
       <div className="">
-        <label htmlFor="card-element" className=" font-bold">Pay with Stripe</label>
-        <CardElement className=" px-2 py-2 border-2 rounded-lg " id="card-element" options={{ hidePostalCode: true, style: {
-                        base: {
-                            fontSize: '16px',
-                            color: '#424770',
-                            '::placeholder': {
-                                color: '#aab7c4',
-                            },
-                        },
-                        invalid: {
-                            color: '#9e2146',
-                        },
-                    }, }} />
+        <label htmlFor="card-element" className=" font-bold">
+          Pay with Stripe
+        </label>
+        <CardElement
+          className=" px-2 py-2 border-2 rounded-lg "
+          id="card-element"
+          options={{
+            hidePostalCode: true,
+            style: {
+              base: {
+                fontSize: "16px",
+                color: "#424770",
+                "::placeholder": {
+                  color: "#aab7c4",
+                },
+              },
+              invalid: {
+                color: "#9e2146",
+              },
+            },
+          }}
+        />
       </div>
       {errorMessage && <div className="error-message">{errorMessage}</div>}
-      <button className="btn mt-4 btn-secondary  mx-auto w-full rounded-lg" type="submit" disabled={isProcessing}>
+      <button
+        className="btn mt-4 btn-secondary  mx-auto w-full rounded-lg"
+        type="submit"
+        disabled={isProcessing}
+      >
         {isProcessing ? "Processing..." : "Pay"}
       </button>
     </form>
