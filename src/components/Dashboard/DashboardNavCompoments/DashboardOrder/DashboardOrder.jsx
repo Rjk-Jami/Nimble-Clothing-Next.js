@@ -3,6 +3,7 @@ import { useGetOrderedProductsMutation } from "../../../../../redux/api/order/or
 import { useSelector } from "react-redux";
 import ErrorAlert from "@/components/Alert/ErrorAlert";
 import Link from "next/link";
+import DashboardOrderContainer from "./DashboardOrderContainer/DashboardOrderContainer";
 
 const DashboardOrder = () => {
   const [getOrderedProducts, { isLoading }] = useGetOrderedProductsMutation();
@@ -26,6 +27,9 @@ const DashboardOrder = () => {
             <ErrorAlert>No order has been made yet.</ErrorAlert>
           </div>
         )}
+      </div>
+      <div className="">
+        <DashboardOrderContainer orderedProducts={orderedProducts} isLoading={isLoading}></DashboardOrderContainer>
       </div>
     </div>
   );
