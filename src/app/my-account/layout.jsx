@@ -23,7 +23,7 @@ const pathname = usePathname()
   const user = useSelector((state) => state.auth.user);
 
   return (
-    <div className="text-black dark:text-white dark:bg-black mb-28">
+    <div className="text-black dark:text-white bg-neutral-200 dark:bg-neutral-900 mb-28">
       <Header>My Account</Header>
       <div className="">{isLoading && <Loading />}</div>
       <div className="mt-10">

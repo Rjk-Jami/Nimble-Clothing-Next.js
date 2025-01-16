@@ -3,9 +3,9 @@ import { getOrderProducts } from "./orderSlice";
 
 export const orderApi = rootApi.injectEndpoints({
   endpoints: (builder) => ({
-    getOrderedProducts: builder.mutation({
+    getOrderedProductsDetails: builder.mutation({
       query: ({ _id }) => ({
-        url: "/order/orderedProducts",
+        url: "/order/orderedProductsDetails",
         method: "POST",
         body: { _id },
         credentials: "include",
@@ -19,12 +19,14 @@ export const orderApi = rootApi.injectEndpoints({
           // console.log(res, "orderedProducts")
           console.log(res?.data?.totalOrder, "orderedProducts");
           console.log(res?.data?.totalPayableProducts, "totalPayableProducts");
-          dispatch(
-            getOrderProducts({
-              products: res?.data?.totalOrder,
-              PayableProducts: res?.data?.totalPayableProducts,
-            })
-          );
+          if (res?.data?.totalOrder) {
+            dispatch(
+              getOrderProducts({
+                products: res?.data?.totalOrder,
+                PayableProducts: res?.data?.totalPayableProducts,
+              })
+            );
+          }
 
           if (res?.data?.orderedProduct === false) {
             // console.log(res?.data?.message)
@@ -34,7 +36,18 @@ export const orderApi = rootApi.injectEndpoints({
         }
       },
     }),
+    getOrderProduct: builder.mutation({
+      query: ({ ids }) => ({
+        url: "/order/orderedProducts",
+        method: "POST",
+        body: { ids },
+        credentials: "include",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }),
+    }),
   }),
 });
 
-export const { useGetOrderedProductsMutation } = orderApi;
+export const { useGetOrderedProductsDetailsMutation , useGetOrderProductMutation} = orderApi;
