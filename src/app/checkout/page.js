@@ -80,7 +80,7 @@ const BillingPage = () => {
       orderNotes: "",
       district: district || null,
       totalPrice: totalPrice,
-      shippingCost: shippingCost,
+      shippingCost: district === "Dhaka" ? 60 : 120 || null,
     },
     validationSchema: BillingSchema,
     onSubmit: async (values) => {

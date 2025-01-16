@@ -2,27 +2,31 @@ import React, { useEffect, useState } from "react";
 import { useGetOrderProductMutation } from "../../../../../../redux/api/order/orderApi";
 
 const DashboardOrderCard = ({ order }) => {
-      const [getOrderProduct, { isLoading }] = useGetOrderProductMutation();
-      const [OrderProduct ,setOrderProduct] = useState([])
-      const [OrderProductId ,setOrderProductId] = useState(order?.product?.map((product) => product._id) || [])
+  const [getOrderProduct, { isLoading }] = useGetOrderProductMutation();
+  const [OrderProduct, setOrderProduct] = useState([]);
+  const [OrderProductsIds, setOrderProductsIds] = useState(
+    order?.product?.map((product) => product._id) || []
+  );
+//   console.log(order, "orderedProducts all order");
 
-        console.log(OrderProductId, "OrderProductId")
+  console.log(OrderProductsIds, "OrderProductsIds");
 
-        useEffect(() => {
-            const handleFetchOrders = async () => {
-              if (OrderProductId.length === 0) return; // Avoid unnecessary API calls for empty IDs
-              try {
-                await getOrderProduct({ OrderProductId });
-              } catch (error) {
-                console.error("Failed to fetch order products:", error);
-              }
-            };
-        
-            handleFetchOrders();
-          }, [getOrderProduct, OrderProductId]);
+  useEffect(() => {
+    const handleFetchOrders = async () => {
+      if (OrderProductsIds.length === 0) return; 
+      try {
+       const result =  await getOrderProduct({ ids:OrderProductsIds });
+       console.log(result?.data, 'result?.data')
+      } catch (error) {
+        console.error("Failed to fetch order products:", error);
+      }
+    };
+
+    handleFetchOrders();
+  }, [getOrderProduct, OrderProductsIds]);
+
   return (
     <div className="w-full bg-white dark:bg-black text-black dark:text-white p-4 mb-4">
-
       <h1 className="text-lg font-bold">{order?.name}</h1>
       <p className="text-sm">Email: {order?.email}</p>
       <p className="text-sm">Phone: {order?.phone}</p>
@@ -44,7 +48,8 @@ const DashboardOrderCard = ({ order }) => {
         ))}
       </ul>
     </div>
-  );''
+  );
+ 
 };
 
 export default DashboardOrderCard;

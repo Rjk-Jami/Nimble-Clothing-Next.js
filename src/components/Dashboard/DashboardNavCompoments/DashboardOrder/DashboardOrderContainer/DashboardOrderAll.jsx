@@ -6,7 +6,7 @@ const DashboardOrderAll = () => {
   // Access ordered products from the Redux store
   const orderedProducts = useSelector((state) => state.order.orderedProducts);
 
-  console.log(orderedProducts, "orderedProducts all");
+//   console.log(orderedProducts, "orderedProducts all");
 
   return (
     <div>

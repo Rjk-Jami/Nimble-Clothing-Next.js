@@ -72,7 +72,7 @@ const CheckoutForm = ({ clientSecret, values, productsForPayment }) => {
           paymentMethod: "card",
           paymentData: paymentData,
           totalPrice: totalPrice,
-          shippingCost: shippingCost,
+          shippingCost: values?.shippingCost,
           isPayed: true,
         };
         try {
