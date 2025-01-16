@@ -7,35 +7,35 @@ const DashboardNav = ({ pathname }) => {
     <>
       <Link
         href={"/my-account"}
-        className={`btn justify-start  ${activeDash("/my-account")} rounded-none`}
+        className={`btn justify-start text-sm ${activeDash("/my-account")} rounded-none`}
       >
         Dashboard
       </Link>
       <Link
         href={"/my-account/order"}
-        className={`btn justify-start  ${activeDash("/my-account/order")} rounded-none`}
+        className={`btn justify-start text-sm ${activeDash("/my-account/order")} rounded-none`}
       >
         Orders
       </Link>
       <Link
         href={"/my-account/address"}
-        className={`btn justify-start  ${activeDash("/my-account/address")} rounded-none`}
+        className={`btn justify-start text-sm ${activeDash("/my-account/address")} rounded-none`}
       >
         Addresses
       </Link>
       <Link
         href={"/my-account/account-details"}
-        className={`btn justify-start  ${activeDash("/my-account/account-details")} rounded-none`}
+        className={`btn justify-start text-sm ${activeDash("/my-account/account-details")} rounded-none`}
       >
         Account details
       </Link>
       <Link
         href={"/my-account/wishlist"}
-        className={`btn justify-start   ${activeDash("/my-account/wishlist")} rounded-none`}
+        className={`btn justify-start text-sm  ${activeDash("/my-account/wishlist")} rounded-none`}
       >
         Wishlist
       </Link>
-      <div className={`btn justify-start ${activeDash("/my-account/byeBye")} rounded-none`}>Logout</div>
+      <div className={`btn justify-start text-sm${activeDash("/my-account/byeBye")} rounded-none`}>Logout</div>
     </>
   );
 };

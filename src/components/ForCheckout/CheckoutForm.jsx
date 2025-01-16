@@ -68,6 +68,7 @@ const CheckoutForm = ({ clientSecret, values, productsForPayment }) => {
             _id: product?.product_id,
             size: product?.size,
             quantity: product?.quantity,
+            price:product?.price
           })),
           paymentMethod: "card",
           paymentData: paymentData,

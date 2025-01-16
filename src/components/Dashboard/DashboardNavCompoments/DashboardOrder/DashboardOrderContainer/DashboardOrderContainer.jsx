@@ -18,7 +18,7 @@ const DashboardOrderContainer = () => {
 
   return (
     <div>
-      <div className="grid grid-cols-5 justify-items-center items-center uppercase font-semibold text-xs">
+      <div className="grid grid-cols-5 justify-items-center items-center uppercase font-semibold text-sm">
         {sections.map((section) => (
           <div
             key={section}

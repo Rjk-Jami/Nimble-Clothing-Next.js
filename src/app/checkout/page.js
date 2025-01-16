@@ -58,6 +58,7 @@ const BillingPage = () => {
         product_id: product.product_id,
         size: product.size,
         quantity: product.quantity,
+        price:product.price
       })) || [];
 
     if (productsCart.length === 0) {
@@ -137,6 +138,7 @@ const BillingPage = () => {
             _id: product?.product_id,
             size: product?.size,
             quantity: product?.quantity,
+            price:product?.price
           })),
           paymentMethod: "cash",
           totalPrice: values?.totalPrice,
@@ -146,7 +148,8 @@ const BillingPage = () => {
         console.log(paymentDetails, "paymentDetails")
         try {
           const { data } = await purchase({ paymentDetails });
-          console.log("Payment Response:", data.message);
+          console.log(data)
+          console.log("Payment Response:", data?.message);
           if (data?.success === true) {
             alert("Order placed!");
             dispatch(removeProductsFromCart());

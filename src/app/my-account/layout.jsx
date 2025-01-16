@@ -23,12 +23,12 @@ const pathname = usePathname()
   const user = useSelector((state) => state.auth.user);
 
   return (
-    <div className="text-black dark:text-white bg-neutral-200 dark:bg-neutral-900 mb-28">
+    <div className="text-black dark:text-white bg-neutral-100 dark:bg-neutral-900 mb-28">
       <Header>My Account</Header>
       <div className="">{isLoading && <Loading />}</div>
       <div className="mt-10">
         {user?.email ? (
-          <div className="pt-10 w-11/12 xl:w-10/12 mx-auto">
+          <div className="pt-10 w-11/12 lg:w-9/12 xl:w-8/12 mx-auto">
             <div className="font-sm grid grid-cols-1 md:grid-cols-4 gap-5">
               <div className="">
                 <h1 className="text-2xl font-bold">My account</h1>
