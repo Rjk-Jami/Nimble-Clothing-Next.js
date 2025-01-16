@@ -1,8 +1,9 @@
+"use client"
 import React, { useEffect } from "react";
 import { useGetOrderedProductsDetailsMutation } from "../../../../../redux/api/order/orderApi";
 import { useSelector } from "react-redux";
 import ErrorAlert from "@/components/Alert/ErrorAlert";
-import DashboardOrderContainer from "./DashboardOrderContainer/DashboardOrderContainer";
+import DashboardOrderContainer from "../../../../components/Dashboard/DashboardNavCompoments/DashboardOrder/DashboardOrderContainer/DashboardOrderContainer";
 import Loading from "@/app/loading";
 
 const DashboardOrder = () => {

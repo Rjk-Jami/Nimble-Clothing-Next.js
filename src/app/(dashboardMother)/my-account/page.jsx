@@ -1,8 +1,8 @@
 "use client"
 import React from 'react'
-import Loading from '../loading'
+import Loading from '../../loading'
 import { useSelector } from 'react-redux';
-import { useLogoutMutation } from '../../../redux/auth/authApi';
+import { useLogoutMutation } from '../../../../redux/auth/authApi';
 import Underline from '@/components/design/underline';
 
 

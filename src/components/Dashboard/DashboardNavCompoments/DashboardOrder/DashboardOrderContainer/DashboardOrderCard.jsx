@@ -36,7 +36,7 @@ const DashboardOrderCard = ({ order }) => {
 
   return (
     <Link href={`/my-account/order/${order?._id}`}>
-      <div className="w-full  bg-white dark:bg-black text-black dark:text-white px-4 py-2 mb-4 rounded-lg shadow-lg text-sm">
+      <div className="w-full  bg-white dark:bg-black text-black dark:text-white px-4 py-2 mb-4  shadow-lg text-sm">
         <div className="  ">
           {isLoading && <Loading></Loading>}
           <div className="flex justify-between items-center">

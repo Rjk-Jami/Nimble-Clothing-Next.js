@@ -30,8 +30,8 @@ const DashboardNav = ({ pathname }) => {
         Account details
       </Link>
       <Link
-        href={"/my-account/wishlist"}
-        className={`btn justify-start text-sm  ${activeDash("/my-account/wishlist")} rounded-none`}
+        href={"/my-account/my-wishlist"}
+        className={`btn justify-start text-sm  ${activeDash("/my-account/my-wishlist")} rounded-none`}
       >
         Wishlist
       </Link>
