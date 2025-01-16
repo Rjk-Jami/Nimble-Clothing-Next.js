@@ -17,6 +17,9 @@ const DashboardOrderCard = ({ order }) => {
       try {
        const result =  await getOrderProduct({ ids:OrderProductsIds });
        console.log(result?.data, 'result?.data')
+       if(result?.data?.success === true){
+        setOrderProduct(result?.data?.products)
+       }
       } catch (error) {
         console.error("Failed to fetch order products:", error);
       }
@@ -42,7 +45,7 @@ const DashboardOrderCard = ({ order }) => {
       <ul className="ml-4 list-disc">
         {order?.product?.map((prod, prodIndex) => (
           <li key={prodIndex} className="text-sm">
-            Product ID: {prod?._id}, Size: {prod?.size}, Quantity:{" "}
+            Product ID: {prod?._id}, {OrderProduct?.map((OrderProduct, OrderProductIndex)=>(<div key={OrderProductIndex}>{OrderProduct.name}</div>))} , Size: {prod?.size}, Quantity:{" "}
             {prod?.quantity}
           </li>
         ))}
