@@ -16,7 +16,7 @@ export const rootApi = createApi({
   endpoints: (builder) => ({
     refreshToken: builder.mutation({
       query: () => ({
-        url: "users/refreshToken",
+        url: "/users/refreshToken",
         method: "POST",
         credentials: "include",
         headers: {
