@@ -1,3 +1,4 @@
+"use client"
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { removeProductsFromCart } from "../../../redux/products/productSlice";
@@ -22,6 +23,7 @@ const CheckoutForm = ({ clientSecret, values, productsForPayment }) => {
   const { productsCart, totalPrice } = useSelector((state) => state?.productsMaster);
   const shippingAddress = useSelector((state) => state?.shippingAddress);
   const { town, zipcode, district, shippingCost } = shippingAddress;
+
   const handleSubmit = async (event) => {
     event.preventDefault();
     setIsProcessing(true);
@@ -32,7 +34,6 @@ const CheckoutForm = ({ clientSecret, values, productsForPayment }) => {
     if (!stripe || !cardElement) {
       setErrorMessage("Stripe has not loaded correctly.");
       setIsProcessing(false);
-      console.error("Stripe or CardElement not initialized.");
       return;
     }
 
@@ -48,9 +49,7 @@ const CheckoutForm = ({ clientSecret, values, productsForPayment }) => {
 
       if (error) {
         setErrorMessage(error.message);
-        alert("Payment failed. Please try again.");
       } else if (paymentIntent?.status === "succeeded") {
-        console.log("Payment succeeded:", paymentIntent);
         const paymentData = {
           amount: paymentIntent.amount,
           _id: paymentIntent.id,
@@ -64,11 +63,11 @@ const CheckoutForm = ({ clientSecret, values, productsForPayment }) => {
           streetAddress: values?.streetAddress,
           orderNotes: values?.orderNotes || "",
           zip: values?.zip || "",
-          product: productsForPayment?.map((product) => ({
+          product: (productsForPayment || []).map((product) => ({
             _id: product?.product_id,
             size: product?.size,
             quantity: product?.quantity,
-            price:product?.price
+            price: product?.price,
           })),
           paymentMethod: "card",
           paymentData: paymentData,
@@ -76,32 +75,33 @@ const CheckoutForm = ({ clientSecret, values, productsForPayment }) => {
           shippingCost: values?.shippingCost,
           isPayed: true,
         };
+
         try {
           const { data } = await purchase({ paymentDetails });
-          console.log("Payment Response:", data.message);
           if (data?.success === true) {
             alert("Order placed!");
-            // dispatch(removeProductsFromCart());
             dispatch(clearPaymentData());
+            dispatch(removeProductsFromCart());
             if (window.opener) {
               window.opener.location.href = "/shop";
               window.close();
             } else {
               router.push("/shop");
             }
+          } else {
+            setErrorMessage(data?.message || "Something went wrong.");
           }
         } catch (error) {
           console.error("Error during payment request:", error);
+          setErrorMessage("An error occurred while processing your order. Please try again.");
         }
       } else {
         const status = paymentIntent?.status || "unknown";
         setErrorMessage(`Payment failed with status: ${status}`);
-        // console.error("Payment failed with status:", status, paymentIntent);
-        alert("Payment failed. Please try again.");
       }
     } catch (err) {
       setErrorMessage("An unexpected error occurred. Please try again.");
-      // console.error("Unexpected payment error:", err);
+      console.error("Unexpected payment error:", err);
     } finally {
       setIsProcessing(false);
     }
@@ -109,12 +109,12 @@ const CheckoutForm = ({ clientSecret, values, productsForPayment }) => {
 
   return (
     <form onSubmit={handleSubmit}>
-      <div className="">
-        <label htmlFor="card-element" className=" font-bold">
+      <div>
+        <label htmlFor="card-element" className="font-bold">
           Pay with Stripe
         </label>
         <CardElement
-          className=" px-2 py-2 border-2 rounded-lg "
+          className="px-2 py-2 border-2 rounded-lg"
           id="card-element"
           options={{
             hidePostalCode: true,
@@ -133,9 +133,9 @@ const CheckoutForm = ({ clientSecret, values, productsForPayment }) => {
           }}
         />
       </div>
-      {errorMessage && <div className="error-message">{errorMessage}</div>}
+      {errorMessage && <div className="error-message text-red-500">{errorMessage}</div>}
       <button
-        className="btn mt-4 btn-secondary  mx-auto w-full rounded-lg"
+        className="btn mt-4 btn-secondary mx-auto w-full rounded-lg"
         type="submit"
         disabled={isProcessing}
       >

@@ -2,28 +2,17 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { userLogOut } from "../auth/authSlice";
 const baseQuery = fetchBaseQuery({
   baseUrl: "http://localhost:5000/api/v1",
+  credentials:"include",
   prepareHeaders: (headers) => {
     headers.set("Content-Type", "application/json");
     return headers;
   },
 });
 
-const baseQueryWithErrorHandling = async (args, api, extraOptions) => {
-  const result = await baseQuery(args, api, extraOptions);
-  if (result.error) {
-    const { status } = result.error;
-    if (status === "FETCH_ERROR") {
-      // Unauthorized, log out the user
-      // api.dispatch(userLogOut());
-    }
-    console.log("Global error handler:", result.error);
-  }
-  return result;
-};
 
 export const rootApi = createApi({
   reducerPath: "api",
-  baseQuery: baseQueryWithErrorHandling,
+  baseQuery: baseQuery,
   endpoints: (builder) => ({
     refreshToken: builder.mutation({
       query: () => ({

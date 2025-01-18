@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/rules-of-hooks */
-"use client";
+"use client"
 import FreeShipping from "@/components/ForCart/FreeShipping";
 import Image from "next/image";
 import React from "react";

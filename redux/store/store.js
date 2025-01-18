@@ -76,7 +76,7 @@ const refreshTokenMaster = async () => {
         const res = await store.dispatch(rootApi.endpoints.refreshToken.initiate({}, { forceRefetch: true }));
         // console.log(res, "refreshTokenMaster");
     } catch (error) {
-        console.log(error, "refreshTokenMaster");
+        // console.log(error, "refreshTokenMaster");
     }
 }
 refreshTokenMaster();

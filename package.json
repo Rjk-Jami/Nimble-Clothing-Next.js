@@ -27,6 +27,7 @@
     "yup": "^1.6.1"
   },
   "devDependencies": {
+    "@next/eslint-plugin-next": "^15.1.5",
     "autoprefixer": "^10.4.20",
     "daisyui": "^4.12.14",
     "eslint": "^8",

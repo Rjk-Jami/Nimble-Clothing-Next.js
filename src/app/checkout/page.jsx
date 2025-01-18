@@ -58,7 +58,7 @@ const BillingPage = () => {
         product_id: product.product_id,
         size: product.size,
         quantity: product.quantity,
-        price:product.price
+        price: product.price,
       })) || [];
 
     if (productsCart.length === 0) {
@@ -138,17 +138,17 @@ const BillingPage = () => {
             _id: product?.product_id,
             size: product?.size,
             quantity: product?.quantity,
-            price:product?.price
+            price: product?.price,
           })),
           paymentMethod: "cash",
           totalPrice: values?.totalPrice,
           shippingCost: values?.shippingCost,
-          isPayed:false
+          isPayed: false,
         };
-        console.log(paymentDetails, "paymentDetails")
+        console.log(paymentDetails, "paymentDetails");
         try {
           const { data } = await purchase({ paymentDetails });
-          console.log(data)
+          console.log(data);
           console.log("Payment Response:", data?.message);
           if (data?.success === true) {
             alert("Order placed!");
@@ -235,7 +235,6 @@ const BillingPage = () => {
               District<span className="text-red-500">*</span>
             </label>
             <AsyncSelect
-              
               isSearchable
               onChange={handleDistrictChange}
               styles={customStyles}

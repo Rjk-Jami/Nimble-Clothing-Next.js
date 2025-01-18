@@ -1,5 +1,8 @@
+"use client"
 import Link from "next/link";
 import React from "react";
+import { useLogoutMutation } from "../../../../redux/auth/authApi";
+import { useSelector } from "react-redux";
 
 const DashboardNav = ({ pathname }) => {
   const activeDash = (linkPath) => {
@@ -9,7 +12,15 @@ const DashboardNav = ({ pathname }) => {
     }
     return pathname.startsWith(linkPath) ? "btn-secondary" : "btn-ghost";
   };
-
+const [logout, { isLoading, isError, error }] = useLogoutMutation();
+const user = useSelector((state) => state?.auth?.user);
+  const handleLogout = async () => {
+    try {
+      await logout({ user });
+    } catch (error) {
+      // console.log(error, "nav");
+    }
+  };
   return (
     <>
       <Link
@@ -52,7 +63,7 @@ const DashboardNav = ({ pathname }) => {
       >
         Wishlist
       </Link>
-      <div
+      <div onClick={handleLogout}
         className={`btn justify-start text-sm ${activeDash(
           "/my-account/byeBye"
         )} rounded-none`}
