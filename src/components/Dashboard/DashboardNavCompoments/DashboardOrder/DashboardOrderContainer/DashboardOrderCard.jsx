@@ -6,33 +6,17 @@ import Underline from "@/components/design/underline";
 import moment from "moment";
 import Loading from "@/app/loading";
 import Link from "next/link";
+import UseGetOrderedProductsByIds from "@/hooks/UseGetOrderedProductsByIds";
+import DashBoardOrderedItem from "./DashBoardOrderedItem";
 
 const DashboardOrderCard = ({ order }) => {
-  const [getOrderProduct, { isLoading }] = useGetOrderProductMutation();
-  const [OrderProduct, setOrderProduct] = useState([]);
   const [OrderProductsIds, setOrderProductsIds] = useState(
     order?.product?.map((product) => product._id) || []
   );
   console.log(order, "orderedProducts all order");
-
+  const { OrderProduct, isLoading, isError, error } =
+    UseGetOrderedProductsByIds(OrderProductsIds);
   //   console.log(OrderProductsIds, "OrderProductsIds");
-
-  useEffect(() => {
-    const handleFetchOrders = async () => {
-      if (OrderProductsIds.length === 0) return;
-      try {
-        const result = await getOrderProduct({ ids: OrderProductsIds });
-        // console.log(result?.data, "result?.data");
-        if (result?.data?.success === true) {
-          setOrderProduct(result?.data?.products);
-        }
-      } catch (error) {
-        console.error("Failed to fetch order products:", error);
-      }
-    };
-
-    handleFetchOrders();
-  }, [getOrderProduct, OrderProductsIds]);
 
   return (
     <Link href={`/my-account/order/${order?._id}`}>
@@ -56,46 +40,8 @@ const DashboardOrderCard = ({ order }) => {
               )}
             </div>
           </div>
-          <Underline height="h-[1px]" width="w-full" css="mt-1 mb-1" />
-          {OrderProduct?.map((OrderProduct, OrderProductIndex) => {
-            const prod = order?.product?.find(
-              (prod) => prod._id === OrderProduct._id
-            );
-
-            return (
-              <div
-                key={OrderProductIndex}
-                className="text-sm grid grid-cols-3 items-center mb-4"
-              >
-                <div className="col-span-2 flex items-center gap-2">
-                  <Image
-                    className="border-2"
-                    height={50}
-                    width={50}
-                    alt={OrderProduct.name}
-                    src={OrderProduct.image}
-                  ></Image>
-                  <div className=" flex flex-col justify-between">
-                    <div className="">{OrderProduct.name}</div>
-                    <div className="">
-                      Size: <span className="">{prod?.size}</span>
-                    </div>
-                  </div>
-                </div>
-                <div className="">
-                  <div className="flex justify-around">
-                    <div className=" inline-flex items-center gap-1">
-                      <FaBangladeshiTakaSign></FaBangladeshiTakaSign>
-                      <span className="">{prod?.price}</span>
-                    </div>
-                    <div className="">
-                      Qty: <span className="">{prod?.quantity}</span>{" "}
-                    </div>
-                  </div>
-                </div>
-              </div>
-            );
-          })}
+          <Underline height="h-[1px]" width="w-full" css="mt-1 mb-2" />
+          <DashBoardOrderedItem OrderProduct ={OrderProduct} order={order}></DashBoardOrderedItem>
         </div>
       </div>
     </Link>

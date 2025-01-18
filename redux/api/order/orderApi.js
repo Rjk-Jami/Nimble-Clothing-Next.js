@@ -47,7 +47,18 @@ export const orderApi = rootApi.injectEndpoints({
         },
       }),
     }),
+    getSingleOrderProduct: builder.mutation({
+      query: ( id ) => ({
+        url: `/order/singleOrderedProducts/${id}`,
+        method: "GET",
+        credentials: "include",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }),
+      
+    }),
   }),
 });
 
-export const { useGetOrderedProductsDetailsMutation , useGetOrderProductMutation} = orderApi;
+export const {useGetSingleOrderProductMutation , useGetOrderedProductsDetailsMutation , useGetOrderProductMutation} = orderApi;
