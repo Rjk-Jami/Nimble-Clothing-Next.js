@@ -32,7 +32,7 @@ export const rootApi = createApi({
           }
         } catch (error) {
           console.log(error);
-          if(error?.error?.data.success === false){
+          if(error?.error?.data?.success === false){
             dispatch(userLogOut())
             console.log(error?.error?.data?.success , "refresh false")
           }
