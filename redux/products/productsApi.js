@@ -15,7 +15,7 @@ export const productsApi = rootApi.injectEndpoints({
           // console.log(res?.data?.allProduct);
           // eslint-disable-next-line react-hooks/rules-of-hooks
         } catch (error) {
-          console.error("Error fetching products:", error);
+          // console.error("Error fetching products:", error);
         }
       },
     }),
