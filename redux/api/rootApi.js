@@ -1,7 +1,7 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { userLogOut } from "../auth/authSlice";
 const baseQuery = fetchBaseQuery({
-  baseUrl: "https://nimblenext-backend.vercel.app/api/v1",
+  baseUrl: "https://nimblenext-backend.vercel.app/api",
   credentials:"include",
   prepareHeaders: (headers) => {
     headers.set("Content-Type", "application/json");
