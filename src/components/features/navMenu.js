@@ -12,10 +12,10 @@ const navMenuItemsData = [
       name: "Shop",
       url: "/shop",
     },
-    {
-      name: "Blog",
-      url: "/blog",
-    },
+    // {
+    //   name: "Blog",
+    //   url: "/blog",
+    // },
     {
       name: "About Us",
       url: "/aboutUS",
@@ -26,7 +26,7 @@ const navMenuItemsData = [
     },
     {
       name: "Wishlist",
-      url: "/wishlist",
+      url: "/wishList",
     },
     {
       name: "compare",
@@ -34,7 +34,7 @@ const navMenuItemsData = [
     },
     {
       name: "Login / Register",
-      url: "/auth",
+      url: "/my-account",
     },
   ];
 

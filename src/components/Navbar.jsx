@@ -1,6 +1,5 @@
 "use client";
 import { GrCart } from "react-icons/gr";
-
 import { FaSearch } from "react-icons/fa";
 import { FaRegHeart } from "react-icons/fa";
 import { GrCompare } from "react-icons/gr";
@@ -13,7 +12,6 @@ import Themes from "@/utils/Themes/Themes";
 import UseScroll from "@/hooks/UseScroll";
 import Link from "next/link";
 import { TfiMenu } from "react-icons/tfi";
-
 import { usePathname } from "next/navigation";
 import Drawer from "./DynamicComponents/DrawerLayouts.jsx/DrawerLayouts";
 import NavProductsItem from "./features/produtsMenu";
@@ -67,22 +65,16 @@ const Navbar = () => {
     }
   };
   return (
-    <div>
+    <div className="sticky  top-0  z-50">
       <div
-        className={`  dark:text-white navbar fixed z-50  ${
-          pathname === "/" ? "" : "bg-white dark:bg-black"
-        }  ${
-          isScrolled
-            ? "bg-white shadow-md lg:px-20 dark:bg-black lg:transition-all delay-100"
-            : "dark:bg-black/50 lg:transition-all delay-0"
-        }`}
+        className={`dark:text-white navbar shadow-md bg-white dark:bg-black px-10 lg:px-20 transition-all`}
       >
         <div className="navbar-start">
           <div className="hidden lg:flex">{logoSection}</div>
           <div className=" block lg:hidden">
             <Drawer labelType="menu" position="left" drawerId="my-drawer-3">
               <div className=" flex flex-col gap-2 justify-center p-4">
-                <NavMenu closeDrawer={"my-drawer"}></NavMenu>
+                <NavMenu closeDrawer={"my-drawer-3"}></NavMenu>
               </div>
             </Drawer>
           </div>

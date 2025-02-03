@@ -9,23 +9,20 @@ html {
 
 
 :root {
-  --background: #ffffff;
-  --foreground: #000000;
+ 
   --swiper-theme-color: #000000 !important;
   
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #000000;
-    --foreground: #ffffff;
+   
     --swiper-theme-color: #ffffff !important ;/* Change to desired dark mode color */
   }
 }
 
 body {
-  color: var(--foreground);
-  background: var(--background);
+  
   font-family: Arial, Helvetica, sans-serif;
   /* cursor: none; Hide default cursor */
   
