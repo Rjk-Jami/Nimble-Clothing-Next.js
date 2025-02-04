@@ -58,7 +58,7 @@ const Banner = () => {
 
       {/* Navigation buttons */}
       <button
-        className="absolute left-5 top-1/2 transform -translate-y-1/2 md:btn-md bg-white  btn-circle btn-xs"
+        className="absolute left-5 top-1/2 transform -translate-y-1/2 md:btn-md bg-black dark:bg-white text-white dark:text-black  btn-circle btn-xs"
         onClick={() =>
           setCurrentIndex((prev) => (prev - 1 + slideData.length) % slideData.length)
         }
@@ -66,7 +66,7 @@ const Banner = () => {
         ❮
       </button>
       <button
-        className="absolute right-5 top-1/2 transform -translate-y-1/2 md:btn-md  btn-circle btn-xs bg-white "
+        className="absolute right-5 top-1/2 transform -translate-y-1/2 md:btn-md  btn-circle btn-xs bg-black dark:bg-white text-white dark:text-black "
         onClick={() => setCurrentIndex((prev) => (prev + 1) % slideData.length)}
       >
         ❯
