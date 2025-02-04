@@ -33,7 +33,7 @@ const Layout = ({ children }) => {
   }, [user]);
 
   return (
-    <div className="text-black dark:text-white bg-neutral-100 dark:bg-neutral-900 mb-28">
+    <div className=" text-black dark:text-white bg-neutral-100 dark:bg-neutral-900 mb-28">
       <Header>My Account</Header>
 
       <div className="mt-10">
@@ -50,16 +50,16 @@ const Layout = ({ children }) => {
               </div>
             )}
 
-            <div className="pt-10 w-11/12 lg:w-9/12 xl:w-8/12 mx-auto">
+            <div className="">
               <div className="font-sm grid grid-cols-1 md:grid-cols-4 gap-5">
-                <div className="">
+                <div className="mx-10 lg:mx-20">
                   <h1 className="text-2xl font-bold">My account</h1>
                   <Underline height="h-[1px]" width="w-full" css="mt-2 mb-2" />
                   <div className="flex flex-col">
                     <DashboardNav pathname={pathname}></DashboardNav>
                   </div>
                 </div>
-                <div className="md:col-span-3">{children}</div>
+                <div className="md:col-span-3 me-10 lg:me-20">{children}</div>
               </div>
             </div>
           </>

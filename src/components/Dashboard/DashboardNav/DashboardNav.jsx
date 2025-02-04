@@ -25,7 +25,7 @@ const user = useSelector((state) => state?.auth?.user);
     <>
       <Link
         href={"/my-account"}
-        className={`btn justify-start text-sm ${activeDash(
+        className={`btn justify-start text-sm text-left  ${activeDash(
           "/my-account"
         )} rounded-none`}
       >
@@ -33,7 +33,7 @@ const user = useSelector((state) => state?.auth?.user);
       </Link>
       <Link
         href={"/my-account/order"}
-        className={`btn justify-start text-sm ${activeDash(
+        className={`btn justify-start text-sm text-left ${activeDash(
           "/my-account/order"
         )} rounded-none`}
       >
@@ -41,7 +41,7 @@ const user = useSelector((state) => state?.auth?.user);
       </Link>
       <Link
         href={"/my-account/address"}
-        className={`btn justify-start text-sm ${activeDash(
+        className={`btn justify-start text-sm text-left ${activeDash(
           "/my-account/address"
         )} rounded-none`}
       >
@@ -49,7 +49,7 @@ const user = useSelector((state) => state?.auth?.user);
       </Link>
       <Link
         href={"/my-account/account-details"}
-        className={`btn justify-start text-sm ${activeDash(
+        className={`btn justify-start text-sm text-left ${activeDash(
           "/my-account/account-details"
         )} rounded-none`}
       >
@@ -57,14 +57,14 @@ const user = useSelector((state) => state?.auth?.user);
       </Link>
       <Link
         href={"/my-account/my-wishlist"}
-        className={`btn justify-start text-sm  ${activeDash(
+        className={`btn justify-start text-sm text-left  ${activeDash(
           "/my-account/my-wishlist"
         )} rounded-none`}
       >
         Wishlist
       </Link>
       <div onClick={handleLogout}
-        className={`btn justify-start text-sm ${activeDash(
+        className={`btn justify-start text-sm text-left ${activeDash(
           "/my-account/byeBye"
         )} rounded-none`}
       >

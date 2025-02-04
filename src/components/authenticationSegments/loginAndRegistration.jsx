@@ -14,7 +14,7 @@ const LoginAndRegistration = () => {
   // const [isLoginPage, setIsLoginPage] = useState(false);
   
   return (
-    <div className="">
+    <div className="mx-8 lg:mx-0">
       <div className="">
         {errorMassage && <ErrorAlert>{errorMassage}</ErrorAlert>}
       </div>
@@ -34,7 +34,7 @@ const LoginAndRegistration = () => {
           <h1 className="text-2xl font-bold uppercase">
             {isLoginPage ? "login" : "Sign up"}
           </h1>
-          <h5 className="text-sm text-center px-8 lg:px-14">
+          <h5 className="text-sm text-center  lg:px-14">
             Registering for this site allows you to access your order status and
             history. Just fill in the fields below, and we&apos;ll get a new
             account set up for you in no time. We will only ask you for

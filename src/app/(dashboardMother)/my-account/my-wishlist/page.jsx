@@ -3,7 +3,7 @@ import React from 'react'
 const DashboardWishlist = () => {
   return (
     <div>
-      DashboardWishlist
+      <h1 className='text-lg font-bold'>My Wishlist</h1>
     </div>
   )
 }

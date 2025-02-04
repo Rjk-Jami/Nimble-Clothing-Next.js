@@ -19,7 +19,7 @@ const geistMono = localFont({
 export const metadata = {
   title: "Nimble-Wear",
   description: "Nimble-Wear is a clothing brand that offers a wide range of clothing items.",
-  viewport: "width=device-width, initial-scale=1", 
+  
 };
 
 export default function RootLayout({ children }) {
