@@ -2,6 +2,7 @@
 import Link from "next/link";
 import Underline from "../design/underline";
 import { handleCloseSidebar } from "./sidebarLoginRegister";
+import Themes from "@/utils/Themes/Themes";
 
 const navMenuItemsData = [
     {
@@ -42,6 +43,7 @@ const navMenuItemsData = [
   const NavMenu = ({closeDrawer}) => {
     return (
       <>
+      
         {navMenuItemsData?.map((navItem, index) => (
                   
                   <Link onClick={()=>handleCloseSidebar(closeDrawer)}  href={navItem.url} key={index} className="hover:text-black dark:hover:text-white hover:tracking-wider">
@@ -55,6 +57,10 @@ const navMenuItemsData = [
                     </div>
                     </Link>
                 ))}
+                <div className="">
+      <Themes  />
+      <Underline height={"h-[1px]"} width={"w-full"}></Underline>
+      </div>
       </>
     )
   }

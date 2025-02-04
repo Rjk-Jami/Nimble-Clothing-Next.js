@@ -129,7 +129,9 @@ const Navbar = () => {
           </div>
 
           <div className="flex  justify-items-center items-center gap-3">
-            <Themes className={"hidden lg:block"} />
+            <div className="hidden lg:block">
+            <Themes  />
+            </div>
 
             {/* left side   */}
             {/* for lg */}
