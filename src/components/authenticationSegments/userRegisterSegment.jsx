@@ -4,7 +4,6 @@ import { useFormik } from "formik";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import * as Yup from "yup";
-import { useGetUserMutation } from "../../../redux/user/userSlice";
 import { useRegistrationMutation } from "../../../redux/auth/authApi";
 import Loading from "@/app/loading";
 

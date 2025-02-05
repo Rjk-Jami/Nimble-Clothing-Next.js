@@ -18,6 +18,11 @@ export const authSlice = createSlice({
             state.token = action.payload.token
             state.user = action.payload.user
         },
+        updateUser: (state, action)=>{
+            if(state.user){
+                state.user = {...state.user, ...action.payload.user}
+            }
+        },
         userLogOut : (state,action)=>{
             state.token = ""
             state.user = ""
@@ -34,6 +39,6 @@ export const authSlice = createSlice({
     }
 })
 
-export const {userRegistration, userLogin, userLogOut,setErrorMassage,removeErrorMassage} = authSlice.actions
+export const {userRegistration, userLogin, userLogOut,setErrorMassage,removeErrorMassage, updateUser} = authSlice.actions
 
 export default authSlice.reducer
