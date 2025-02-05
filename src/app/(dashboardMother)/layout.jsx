@@ -11,6 +11,7 @@ import Underline from "@/components/design/underline";
 import DashboardNav from "@/components/Dashboard/DashboardNav/DashboardNav";
 import { usePathname } from "next/navigation";
 import ErrorAlert from "@/components/Alert/ErrorAlert";
+import Image from "next/image";
 
 const Layout = ({ children }) => {
   const [register, { isLoading }] = useRegistrationMutation();
@@ -26,7 +27,7 @@ const Layout = ({ children }) => {
   const user = useSelector((state) => state.auth.user);
   useEffect(() => {
     if (user && !user.isVerified) {
-      setShowError(true); 
+      setShowError(true);
       const timer = setTimeout(() => setShowError(false), 30000);
       return () => clearTimeout(timer);
     }
@@ -53,13 +54,23 @@ const Layout = ({ children }) => {
             <div className="">
               <div className="font-sm grid grid-cols-1 md:grid-cols-4 gap-5">
                 <div className="mx-10 lg:mx-20">
-                  <h1 className="text-2xl font-bold">My account</h1>
+                  <div className="flex items-center gap-2 justify-center lg:justify-normal">
+                    <Image
+                      src={user.avatar}
+                      width={50}
+                      height={50}
+                      alt="avatar"
+                    ></Image>
+                    <h1 className="font-bold">{user?.name.slice(0,4)}</h1>
+                  </div>
                   <Underline height="h-[1px]" width="w-full" css="mt-2 mb-2" />
-                  <div className="flex flex-col">
+                  <div className="flex flex-wrap lg:flex-col justify-center">
                     <DashboardNav pathname={pathname}></DashboardNav>
                   </div>
                 </div>
-                <div className="md:col-span-3 me-10 lg:me-20">{children}</div>
+                <div className="md:col-span-3 mx-10 lg:mx-0 lg:me-20">
+                  {children}
+                </div>
               </div>
             </div>
           </>

@@ -34,7 +34,7 @@ export const userSlice = rootApi.injectEndpoints({
             updateUser({user: res.data?.user })
           );
         } catch (error) {
-          console.log(error);
+          console.log(error, "error");
         }
       },
     }),

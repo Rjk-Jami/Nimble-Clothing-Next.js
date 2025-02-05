@@ -5,6 +5,8 @@ import React from "react";
 import { useSelector } from "react-redux";
 import * as Yup from "yup";
 import { useUpdateUserMutation } from "../../../../../redux/user/userApi";
+import Loading from "@/app/loading";
+import { toast, ToastContainer } from "react-toastify";
 
 const accountDetailsSchema = Yup.object().shape({
   myName: Yup.string().required("Name is required"),
@@ -54,16 +56,30 @@ const DashboardAccountDetails = () => {
       confirmPassword: "",
     },
     validationSchema: accountDetailsSchema,
-    onSubmit: async (values, {setErrors}) => {
+    onSubmit: async (values, {setErrors, resetForm }) => {
      
       console.log(values)
       const response = await updateUser({ userDetails: values });
       console.log(response, "update user");
-      if (response.isValid) {
+
+      if (response?.error?.data?.isValid === false) {
+        toast.error("Failed to update account!", { position: "top-right" });
         setErrors({ oldPassword: "Old password is incorrect" });
         return;
       }
-      
+      toast.success("Account updated successfully!", { position: "top-right" });
+      if(response?.data?.success){
+        resetForm({
+          values: {
+            myName: values.myName,
+            myPhone: values.myPhone,
+            myEmail : values.myEmail,
+            oldPassword: "",
+            newPassword: "",
+            confirmPassword: "",
+          },
+        });
+      }
       console.log("Form Submitted", values);
     },
   });
@@ -72,7 +88,11 @@ const DashboardAccountDetails = () => {
   const strength = UsePasswordStrength(values.newPassword);
 
   return (
-    <div className="mb-10 ms-10 lg:ms-0">
+    <div className="mb-10 ">
+       <ToastContainer />
+      <div className="">
+        {isLoading && <Loading></Loading>}
+      </div>
       <h1 className="text-lg font-bold">My Account Details</h1>
       <div className="mt-8">
         <form onSubmit={handleSubmit}>
@@ -151,6 +171,7 @@ const DashboardAccountDetails = () => {
                   Old Password
                 </label>
                 <input
+              
                   id="oldPassword"
                   name="oldPassword"
                   type="text"
