@@ -6,9 +6,11 @@ import * as Yup from "yup";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import Header from "@/utils/Header/Header";
+import { useUserForgetPasswordMutation } from "../../../redux/user/userApi";
+import { toast, ToastContainer } from "react-toastify";
 
 const ForgotPassword = () => {
-  
+  const [UserForgetPassword, { isLoading }] = useUserForgetPasswordMutation();
   const router = useRouter();
 
   // Form validation schema
@@ -22,32 +24,42 @@ const ForgotPassword = () => {
   const formik = useFormik({
     initialValues: { email: "" },
     validationSchema,
-    onSubmit: async (values, { setSubmitting, resetForm }) => {
-     
-
+    onSubmit: async (values, { setSubmitting, resetForm, setErrors }) => {
+      
+  
       try {
+        console.log(values);
+        
         // Simulating API call delay
-        await new Promise((resolve) => setTimeout(resolve, 1000));
-        console.log(values)
-        
-        resetForm();
-        setSubmitting(false);
-
-        // Redirect to login page after 3 seconds
-        // setTimeout(() => {
-        //   router.push("/login");
-        // }, 3000);
+        // await new Promise((resolve) => setTimeout(resolve, 1000));
+  
+        const response = await UserForgetPassword({ email: values?.email });
+        console.log(response);
+  
+        if (response?.error?.data?.success === false) {
+          setErrors({ email: response?.error?.data?.message });
+        } else if (response?.data?.success === true) {
+          toast.success("Send Reset Email", { position: "top-right" });
+          resetForm();
+          setTimeout(() => {
+            window.location.href = '/my-account'// Redirect to my account page
+          }, 3000); 
+        }
       } catch (error) {
+        console.error("Error:", error);
+      } finally {
         
-        setSubmitting(false);
       }
     },
   });
+  
 
   return (
     <>
+    
      <Header>Forget Password</Header>
-    <div className="min-h-screen flex items-center justify-center ">
+     <ToastContainer />
+    <div className="mt-10 flex items-center justify-center ">
     <div className="w-full max-w-md border p-6 rounded-lg shadow-md">
       
 
@@ -67,21 +79,17 @@ const ForgotPassword = () => {
             placeholder="Enter your email"
           />
           { formik.errors.email && (
-            <p className="text-red-500 text-sm mt-1">{formik.errors.email}</p>
+            <p className="text-red-500 text-xs mt-1">{formik.errors.email}</p>
           )}
         </div>
 
         {/* Submit Button */}
         <button
           type="submit"
-          disabled={formik.isSubmitting}
-          className={`w-full p-2 text-white rounded ${
-            formik.isSubmitting
-              ? "bg-gray-500 cursor-not-allowed"
-              : "bg-blue-600 hover:bg-blue-700"
-          }`}
+          
+          className={`w-full btn btn-primary  rounded-none `}
         >
-          {formik.isSubmitting ? "Sending..." : "Send Reset Link"}
+          Send Reset Link
         </button>
       </form>
 

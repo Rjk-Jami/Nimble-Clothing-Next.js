@@ -38,6 +38,15 @@ export const userSlice = rootApi.injectEndpoints({
         }
       },
     }),
+    UserForgetPassword: builder.mutation({
+      query: ({ email }) => ({
+        url: "/users/forgotPassword",
+        method: "POST",
+        body: { email },
+        credentials: "include",
+      }),
+      
+    }),
   }),
 });
-export const { useGetUserMutation, useUpdateUserMutation } = userSlice;
+export const { useGetUserMutation, useUpdateUserMutation, useUserForgetPasswordMutation } = userSlice;

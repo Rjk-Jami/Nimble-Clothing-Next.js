@@ -5,6 +5,7 @@ import * as Yup from "yup";
 import { useResetPassMutation } from "../../../redux/auth/authApi";
 import { UsePasswordStrength } from "@/hooks/UsePasswordStrength";
 import Loading from "@/app/loading";
+import { toast, ToastContainer } from "react-toastify";
 
 const schema = Yup.object({
   //
@@ -22,8 +23,11 @@ const ResetPassword = ({ token }) => {
     onSubmit: async (values, { resetForm }) => {
       console.log(values, "resetPassword");
       const { resetPassword } = values;
-      await resetPass({ resetPassword, token });
-      resetForm()
+      const response =  await resetPass({ resetPassword, token });
+      if(response?.data?.success){
+        toast(response?.data?.message, { position: "top-right" });
+        resetForm()
+      }
       setTimeout(() => {
         window.location.href = '/my-account'// Redirect to my account page
       }, 3000); 
@@ -43,6 +47,7 @@ const ResetPassword = ({ token }) => {
   //   console.log(strength);
   return (
     <div>
+      <ToastContainer />
       <div className="">
         {isLoading ? <Loading></Loading>:""}
       </div>
