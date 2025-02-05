@@ -72,14 +72,16 @@ const ResetPassword = ({ token }) => {
                   : ""
               }
             />
-            {values.resetPassword && strength ? (
-              <p id="password-error" className=" text-sm mt-1 ">
+            {errors.resetPassword  && (
+                <p className="text-red-500 text-xs mt-1">
+                  {errors.resetPassword}
+                </p>
+              )}
+            {values.resetPassword && strength && (
+              <p id="password-error" className=" text-xs mt-1 ">
                 Password type: {strength}
               </p>
-            ) : (
-              <p id="password-error" className=" text-sm mt-1 ">
-                &nbsp;
-              </p>
+            
             )}
           </div>
           <button 

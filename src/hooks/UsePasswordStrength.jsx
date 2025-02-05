@@ -18,12 +18,12 @@ const isStrongPassword = (password) => {
 
   export const UsePasswordStrength = (password) => {
     if (isStrongPassword(password)) {
-      return "Strong";
+      return <span className="text-green-500">Strong</span>;
     } else if (isMediumPassword(password)) {
-      return "Medium";
+      return <span className="text-orange-500">Medium</span>;
     } else if (isWeakPassword(password)) {
-      return "Weak";
+      return <span className="text-red-500">Weak</span>;
     }
-    return "Password must be at least 6 characters";
+    
   };
   
