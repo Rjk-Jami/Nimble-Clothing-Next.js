@@ -10,6 +10,7 @@ import { usePathname, useRouter } from "next/navigation";
 import Loading from "@/app/loading";
 import { removeErrorMassage, setErrorMassage } from "../../../redux/auth/authSlice";
 import UseCloseSidebar from "@/hooks/UseCloseSidebar";
+import { handleCloseSidebar } from "../features/sidebarLoginRegister";
 
 const schema = Yup.object({
   email: Yup.string().email().required(),
@@ -142,7 +143,7 @@ const UserLoginSegment = () => {
           </label>
           {/* lost section */}
           <div className="">
-            <Link className="text-sm font-thin text-error" href={"/"}>
+            <Link onClick={()=>handleCloseSidebar("my-drawer-4")} className="text-sm font-thin text-error" href={"/forget-password"}>
               Lost your password?
             </Link>
           </div>

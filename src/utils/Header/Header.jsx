@@ -4,7 +4,7 @@ import { TiArrowLeftThick } from "react-icons/ti";
 
 const Header = ({ children }) => {
   return (
-    <div className="pt-20 lg:pt-32 pb-5 mx-10 lg:mx-0">
+    <div className="pt-16 lg:pt-28 pb-5 mx-10 lg:mx-0">
       <div className="flex justify-between items-center  flex-col">
         <div className="flex justify-center items-center gap-2">
           <TiArrowLeftThick

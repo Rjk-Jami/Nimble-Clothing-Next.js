@@ -62,6 +62,11 @@ const DashboardAccountDetails = () => {
       const response = await updateUser({ userDetails: values });
       console.log(response, "update user");
 
+      if (response?.error?.data?.isVerified === false) {
+        
+        setErrors({ oldPassword: response?.error?.data?.message });
+        return;
+      }
       if (response?.error?.data?.isValid === false) {
         toast.error("Failed to update account!", { position: "top-right" });
         setErrors({ oldPassword: "Old password is incorrect" });
