@@ -4,14 +4,12 @@ import { FaSearch } from "react-icons/fa";
 import { FaRegHeart } from "react-icons/fa";
 import { GrCompare } from "react-icons/gr";
 import React from "react";
-import logoForLight from "../../public/Logo for light.png";
-import logoForDark from "../../public/2-removebg-preview.png";
-import logoForDark2 from "../../public/logoForDark_top.png";
-import Image from "next/image";
+
+
 import Themes from "@/utils/Themes/Themes";
 import UseScroll from "@/hooks/UseScroll";
 import Link from "next/link";
-import { TfiMenu } from "react-icons/tfi";
+
 import { usePathname } from "next/navigation";
 import Drawer from "./DynamicComponents/DrawerLayouts.jsx/DrawerLayouts";
 import NavProductsItem from "./features/produtsMenu";
@@ -21,6 +19,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { userLogOut } from "../../redux/auth/authSlice";
 import { useLogoutMutation } from "../../redux/auth/authApi";
 import SidebarCart from "./features/SidebarCart";
+import Logo from "./Logo/Logo";
 
 const Navbar = () => {
   const cartQuantity = useSelector((state) =>
@@ -29,24 +28,7 @@ const Navbar = () => {
       0
     )
   );
-  const logoSection = (
-    <>
-      <div className="h-14 dark:hidden">
-        <Link className="" href={"/"}>
-          <Image height={56} src={logoForLight} alt="Logo for Light Theme" />{" "}
-        </Link>
-      </div>
-      <div className={`h-14 hidden dark:flex`}>
-        <Link className="" href={"/"}>
-          <Image
-            height={56}
-            src={logoForDark}
-            alt="Logo for Dark Theme Scrolled"
-          />{" "}
-        </Link>
-      </div>
-    </>
-  );
+ 
   const isScrolled = UseScroll();
   const pathname = usePathname();
   // console.log(pathname);
@@ -70,7 +52,7 @@ const Navbar = () => {
         className={`dark:text-white navbar shadow-md bg-white dark:bg-black px-10 lg:px-20 transition-all`}
       >
         <div className="navbar-start">
-          <div className="hidden lg:flex">{logoSection}</div>
+          <div className="hidden lg:flex"><Logo></Logo></div>
           <div className=" block lg:hidden">
             <Drawer labelType="menu" position="left" drawerId="my-drawer-3">
               <div className=" flex flex-col gap-2 justify-center p-4">
@@ -84,7 +66,7 @@ const Navbar = () => {
           <div className="px-1  hidden lg:flex gap-5 font-bold">
             <NavProductsItem pathname={pathname}></NavProductsItem>
           </div>
-          <div className="block lg:hidden">{logoSection}</div>
+          <div className="block lg:hidden"><Logo></Logo></div>
         </div>
 
         <div className="navbar-end">

@@ -1,3 +1,5 @@
+"use client"
+import Link from 'next/link';
 import React from 'react';
 
 const Footer = () => {
@@ -5,10 +7,10 @@ const Footer = () => {
         <div className=''>
             <footer className="footer footer-center bg-base-200 text-base-content rounded p-10">
   <nav className="grid grid-flow-col gap-4">
-    <a className="link link-hover">About us</a>
-    <a className="link link-hover">Contact</a>
-    <a className="link link-hover">Jobs</a>
-    <a className="link link-hover">Press kit</a>
+    <Link href={'/about-us'} className="link link-hover">About us</Link>
+    <Link href={'/'}  className="link link-hover">Contact</Link>
+    <Link href={'/shop'}  className="link link-hover">Shop</Link>
+    <Link href={'/PrivacyPolicy'}  className="link link-hover">Privacy Policy</Link>
   </nav>
   <nav>
     <div className="grid grid-flow-col gap-4">
@@ -48,7 +50,8 @@ const Footer = () => {
     </div>
   </nav>
   <aside>
-    <p>Copyright © {new Date().getFullYear()} - All right reserved by ACME Industries Ltd</p>
+   
+    <p>Copyright © {new Date().getFullYear()} - All right reserved by Nimble Ware Bangladesh, a Concern of Nimble Ventures</p>
   </aside>
 </footer>
         </div>

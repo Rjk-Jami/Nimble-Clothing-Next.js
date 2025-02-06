@@ -21,11 +21,11 @@ const navMenuItemsData = [
   // },
   {
     name: "About Us",
-    url: "/aboutUS",
+    url: "/about-us",
   },
   {
     name: "Contact Us",
-    url: "/contactUs",
+    url: "/",
   },
   {
     name: "Wishlist",
