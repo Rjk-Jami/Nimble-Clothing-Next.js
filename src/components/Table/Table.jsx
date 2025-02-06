@@ -4,7 +4,7 @@ const Table = ( {columns, data, className}) => {
   return (
  
     <div className={`overflow-x-auto   text-sm ${className}`}>
-       <table className="table w-full">
+       <table className="table ">
        <thead>
         <tr>
             {columns?.map((col, colIndex)=>(

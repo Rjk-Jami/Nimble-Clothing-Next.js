@@ -74,7 +74,7 @@ const Navbar = () => {
           <div className=" block lg:hidden">
             <Drawer labelType="menu" position="left" drawerId="my-drawer-3">
               <div className=" flex flex-col gap-2 justify-center p-4">
-                <NavMenu closeDrawer={"my-drawer-3"}></NavMenu>
+                <NavMenu handleLogout={handleLogout} closeDrawer={"my-drawer-3"}></NavMenu>
               </div>
             </Drawer>
           </div>

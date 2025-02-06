@@ -20,8 +20,8 @@ const SizeChart = () => {
     { size: 'XXL', chest: '42-44', waist: '34-36', hip: '44-46', inseam: 30, neck: 17.5, sleeve: 35 },
     ]
 return (
-    <div className="mx-10 mt-10">
-       <Table columns={columns} data={data} className={'mx-10 mt-10'} ></Table>
+    <div className="lg:mx-10 lg:mt-10 overflow-x-auto">
+       <Table columns={columns} data={data} className={''} ></Table>
     </div>
 )
 }

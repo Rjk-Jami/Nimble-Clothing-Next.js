@@ -12,7 +12,7 @@ const ProductImageZoom = ({ product }) => {
   };
 
   return (
-    <div className="w-full relative group  overflow-hidden border-4 border-black dark:border-white">
+    <div className="lg:w-full w-3/5 mx-auto relative group  overflow-hidden border-4 border-black dark:border-white">
       {/* Main Image */}
       <Image
         className="w-full h-full  "
@@ -25,7 +25,7 @@ const ProductImageZoom = ({ product }) => {
 
       {/* Zoomed Section */}
       <div
-        className="hidden lg:block bg-white dark:bg-black   absolute w-[1000px] h-[1000px] z-10 inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+        className=" bg-white dark:bg-black   absolute w-[1000px] h-[1000px] z-10 inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
         onMouseMove={handleMouseMove}
       >
         <Image
