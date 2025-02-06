@@ -12,7 +12,8 @@ const AboutUs = () => {
       <Header>About us</Header>
       <div className=" mt-10 mb-10 flex flex-col md:flex-row gap-4 justify-around items-start mx-10 md:mx-20">
         <div className="mx-auto">
-          <NimbleIcon width={430} height={430}></NimbleIcon>
+          <NimbleIcon className={"hidden md:block"} width={430} height={430}></NimbleIcon>
+          <NimbleIcon className={"md:hidden"} width={300} height={300}></NimbleIcon>
           <p className="text-center font-bold ">Nimble Ventures</p>
           
         </div>
