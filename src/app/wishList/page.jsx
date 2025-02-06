@@ -8,7 +8,7 @@ import { IoClose } from "react-icons/io5";
 import { userDeleteWhishList } from "../../../redux/products/productSlice";
 import Loading from "../loading";
 
-const Page = () => {
+const Wishlist = () => {
   const state = useSelector((state) => state.productsMaster.productWishList);
   const dispatch = useDispatch();
 
@@ -46,7 +46,7 @@ const Page = () => {
         }
       </div>
       {wishProducts.length > 0 ? (
-        <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-6 gap-5">
+        <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-5">
           {wishProducts.map((product, i) => (
             <div key={i} className="">
               <div className="">
@@ -66,4 +66,4 @@ const Page = () => {
   );
 };
 
-export default Page;
+export default Wishlist;
