@@ -25,7 +25,7 @@ const UseGetProductsWithFilter = () => {
   const filters = useSelector((state) => state.filter); // Accessing filters from Redux store
   const dispatch = useDispatch();
   const [getProducts, { isLoading, isError, error }] = useGetProductsMutation(); // Fetching products
-  const [products, setProducts] = useState([]); // State for storing products
+  const [products, setProducts] = useState([]); 
 
   // Fetch products and initialize price filter
   useEffect(() => {
@@ -45,7 +45,7 @@ const UseGetProductsWithFilter = () => {
           dispatch(setFilterByPrice({ min: minPrice, max: maxPrice }));
         }
 
-        setProducts(allProducts); // Update local state with products
+        setProducts(allProducts); 
       } catch (err) {
         console.error("Error fetching products:", err);
       }

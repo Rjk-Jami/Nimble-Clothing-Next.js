@@ -49,7 +49,7 @@ const Banner = () => {
               <div className="px-4">
                 <h2 className="lg:text-4xl text-xl font-bold">{slide.title}</h2>
                 <p className="lg:text-lg text-sm mt-2">Explore our latest collection now!</p>
-                <Link href={'/shop'} className="btn btn-sm lg:btn-lg btn-primary mt-4 rounded-none">Shop Now</Link>
+                <Link href={'/shop'} className="btn btn-sm lg:btn-md btn-primary mt-4 rounded-none">Shop Now</Link>
               </div>
             </div>
           </div>
@@ -58,7 +58,7 @@ const Banner = () => {
 
       {/* Navigation buttons */}
       <button
-        className="absolute left-5 top-1/2 transform -translate-y-1/2 md:btn-md bg-black dark:bg-white text-white dark:text-black  btn-circle btn-xs"
+        className="absolute left-5 top-1/2 transform -translate-y-1/2 md:btn-lg  text-white dark:text-black  btn-circle btn-sm"
         onClick={() =>
           setCurrentIndex((prev) => (prev - 1 + slideData.length) % slideData.length)
         }
@@ -66,7 +66,7 @@ const Banner = () => {
         ❮
       </button>
       <button
-        className="absolute right-5 top-1/2 transform -translate-y-1/2 md:btn-md  btn-circle btn-xs bg-black dark:bg-white text-white dark:text-black "
+        className="absolute right-5 top-1/2 transform -translate-y-1/2 md:btn-lg  btn-circle btn-sm  text-white dark:text-black "
         onClick={() => setCurrentIndex((prev) => (prev + 1) % slideData.length)}
       >
         ❯
