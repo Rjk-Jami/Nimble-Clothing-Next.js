@@ -7,6 +7,7 @@ import * as Yup from "yup";
 import { useUpdateUserMutation } from "../../../../../redux/user/userApi";
 import Loading from "@/app/loading";
 import { toast, ToastContainer } from "react-toastify";
+import Link from "next/link";
 
 const accountDetailsSchema = Yup.object().shape({
   myName: Yup.string().required("Name is required"),
@@ -14,7 +15,7 @@ const accountDetailsSchema = Yup.object().shape({
   myPhone: Yup.string()
     .matches(/^[0-9]+$/, "Phone number must contain only digits")
     .required("Phone is required"),
-    oldPassword: Yup.string()
+  oldPassword: Yup.string()
     .min(6, "Password must be at least 6 characters")
     .test(
       "old-password-required",
@@ -28,7 +29,7 @@ const accountDetailsSchema = Yup.object().shape({
       }
     ),
   newPassword: Yup.string()
-    .min(6,"Password must be at least 6 characters")
+    .min(6, "Password must be at least 6 characters")
     .when("oldPassword", {
       is: (val) => !!val,
       then: (schema) => schema.required(),
@@ -56,14 +57,12 @@ const DashboardAccountDetails = () => {
       confirmPassword: "",
     },
     validationSchema: accountDetailsSchema,
-    onSubmit: async (values, {setErrors, resetForm }) => {
-     
-      console.log(values)
+    onSubmit: async (values, { setErrors, resetForm }) => {
+      console.log(values);
       const response = await updateUser({ userDetails: values });
       console.log(response, "update user");
 
       if (response?.error?.data?.isVerified === false) {
-        
         setErrors({ oldPassword: response?.error?.data?.message });
         return;
       }
@@ -73,12 +72,12 @@ const DashboardAccountDetails = () => {
         return;
       }
       toast.success("Account updated successfully!", { position: "top-right" });
-      if(response?.data?.success){
+      if (response?.data?.success) {
         resetForm({
           values: {
             myName: values.myName,
             myPhone: values.myPhone,
-            myEmail : values.myEmail,
+            myEmail: values.myEmail,
             oldPassword: "",
             newPassword: "",
             confirmPassword: "",
@@ -94,10 +93,8 @@ const DashboardAccountDetails = () => {
 
   return (
     <div className="mb-10 ">
-       <ToastContainer />
-      <div className="">
-        {isLoading && <Loading></Loading>}
-      </div>
+      <ToastContainer />
+      <div className="">{isLoading && <Loading></Loading>}</div>
       <h1 className="text-lg font-bold">My Account Details</h1>
       <div className="mt-8">
         <form onSubmit={handleSubmit}>
@@ -176,7 +173,6 @@ const DashboardAccountDetails = () => {
                   Old Password
                 </label>
                 <input
-              
                   id="oldPassword"
                   name="oldPassword"
                   type="text"
@@ -243,6 +239,15 @@ const DashboardAccountDetails = () => {
               {values.newPassword && strength && (
                 <p className="text-xs ">Password Strength: {strength}</p>
               )}
+              <div className="">
+                <Link
+                  
+                  className="text-sm font-thin text-error"
+                  href={"/forget-password"}
+                >
+                  Lost your password?
+                </Link>
+              </div>
             </div>
           </div>
 

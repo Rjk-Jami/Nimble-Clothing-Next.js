@@ -8,6 +8,7 @@ import { useRouter } from "next/navigation";
 import Header from "@/utils/Header/Header";
 import { useUserForgetPasswordMutation } from "../../../redux/user/userApi";
 import { toast, ToastContainer } from "react-toastify";
+import Loading from "../loading";
 
 const ForgotPassword = () => {
   const [UserForgetPassword, { isLoading }] = useUserForgetPasswordMutation();
@@ -39,10 +40,11 @@ const ForgotPassword = () => {
         if (response?.error?.data?.success === false) {
           setErrors({ email: response?.error?.data?.message });
         } else if (response?.data?.success === true) {
-          toast.success("Send Reset Email", { position: "top-right" });
+          toast("Send Reset Email", { position: "top-right" });
           resetForm();
           setTimeout(() => {
-            window.location.href = '/my-account'// Redirect to my account page
+            // window.location.href = '/my-account'
+            router.back()
           }, 3000); 
         }
       } catch (error) {
@@ -59,6 +61,7 @@ const ForgotPassword = () => {
     
      <Header>Forget Password</Header>
      <ToastContainer />
+     {isLoading && <Loading></Loading>}
     <div className="mt-10 flex items-center justify-center ">
     <div className="w-full max-w-md border p-6 rounded-lg shadow-md">
       

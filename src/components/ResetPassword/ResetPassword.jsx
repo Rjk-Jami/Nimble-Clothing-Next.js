@@ -23,17 +23,17 @@ const ResetPassword = ({ token }) => {
     onSubmit: async (values, { resetForm }) => {
       console.log(values, "resetPassword");
       const { resetPassword } = values;
-      const response =  await resetPass({ resetPassword, token });
-      if(response?.data?.success){
+      const response = await resetPass({ resetPassword, token });
+      if (response?.data?.success) {
         toast(response?.data?.message, { position: "top-right" });
-        resetForm()
+        resetForm();
+        setTimeout(() => {
+          window.location.href = "/my-account"; // Redirect to my account page
+        }, 3000);
       }
-      setTimeout(() => {
-        window.location.href = '/my-account'// Redirect to my account page
-      }, 3000); 
     },
   });
-  
+
   const {
     values,
     touched,
@@ -48,9 +48,7 @@ const ResetPassword = ({ token }) => {
   return (
     <div>
       <ToastContainer />
-      <div className="">
-        {isLoading ? <Loading></Loading>:""}
-      </div>
+      <div className="">{isLoading ? <Loading></Loading> : ""}</div>
       <div className="max-w-md mx-auto lg:mb-10 ">
         <form onSubmit={handleSubmit}>
           <div className="mb-2">
@@ -77,19 +75,18 @@ const ResetPassword = ({ token }) => {
                   : ""
               }
             />
-            {errors.resetPassword  && (
-                <p className="text-red-500 text-xs mt-1">
-                  {errors.resetPassword}
-                </p>
-              )}
+            {errors.resetPassword && (
+              <p className="text-red-500 text-xs mt-1">
+                {errors.resetPassword}
+              </p>
+            )}
             {values.resetPassword && strength && (
               <p id="password-error" className=" text-xs mt-1 ">
                 Password type: {strength}
               </p>
-            
             )}
           </div>
-          <button 
+          <button
             type="submit"
             className="w-full uppercase font-bold btn btn-primary rounded-none "
           >
