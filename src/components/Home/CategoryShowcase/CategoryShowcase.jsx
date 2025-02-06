@@ -13,10 +13,11 @@ import { Pagination } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
 import Link from "next/link";
 import { navProductsItemsData } from "@/components/features/produtsMenu";
+import UseGetAllProducts from "@/hooks/UseGetAllProducts";
 
 const CategoryShowcase = () => {
-  const [getProducts, { isLoading, isError, error }] = useGetProductsMutation();
-  const [products, setProducts] = useState([]);
+  const { products, isLoading } = UseGetAllProducts();
+ 
   const categories = [
     { tagName: "Boxers", image: boxers },
     { tagName: "Hoodies", image: hoodies },
@@ -24,25 +25,11 @@ const CategoryShowcase = () => {
     { tagName: "Sweatshirt", image: sweatshirt },
     { tagName: "T-Shirts", image: tShirts },
   ];
-  useEffect(() => {
-    const fetchProducts = async () => {
-      try {
-        const result = await getProducts();
-        const allProducts = result?.data?.allProduct || [];
-
-        if (allProducts.length > 0) {
-          setProducts(allProducts);
-        }
-      } catch (err) {
-        console.error("Error fetching products:", err);
-      }
-    };
-    fetchProducts();
-  }, [getProducts]);
+  
   console.log(products);
 
   return (
-    <div className="mt-10">
+    <div className="">
       <div className="">
         <Swiper
           slidesPerView={2}
@@ -83,7 +70,7 @@ const CategoryShowcase = () => {
                     </p>
                   </div>
                 </span>
-                <div className="overflow-hidden lg:h-[450px] md:h-[300px] h-[300px] z-0">
+                <div className="overflow-hidden lg:h-[450px] xl:h-[450px] 2xl:h-[500px] md:h-[300px] h-[300px] z-0">
                   <Image
                     className="mx-auto o cursor-default transform hover:scale-125 transition-transform duration-300 ease-out"
                     src={category?.image}
