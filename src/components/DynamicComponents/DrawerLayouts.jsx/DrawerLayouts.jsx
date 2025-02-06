@@ -55,6 +55,16 @@ const Drawer = ({
         </label>
       );
     }
+    else if (labelType === "filter") {
+      return (
+        <label
+          htmlFor={drawerId}
+          className="drawer drawer-end font-bold  drawer-button btn btn-outline rounded-none w-fit btn-sm cursor-pointer"
+        >
+          {labelContent}
+        </label>
+      );
+    }
 
     return null; // Return null if unsupported labelType
   };
