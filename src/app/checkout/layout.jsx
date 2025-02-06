@@ -1,4 +1,5 @@
 "use client";
+import Footer from "@/components/Footer";
 import Header from "@/utils/Header/Header";
 import React from "react";
 
@@ -21,6 +22,7 @@ const layout = ({ children }) => {
       </div>
       {children}
       </div>
+      <Footer></Footer>
     </div>
   );
 };

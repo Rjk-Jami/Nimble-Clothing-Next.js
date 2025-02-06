@@ -100,11 +100,18 @@ const ProductsCard = ({ product }) => {
         <div className="overflow-hidden z-0">
           <Link href={`/product/${product?._id}`}>
             <Image
-              className="mx-auto cursor-default transform group-hover:scale-110 transition-transform duration-300 ease-out"
+              className="hidden lg:block mx-auto cursor-default transform group-hover:scale-110 transition-transform duration-300 ease-out"
               src={product?.image}
               alt={product.name}
               width={430}
               height={430}
+            />
+            <Image
+              className="lg:hidden mx-auto cursor-default transform group-hover:scale-110 transition-transform duration-300 ease-out"
+              src={product?.image}
+              alt={product.name}
+              width={200}
+              height={200}
             />
           </Link>
         </div>

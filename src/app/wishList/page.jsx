@@ -7,6 +7,7 @@ import ProductsCard from "@/components/ProductsCard/ProductsCard";
 import { IoClose } from "react-icons/io5";
 import { userDeleteWhishList } from "../../../redux/products/productSlice";
 import Loading from "../loading";
+import Footer from "@/components/Footer";
 
 const Wishlist = () => {
   const state = useSelector((state) => state.productsMaster.productWishList);
@@ -39,14 +40,15 @@ const Wishlist = () => {
   };
 
   return (
-    <div className="mx-10">
+    <>
+    <div className="mx-10 mt-5 mb-10">
       <div className="">
         {
           isLoading && <Loading></Loading>
         }
       </div>
       {wishProducts.length > 0 ? (
-        <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-5">
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5">
           {wishProducts.map((product, i) => (
             <div key={i} className="">
               <div className="">
@@ -63,6 +65,8 @@ const Wishlist = () => {
         <div className="text-center font-bold">No Wishlisted Products Found!</div>
       )}
     </div>
+    <Footer></Footer>
+    </>
   );
 };
 

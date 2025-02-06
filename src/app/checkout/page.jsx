@@ -184,7 +184,7 @@ const BillingPage = () => {
 
   return (
     <form onSubmit={handleSubmit}>
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-5 mb-20">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-5 mb-10">
         <div className="">
           <h1 className="uppercase text-2xl font-bold  my-2">
             Billing details

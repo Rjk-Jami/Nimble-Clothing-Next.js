@@ -11,6 +11,7 @@ import DashboardNav from "@/components/Dashboard/DashboardNav/DashboardNav";
 import { usePathname } from "next/navigation";
 import ErrorAlert from "@/components/Alert/ErrorAlert";
 import Image from "next/image";
+import Footer from "@/components/Footer";
 
 const Layout = ({ children }) => {
   const [register, { isLoading }] = useRegistrationMutation();
@@ -34,7 +35,8 @@ const Layout = ({ children }) => {
   }, [user]);
 
   return (
-    <div className="text-black dark:text-white bg-neutral-100 dark:bg-neutral-900 mb-28">
+    <div className="">
+      <div className="text-black dark:text-white bg-neutral-100 dark:bg-neutral-900 pb-28">
       <Header>My Account</Header>
 
       <div className="mt-10">
@@ -94,6 +96,8 @@ const Layout = ({ children }) => {
           </div>
         )}
       </div>
+    </div>
+    <Footer></Footer>
     </div>
   );
 };

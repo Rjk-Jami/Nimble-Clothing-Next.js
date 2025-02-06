@@ -8,6 +8,7 @@ import Link from "next/link";
 import Loading from "../loading";
 import { IoClose } from "react-icons/io5";
 import { userDeleteCompare } from "../../../redux/products/productSlice";
+import Footer from "@/components/Footer";
 
 const Page = () => {
   const state = useSelector((state) => state.productsMaster.productCompare);
@@ -91,7 +92,8 @@ const Page = () => {
   ];
 
   return (
-    <div className="mx-10 my-5">
+    <>
+    <div className="mx-10 mt-5 mb-10">
       {isLoading && <Loading />}
 
       <div className="overflow-x-auto text-sm">
@@ -118,7 +120,10 @@ const Page = () => {
           )}
         </table>
       </div>
+      
     </div>
+    <Footer></Footer>
+    </>
   );
 };
 
