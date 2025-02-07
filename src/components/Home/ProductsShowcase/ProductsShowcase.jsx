@@ -1,4 +1,5 @@
 "use client"
+import Loading from "@/app/loading";
 import ProductsCard from "@/components/ProductsCard/ProductsCard";
 import UseGetAllProducts from "@/hooks/UseGetAllProducts";
 import React from "react";
@@ -7,6 +8,7 @@ const ProductsShowcase = () => {
     const { products, isLoading } = UseGetAllProducts();
   return (
     <div className="">
+      {isLoading && <Loading></Loading>}
       <div className="text-center mx-20">
         <h3 className="text-xl ">The Evolution Begins</h3>
         <h1 className="text-3xl font-bold">Shop Our Nimble Collections</h1>
