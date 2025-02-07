@@ -73,5 +73,9 @@ cd nimble-wear
 # Install dependencies
 npm install
 
+# Create a .env.local file in the root of your project
+NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY = "your-STRIPE-PUBLISHABLE-KEY"
+NEXT_PUBLIC_SERVER_API = "your-server-api http://localhost:5000/api/v1"
+
 # Run the development server
-npm start
+npm run dev
