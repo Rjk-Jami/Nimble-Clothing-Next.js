@@ -19,7 +19,7 @@
 
 ### 💳 Secure Checkout & Payments
 - Seamless **cart management** and checkout process.
-- **Stripe integration** for secure payments.
+- **Stripe.js** integration for secure payments.
 - **Real-time order confirmation** after checkout.
 
 ### 📜 User Account & Authentication
