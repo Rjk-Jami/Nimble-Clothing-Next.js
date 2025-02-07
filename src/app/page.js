@@ -12,7 +12,7 @@ export default function Home() {
     <div className="">
     <Banner></Banner>
     <div className="">
-      <Marquee  loop={0} gradient={true} pauseOnHover={true} speed={40}>
+      <Marquee  loop={0}  pauseOnHover={true} speed={40}>
       <p className="font-bold my-5">🚀 "Nimble Ware Bangladesh is Now Open! Shop Trendy & Comfortable Apparel Today!"🛍️ </p>
       </Marquee>
     </div>
