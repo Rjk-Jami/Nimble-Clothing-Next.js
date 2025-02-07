@@ -56,7 +56,7 @@ const Banner = () => {
           <div key={index} className="w-full flex-shrink-0 relative">
             <img
               src={slide.image}
-              className="w-full object-cover brightness-75 dark:brightness-50 saturate-150"
+              className="w-full object-cover brightness-75 dark:brightness-50 saturate-150 "
               alt={`Slide ${index + 1}`}
             />
             <div className="absolute inset-0 flex items-center justify-center text-white  text-center">

@@ -72,7 +72,7 @@ const CategoryShowcase = () => {
                 </span>
                 <div className="overflow-hidden lg:h-[450px] xl:h-[450px] 2xl:h-[500px] md:h-[300px] h-[300px] z-0">
                   <Image
-                    className="mx-auto o cursor-default transform hover:scale-125 transition-transform duration-300 ease-out"
+                    className="mx-auto o cursor-default transform hover:scale-125 transition-transform duration-300 ease-out hover:brightness-100 brightness-75"
                     src={category?.image}
                     alt={category?.tagName}
                     // width={330}

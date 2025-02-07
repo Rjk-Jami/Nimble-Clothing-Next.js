@@ -17,7 +17,9 @@ const ProductsShowcase = () => {
       </div>
       <div className="grid grid-cols-2 lg:grid-cols-4 mx-10 gap-10 mt-10">
       {products?.map((product, i) => (
-          <ProductsCard key={i} product={product}></ProductsCard>
+          <div key={i} className="">
+            <ProductsCard  product={product}></ProductsCard>
+          </div>
         )).slice(0,4)}
       </div>
     </div>
