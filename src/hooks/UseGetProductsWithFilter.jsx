@@ -79,7 +79,7 @@ const UseGetProductsWithFilter = () => {
 
     // Filter by price range
     if (filters?.range?.filter) {
-      console.log(filters?.range?.filter, "filters.range.filter");
+      // console.log(filters?.range?.filter, "filters.range.filter");
       filtered = filtered.filter(
         (product) =>
           parseFloat(product.current_price) >= filters.range.min &&
@@ -98,7 +98,7 @@ const UseGetProductsWithFilter = () => {
     const activeSizes = Object.keys(filters.sizeTag.filterSizeControl).filter(
       (size) => filters.sizeTag.filterSizeControl[size] === true
     );
-console.log(activeSizes, "activeSizes");
+// console.log(activeSizes, "activeSizes");
     // Filter by active sizes
     if (activeSizes.length > 0) {
       filtered = filtered.filter((product) =>

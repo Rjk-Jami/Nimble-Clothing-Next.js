@@ -26,7 +26,7 @@ const CategoryShowcase = () => {
     { tagName: "T-Shirts", image: tShirts },
   ];
   
-  console.log(products);
+  // console.log(products);
 
   return (
     <div className="">

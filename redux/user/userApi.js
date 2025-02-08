@@ -15,7 +15,7 @@ export const userSlice = rootApi.injectEndpoints({
           const res = await queryFulfilled;
           return res;
         } catch (error) {
-          console.log(error);
+          // console.log(error);
         }
       },
     }),
@@ -29,12 +29,12 @@ export const userSlice = rootApi.injectEndpoints({
       async onQueryStarted(arg, { queryFulfilled, dispatch }) {
         try {
           const res = await queryFulfilled;
-          console.log(res, "updateUser API");
+          // console.log(res, "updateUser API");
           dispatch(
             updateUser({user: res.data?.user })
           );
         } catch (error) {
-          console.log(error, "error");
+          // console.log(error, "error");
         }
       },
     }),

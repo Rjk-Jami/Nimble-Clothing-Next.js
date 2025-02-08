@@ -16,7 +16,7 @@ const AddReview = ({ product }) => {
       // console.log(values);
       const { email, name,content,  rating} = values;
     //   await 
-    console.log(values)
+    // console.log(values)
     },
   });
   const { values, touched, errors, handleChange, handleSubmit } = formik;

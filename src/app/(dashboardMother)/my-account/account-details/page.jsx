@@ -58,9 +58,9 @@ const DashboardAccountDetails = () => {
     },
     validationSchema: accountDetailsSchema,
     onSubmit: async (values, { setErrors, resetForm }) => {
-      console.log(values);
+      // console.log(values);
       const response = await updateUser({ userDetails: values });
-      console.log(response, "update user");
+      // console.log(response, "update user");
 
       if (response?.error?.data?.isVerified === false) {
         setErrors({ oldPassword: response?.error?.data?.message });
@@ -84,7 +84,7 @@ const DashboardAccountDetails = () => {
           },
         });
       }
-      console.log("Form Submitted", values);
+      // console.log("Form Submitted", values);
     },
   });
 

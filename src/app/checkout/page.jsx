@@ -62,7 +62,7 @@ const BillingPage = () => {
       })) || [];
 
     if (productsCart.length === 0) {
-      console.log("mappedProducts is empty:", mappedProducts);
+      // console.log("mappedProducts is empty:", mappedProducts);
 
       router.push("/shop");
     }
@@ -145,18 +145,18 @@ const BillingPage = () => {
           shippingCost: values?.shippingCost,
           isPayed: false,
         };
-        console.log(paymentDetails, "paymentDetails");
+        // console.log(paymentDetails, "paymentDetails");
         try {
           const { data } = await purchase({ paymentDetails });
-          console.log(data);
-          console.log("Payment Response:", data?.message);
+          // console.log(data);
+          // console.log("Payment Response:", data?.message);
           if (data?.success === true) {
             alert("Order placed!");
             dispatch(removeProductsFromCart());
             dispatch(clearPaymentData());
           }
         } catch (error) {
-          console.error("Error during payment request:", error);
+          // console.error("Error during payment request:", error);
         }
       }
     },

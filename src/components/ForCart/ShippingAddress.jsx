@@ -14,9 +14,9 @@ const ShippingAddress = () => {
 const dispatch = useDispatch()
   const handleSubmit = (event) => {
     event.preventDefault();
-    console.log("Town:", event.target.town.value);
-    console.log("Zipcode:", event.target.zip.value);
-    console.log("District:", selectedDistrict);
+    // console.log("Town:", event.target.town.value);
+    // console.log("Zipcode:", event.target.zip.value);
+    // console.log("District:", selectedDistrict);
     const shippingAddress = {
       town: event.target.town.value,
       zipcode: event.target.zip.value,
@@ -27,7 +27,7 @@ const dispatch = useDispatch()
     dispatch(setShippingAddress(shippingAddress));
    
   };
-console.log(selectedDistrict ,"selectedDistrict" )
+// console.log(selectedDistrict ,"selectedDistrict" )
   const districtDefault = selectedDistrict
   ? { value: selectedDistrict, label: selectedDistrict }
   : null;

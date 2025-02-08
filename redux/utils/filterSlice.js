@@ -89,7 +89,7 @@ export const filterSlice = createSlice({
     setFilterBySize: (state, action) => {
       const size = action.payload.size;
       // Toggle (true/false)
-      console.log(size, "filterSize")
+      // console.log(size, "filterSize")
       if (state.sizeTag.filterSizeControl[size] !== undefined) {
         state.sizeTag.filterSizeControl[size] =
           !state.sizeTag.filterSizeControl[size];

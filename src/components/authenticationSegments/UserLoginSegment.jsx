@@ -24,7 +24,7 @@ const UserLoginSegment = () => {
   const dispatch = useDispatch();
   const pathname = usePathname();
   const closeSidebar = UseCloseSidebar();
-  console.log(isSuccess, "isSuccess");
+  // console.log(isSuccess, "isSuccess");
   const formik = useFormik({
     initialValues: {
       email: "",
@@ -39,7 +39,7 @@ const UserLoginSegment = () => {
         const loginUser = await login({ email, password });
         
         if(loginUser?.error){
-          console.log(loginUser?.error.data.message, "loginUser");
+          // console.log(loginUser?.error.data.message, "loginUser");
          const  errorMassage =  loginUser?.error.data.message
           dispatch(setErrorMassage({errorMassage}))
           setTimeout(() => {
@@ -62,7 +62,7 @@ const UserLoginSegment = () => {
   });
 
   const { values, touched, errors, handleChange, handleSubmit } = formik;
-  console.log(isSuccess, "isSuccess3");
+  // console.log(isSuccess, "isSuccess3");
   // Toggle password visibility
 
   return (

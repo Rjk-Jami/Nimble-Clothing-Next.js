@@ -29,8 +29,8 @@ const OrderDetails = () => {
   if (PurchasedProductLoading || OrderProductLoading) {
     return <Loading></Loading>;
   }
-  console.log(PurchasedProduct, "PurchasedProduct");
-  console.log(OrderProduct, "OrderProductsIds");
+  // console.log(PurchasedProduct, "PurchasedProduct");
+  // console.log(OrderProduct, "OrderProductsIds");
   return (
     <div>
       <h1 className="inline-flex items-center  font-medium mb-2">

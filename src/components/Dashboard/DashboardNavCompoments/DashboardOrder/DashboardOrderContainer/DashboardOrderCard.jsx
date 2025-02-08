@@ -13,7 +13,7 @@ const DashboardOrderCard = ({ order }) => {
   const [OrderProductsIds, setOrderProductsIds] = useState(
     order?.product?.map((product) => product._id) || []
   );
-  console.log(order, "orderedProducts all order");
+  // console.log(order, "orderedProducts all order");
   const { OrderProduct, isLoading, isError, error } =
     UseGetOrderedProductsByIds(OrderProductsIds);
   //   console.log(OrderProductsIds, "OrderProductsIds");

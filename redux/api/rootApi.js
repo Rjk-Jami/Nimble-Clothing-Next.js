@@ -26,15 +26,15 @@ export const rootApi = createApi({
       async onQueryStarted(arg, { dispatch, queryFulfilled }) {
         try {
           const res = await queryFulfilled;
-          console.log(res, "auth refreshToken");
+          // console.log(res, "auth refreshToken");
           if(res?.data?.success === true){
-            console.log(res?.data?.success, "refresh true")
+            // console.log(res?.data?.success, "refresh true")
           }
         } catch (error) {
           console.log(error);
           if(error?.error?.data?.success === false){
             dispatch(userLogOut())
-            console.log(error?.error?.data?.success , "refresh false")
+            // console.log(error?.error?.data?.success , "refresh false")
           }
         }
       },

@@ -83,9 +83,9 @@ const ProductDetails = ({ product, isLoading }) => {
       product?.current_price !== null &&
       quantity !== 0
     ) {
-      console.log(quantity, "quantity");
-      console.log(userSize, "userSize");
-      console.log(product?.current_price, "userSize");
+      // console.log(quantity, "quantity");
+      // console.log(userSize, "userSize");
+      // console.log(product?.current_price, "userSize");
       dispatch(
         userAddToCart({
           product_id: product?._id,

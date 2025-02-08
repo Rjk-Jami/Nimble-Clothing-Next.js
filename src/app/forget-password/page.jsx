@@ -29,13 +29,13 @@ const ForgotPassword = () => {
       
   
       try {
-        console.log(values);
+        // console.log(values);
         
         // Simulating API call delay
         // await new Promise((resolve) => setTimeout(resolve, 1000));
   
         const response = await UserForgetPassword({ email: values?.email });
-        console.log(response);
+        // console.log(response);
   
         if (response?.error?.data?.success === false) {
           setErrors({ email: response?.error?.data?.message });

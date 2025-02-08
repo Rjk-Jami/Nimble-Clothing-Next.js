@@ -24,7 +24,7 @@ const ProductsCard = ({ product }) => {
 
   const dispatch = useDispatch();
   const state = useSelector((state) => state.productsMaster);
-  console.log(state);
+  // console.log(state);
   const {
     2: colTwo,
     3: colThree,
@@ -32,7 +32,7 @@ const ProductsCard = ({ product }) => {
   } = useSelector((state) => state.filter.displayTag.filterDisplaysControl);
 
   const handleCartClick = (e) => {
-    console.log("Add to cart clicked!");
+    // console.log("Add to cart clicked!");
   };
   useEffect(() => {
     // Check if the product is already in the compare or wishlist when the component mounts

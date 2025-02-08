@@ -10,7 +10,7 @@ export const paymentSlice = createSlice({
   initialState,
   reducers: {
     setPaymentData: (state, action) => {
-        console.log("trigger")
+        // console.log("trigger")
       state.paymentData = action.payload;
     },
     clearPaymentData:(state, action)=>{

@@ -17,8 +17,8 @@ export const orderApi = rootApi.injectEndpoints({
         try {
           const res = await queryFulfilled;
           // console.log(res, "orderedProducts")
-          console.log(res?.data?.totalOrder, "orderedProducts");
-          console.log(res?.data?.totalPayableProducts, "totalPayableProducts");
+          // console.log(res?.data?.totalOrder, "orderedProducts");
+          // console.log(res?.data?.totalPayableProducts, "totalPayableProducts");
           if (res?.data?.totalOrder) {
             dispatch(
               getOrderProducts({
@@ -32,7 +32,7 @@ export const orderApi = rootApi.injectEndpoints({
             // console.log(res?.data?.message)
           }
         } catch (error) {
-          console.log("Error fetching ordered products:", error);
+          // console.log("Error fetching ordered products:", error);
         }
       },
     }),

@@ -18,7 +18,7 @@ export const authApi = rootApi.injectEndpoints({
       async onQueryStarted(arg, { dispatch, queryFulfilled }) {
         try {
           const res = await queryFulfilled;
-          console.log(res, "user registration");
+          // console.log(res, "user registration");
           dispatch(
             userRegistration({
               token: res.data.accessToken,
@@ -26,7 +26,7 @@ export const authApi = rootApi.injectEndpoints({
             })
           );
         } catch (error) {
-          console.log(error);
+          // console.log(error);
         }
       },
     }),
@@ -45,7 +45,7 @@ export const authApi = rootApi.injectEndpoints({
       async onQueryStarted(arg, { queryFulfilled, dispatch }) {
         try {
           const res = await queryFulfilled;
-          console.log(res, "login");
+          // console.log(res, "login");
           dispatch(
             userLogin({ token: res.data?.accessToken, user: res.data?.user })
           );
@@ -67,7 +67,7 @@ export const authApi = rootApi.injectEndpoints({
       async onQueryStarted(arg, { queryFulfilled, dispatch }) {
         try {
           const res = await queryFulfilled;
-          console.log(res, "logout");
+          // console.log(res, "logout");
           dispatch(
             userLogOut()
           );

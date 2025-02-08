@@ -8,7 +8,7 @@ import Underline from '@/components/design/underline';
 
 const MyAccount = () => {
   const user = useSelector((state) => state.auth.user);
-  console.log(user)
+  // console.log(user)
   const [logout, { isLoading, isError, error }] = useLogoutMutation();
 
   const handleLogout = async () => {

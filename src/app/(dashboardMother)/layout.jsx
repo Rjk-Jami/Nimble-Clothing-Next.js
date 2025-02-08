@@ -16,12 +16,12 @@ import Footer from "@/components/Footer";
 const Layout = ({ children }) => {
   const [register, { isLoading }] = useRegistrationMutation();
   const pathname = usePathname();
-  console.log(pathname)
+  // console.log(pathname)
   const [showError, setShowError] = useState(true);
 
   useEffect(() => {
     if (isLoading) {
-      console.log(isLoading, "loading");
+      // console.log(isLoading, "loading");
     }
   }, [isLoading]);
 
