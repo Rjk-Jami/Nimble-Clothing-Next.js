@@ -2,23 +2,22 @@ import React from "react";
 import { useSelector } from "react-redux";
 import DashboardOrderCard from "./DashboardOrderCard";
 
-const DashboardOrderAll = () => {
+const DashboardOrderToPay = () => {
   // Access ordered products from the Redux store
   const orderedProducts = useSelector((state) => state.order.orderedProducts);
-
-  console.log(orderedProducts, "orderedProducts all");
-
+    const toPayProducts = orderedProducts.filter((order)=> order.isPayed === false)
+  console.log(toPayProducts, "orderedProducts all");
   return (
     <div>
-      {orderedProducts && orderedProducts.length > 0 ? (
-        orderedProducts.map((order, index) => (
+      {toPayProducts && toPayProducts.length > 0 ? (
+        toPayProducts.map((order, index) => (
           <DashboardOrderCard key={index} order={order}></DashboardOrderCard>
         ))
       ) : (
-        <p className="text-center text-gray-500">No orders found.</p>
+        <p className="text-center text-gray-500">No payable orders found.</p>
       )}
     </div>
   );
 };
 
-export default DashboardOrderAll
+export default DashboardOrderToPay;

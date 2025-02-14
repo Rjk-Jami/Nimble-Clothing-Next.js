@@ -3,12 +3,15 @@ import React, { useState } from "react";
 import DashboardOrderAll from "./DashboardOrderAll";
 import { useSelector } from "react-redux";
 import ErrorAlert from "@/components/Alert/ErrorAlert";
+import DashboardOrderToPay from "./DashboardOrderToPay";
+import DashboardOrderToShip from "./DashboardOrderToShip";
+import DashboardOrderToReceive from "./DashboardOrderToReceive";
 
 const DashboardOrderContainer = () => {
   const orderedProducts = useSelector((state) => state.order.orderedProducts);
   const [activeSection, setActiveSection] = useState("All");
 
-  const sections = ["All", "To Pay", "To Ship", "To Receive", "To Review"];
+  const sections = ["All", "To Pay", "To Ship", "Received", "To Review"];
 
   
 
@@ -36,9 +39,9 @@ const DashboardOrderContainer = () => {
       <div className="block h-[1.5px] w-full bg-black"></div>
       <div className="mt-4 block">
         {activeSection === "All" && <DashboardOrderAll />}
-        {activeSection === "To Pay" && <div>To Pay Section</div>}
-        {activeSection === "To Ship" && <div>To Ship Section</div>}
-        {activeSection === "To Receive" && <div>To Receive Section</div>}
+        {activeSection === "To Pay" && <div><DashboardOrderToPay></DashboardOrderToPay></div>}
+        {activeSection === "To Ship" && <div><DashboardOrderToShip></DashboardOrderToShip></div>}
+        {activeSection === "Received" && <div><DashboardOrderToReceive></DashboardOrderToReceive></div>}
         {activeSection === "To Review" && <div>To Review Section</div>}
       </div>
     </div>
