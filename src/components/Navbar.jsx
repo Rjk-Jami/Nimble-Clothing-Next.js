@@ -3,7 +3,7 @@ import { GrCart } from "react-icons/gr";
 import { FaSearch } from "react-icons/fa";
 import { FaRegHeart } from "react-icons/fa";
 import { GrCompare } from "react-icons/gr";
-import React from "react";
+import React, { useEffect } from "react";
 
 
 import Themes from "@/utils/Themes/Themes";
@@ -46,10 +46,16 @@ const Navbar = () => {
       // console.log(error, "nav");
     }
   };
+
+    // Force page to scroll to top on route change
+    useEffect(() => {
+      window.scrollTo(0, 0);
+    }, [pathname]);
+
   return (
-    <div className="sticky  top-0  z-50">
+    
       <div
-        className={`dark:text-white navbar shadow-md bg-white dark:bg-black px-10 lg:px-20 transition-all`}
+        className={`fixed top-0 left-0 w-full z-50 dark:text-white navbar shadow-md  bg-white dark:bg-black px-10 lg:px-20 transition-all`}
       >
         <div className="navbar-start">
           <div className="hidden lg:flex"><Logo></Logo></div>
@@ -167,7 +173,7 @@ const Navbar = () => {
           </div>
         </div>
       </div>
-    </div>
+    
   );
 };
 

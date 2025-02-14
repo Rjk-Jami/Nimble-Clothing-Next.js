@@ -24,6 +24,7 @@ import {
 import { usePurchaseMutation } from "../../../redux/payment/paymentApi";
 import { removeProductsFromCart } from "../../../redux/products/productSlice";
 
+//  yup start
 const BillingSchema = Yup.object().shape({
   name: Yup.string().required("Name is required"),
   streetAddress: Yup.string().required("Street address is required"),
@@ -33,17 +34,17 @@ const BillingSchema = Yup.object().shape({
     .matches(/^[0-9]+$/, "Phone number must contain only digits")
     .required("Phone number is required"),
 });
+//  yup end
 
 const BillingPage = () => {
+  const user = useSelector((state) => state.auth.user);
   const router = useRouter();
   const theme = useSelector((state) => state.theme.theme);
   const { productsCart, totalPrice } = useSelector(
     (state) => state?.productsMaster
   );
-
   const shippingAddress = useSelector((state) => state?.shippingAddress);
   const { town, zipcode, district, shippingCost } = shippingAddress;
-
   const dispatch = useDispatch();
   const customStyles = UseGetClassForSelectForm({ theme });
   const paymentMethod = useSelector((state) => state.order.paymentMethod);
@@ -72,11 +73,11 @@ const BillingPage = () => {
 
   const formik = useFormik({
     initialValues: {
-      name: "",
+      name: user?.name || "",
       streetAddress: "",
       zip: "",
-      phone: "",
-      email: "",
+      phone: user?.phone || "",
+      email: user?.email || "",
       createAccount: false,
       orderNotes: "",
       district: district || null,
@@ -162,9 +163,23 @@ const BillingPage = () => {
     },
   });
 
-  const { values, errors, touched, handleChange, setFieldValue, handleSubmit } =
-    formik;
-
+  const {
+    values,
+    errors,
+    touched,
+    handleChange,
+    setFieldValue,
+    handleSubmit,
+    setValues,
+  } = formik;
+  useEffect(() => {
+    setValues({
+      ...formik.values,
+      name: user?.name || "",
+      phone: user?.phone || "",
+      email: user?.email || "",
+    });
+  }, [user]);
   const handleDistrictChange = (selectedOption) => {
     setFieldValue("district", selectedOption.value);
     if (selectedOption !== null) {
@@ -302,23 +317,27 @@ const BillingPage = () => {
               value={values.email}
             />
           </div>
-          <div className="mb-4 flex items-center gap-2">
-            <input
-              id="createAccount"
-              name="createAccount"
-              type="checkbox"
-              onChange={handleChange}
-              checked={formik.values.createAccount}
-              className={`  text-sm  border rounded-none `}
-              value={values.createAccount}
-            />
-            <label
-              className={" text-sm  font-semibold "}
-              htmlFor="createAccount"
-            >
-              Create an account?
-            </label>
-          </div>
+          {user?.email ? (
+            " "
+          ) : (
+            <div className="mb-4 flex items-center gap-2">
+              <input
+                id="createAccount"
+                name="createAccount"
+                type="checkbox"
+                onChange={handleChange}
+                checked={formik.values.createAccount}
+                className={`  text-sm  border rounded-none `}
+                value={values.createAccount}
+              />
+              <label
+                className={" text-sm  font-semibold "}
+                htmlFor="createAccount"
+              >
+                Create an account?
+              </label>
+            </div>
+          )}
           <div className="mb-4">
             <label
               className={"block text-sm  font-semibold mb-1"}

@@ -31,7 +31,9 @@ export default function RootLayout({ children }) {
         <Providers>
         
           <Navbar />
+          <div className="z-40">
           {children}
+          </div>
           {/* <Footer />  */}
         </Providers>
       </body>

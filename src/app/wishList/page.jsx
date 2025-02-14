@@ -65,7 +65,7 @@ const Wishlist = () => {
         <div className="text-center font-bold">No Wishlisted Products Found!</div>
       )}
     </div>
-    <Footer></Footer>
+    
     </>
   );
 };
