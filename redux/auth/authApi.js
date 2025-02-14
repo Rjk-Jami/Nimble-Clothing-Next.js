@@ -1,3 +1,4 @@
+import { clearOrderedProducts } from "../api/order/orderSlice";
 import { rootApi } from "../api/rootApi";
 import { userLogin, userLogOut, userRegistration } from "./authSlice";
 
@@ -71,6 +72,7 @@ export const authApi = rootApi.injectEndpoints({
           dispatch(
             userLogOut()
           );
+          dispatch(clearOrderedProducts())
         } catch (error) {}
       },
     }),

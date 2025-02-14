@@ -22,10 +22,14 @@ export const orderSlice = createSlice({
             state.PayableProducts = action.payload.PayableProducts;
 
 
+        },
+        clearOrderedProducts:(state, action)=>{
+            state.orderedProducts = []
+            state.PayableProducts = 0
         }
 
     }
 })
 
-export const { setPaymentMethod, getOrderProducts} = orderSlice.actions
+export const { setPaymentMethod, getOrderProducts, clearOrderedProducts} = orderSlice.actions
 export default orderSlice.reducer
