@@ -59,7 +59,7 @@ const YourOrder = () => {
       <div className="px-4  text-lg font-bold flex justify-between">
         <h1>Total</h1>
         <div className=" flex items-center">
-          <span>{shippingCost + totalPrice}</span>
+          <span>{parseInt(shippingCost) + parseInt(totalPrice)}</span>
           <FaBangladeshiTakaSign></FaBangladeshiTakaSign>
         </div>
       </div>
