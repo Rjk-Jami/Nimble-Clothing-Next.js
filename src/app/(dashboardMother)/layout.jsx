@@ -1,3 +1,4 @@
+// this a Layout for Dashboard
 "use client";
 import LoginAndRegistration from "@/components/authenticationSegments/loginAndRegistration";
 import Link from "next/link";
