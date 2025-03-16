@@ -3,7 +3,7 @@ import { createSlice } from "@reduxjs/toolkit"
 const initialState = {
     user: "",
     token: "",
-    errorMassage: ''
+    errorMassage: ""
 }
 
 export const authSlice = createSlice({
