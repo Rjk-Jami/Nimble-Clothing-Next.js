@@ -53,7 +53,7 @@ const Cursor_layout = () => {
       {Array.from({ length: 2 }).map((_, index) => (
         <div
           key={index}
-          className={`circle ${index === 0 ? 'border-2 border-black/20' : ''}`}
+          className={`circle ${index === 0 ? 'border-2 border-black/5' : ''}`}
           ref={(el) => (circlesRef.current[index] = el)}
         ></div>
       ))}

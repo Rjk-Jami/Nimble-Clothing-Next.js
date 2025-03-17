@@ -3,6 +3,7 @@ import "./globals.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import Providers from "@/components/Providers";
+import Cursor_layout from "@/utils/CursorLayout/CursorLayout";
 
 const geistSans = localFont({
   src: "/fonts/GeistVF.woff", 
@@ -33,6 +34,7 @@ export default function RootLayout({ children }) {
           <Navbar />
           <div className="z-40">
           {children}
+          <Cursor_layout/>
           </div>
           {/* <Footer />  */}
         </Providers>

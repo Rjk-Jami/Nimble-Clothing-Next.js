@@ -1,5 +1,7 @@
-import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
+import { createApi, fetchBaseQuery,  } from "@reduxjs/toolkit/query/react";
 import { userLogOut } from "../auth/authSlice";
+
+
 const baseQuery = fetchBaseQuery({
   baseUrl: process.env.NEXT_PUBLIC_SERVER_API,
   credentials:"include",
@@ -42,4 +44,4 @@ export const rootApi = createApi({
   }),
 });
 
-export const { useRefreshTokenMutation } = rootApi;
+export const {  } = rootApi;
