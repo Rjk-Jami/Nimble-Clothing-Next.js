@@ -52,6 +52,7 @@ const UserRegisterSegment = () => {
             Email address <span className="text-red-500">*</span>
           </label>
           <input
+            placeholder="user@gmail.com"
             id="emailForRegister"
             name="emailForRegister"
             type="email"

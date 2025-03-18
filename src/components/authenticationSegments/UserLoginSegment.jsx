@@ -78,6 +78,7 @@ const UserLoginSegment = () => {
             id="email"
             name="email"
             type="email"
+            placeholder="user@gmail.com"
             onChange={handleChange}
             value={values.email}
             className={`w-full px-3 py-2  text-sm font-thin border rounded-none ${
@@ -95,6 +96,7 @@ const UserLoginSegment = () => {
           <input
             id="password"
             name="password"
+            placeholder="user@gmail.com"
             type={isHide ? "password" : "text"} // Toggle between password and text
             onChange={handleChange}
             value={values.password}
