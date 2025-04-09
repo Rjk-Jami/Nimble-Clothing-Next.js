@@ -1,6 +1,6 @@
 # 🛍️ [Nimble Wear](https://nimble-wear.vercel.app)
 
-**Nimble Wear** is an e-commerce platform where users can explore and purchase stylish clothing from Nimble. It offers a seamless shopping experience with advanced filtering, wishlist management, and a personalized user account system.
+**Nimble Wear** is an e-commerce platform where users can explore and purchase stylish clothing from Nimble. It offers a seamless shopping experience with advanced filtering, wishlist management, and a personalized user account systems.
 
 ## 🚀 Features
 
